@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["es2015.iterable", "es2019"],
+    
+    "rootDir": "src",
+    "declaration": true,
+    "declarationDir": "lib",
+    "emitDeclarationOnly": true,
+    
+    "strict": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "noStrictGenericChecks": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

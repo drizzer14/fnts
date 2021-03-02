@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - '12'
+
+cache: yarn
+
+install: yarn install --frozen-lockfile
+
+script: yarn ci
+
+before_deploy: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+
+deploy:
+  provider: script
+  script: yarn release
+  skip_cleanup: true
+  on:
+    branch: main

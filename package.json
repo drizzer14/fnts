@@ -1,0 +1,41 @@
+{
+  "name": "fnts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Dmytro Vasylkivskyi",
+  "description": "TypeScript / JavaScript FP utilities",
+  "keywords": [
+    "fp",
+    "functional programming",
+    "function",
+    "functions",
+    "typescript",
+    "javascript"
+  ],
+  "homepage": "https://github.com/drizzer14/fnts",
+  "repository": "github:drizzer14/fnts",
+  "scripts": {
+    "prebuild": "rimraf lib",
+    "build": "babel src --out-dir lib --extensions .ts --copy-files",
+    "pretest": "tsc -p tsconfig.json",
+    "test": "jest",
+    "ci": "yarn build && yarn test",
+    "prepack": "node scripts/prepack.js",
+    "release": "yarn publish lib"
+  },
+  "dependencies": {
+    "typescript": "^4.2.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.17",
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "@babel/preset-typescript": "^7.12.17",
+    "@types/jest": "^26.0.20",
+    "babel-jest": "^26.6.3",
+    "babel-preset-minify": "^0.5.1",
+    "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.2"
+  }
+}
