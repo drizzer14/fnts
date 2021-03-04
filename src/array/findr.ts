@@ -1,19 +1,24 @@
-import { just, Maybe, nothing } from '../type/maybe';
+import { just, Maybe, nothing } from '../monad/maybe';
 
 import type { Predicate } from './array-callback';
 
-export const findr = <T>(predicate: Predicate<T>) => (array: T[]): Maybe<T> => {
-  let accumulator: Maybe<T> = nothing();
+/**
+ * Funtional implementation of `Array.prototype.find` from the right side.
+ */
+export function findr <T>(predicate: Predicate<T>): (array: T[]) => Maybe<T> {
+  return (array) => {
+    let accumulator: Maybe<T> = nothing ();
 
-  for (let index = array.length - 1; index >= 0; index -= 1) {
-    const current = array[index];
+    for (let index = array.length - 1; index >= 0; index -= 1) {
+      const current = array[index];
 
-    if (predicate(current, index, array)) {
-      accumulator = just(current);
+      if (predicate (current, index, array)) {
+        accumulator = just (current);
 
-      break;
+        break;
+      }
     }
-  }
 
-  return accumulator;
-};
+    return accumulator;
+  };
+}

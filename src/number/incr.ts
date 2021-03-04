@@ -1,3 +1,8 @@
 import { add } from './add';
 
-export const incr = add(1);
+/**
+ * Increments a number by 1.
+ */
+export function incr (x: number): number {
+  return add (x) (1);
+}

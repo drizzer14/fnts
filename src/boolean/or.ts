@@ -1,1 +1,6 @@
-export const or = (b: unknown) => (a: unknown): boolean => Boolean(a) || Boolean(b);
+/**
+ * Functional implementation of the `||` operator.
+ */
+export function or<A, B>(a: A): (b: B) => boolean {
+  return (b) => Boolean (a) || Boolean (b);
+}

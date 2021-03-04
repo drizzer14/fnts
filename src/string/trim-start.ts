@@ -1,1 +1,6 @@
-export const trimStart = (string: string): string => string.trimStart();
+/**
+ * Funtional implementation of `String.prototype.trimStart`.
+ */
+export function trimStart (string: string): string {
+  return string.trimStart ();
+}

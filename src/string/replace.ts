@@ -1,8 +1,12 @@
-export interface Replace {
-  (searchValue: string | RegExp, replaceValue: string): (string: string) => string;
-  (searchValue: string | RegExp, replacer: (substring: string) => string): (string: string) => string;
-}
+type Replacer = (substring: string) => string;
 
-export const replace: Replace = (searchValue: string | RegExp, replaceValue: ((substring: string) => string) | string) => (string: string): string => {
-  return string.replace(searchValue, replaceValue as string);
+export function replace (searchValue: string | RegExp, replaceValue: string): (string: string) => string;
+
+export function replace (searchValue: string | RegExp, replacer: Replacer): (string: string) => string;
+
+/**
+ * Funtional implementation of `String.prototype.replace`.
+ */
+export function replace (searchValue: string | RegExp, replaceValue: Replacer | string): (string: string) => string {
+  return (string) => string.replace (searchValue, replaceValue as string);
 }

@@ -1,1 +1,6 @@
-export const mul = (a: number) => (b: number) => a * b;
+/**
+ * Curried functional implementation of the `*` operator.
+ */
+export function mul (a: number): (b: number) => number {
+  return (b) => a * b;
+}

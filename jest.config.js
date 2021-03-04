@@ -18,8 +18,6 @@ module.exports = {
 		"\\.ts$": "ts-jest"
 	},
   clearMocks: true,
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
-  coveragePathIgnorePatterns: ['/node_modules/'],
 	moduleFileExtensions: ['ts', 'js'],
 	moduleDirectories: ['node_modules', '**/node_modules', '**/src'],
 	moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),

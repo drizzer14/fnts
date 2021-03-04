@@ -1,24 +1,29 @@
-import { flatl } from './flatl';
-import { concat } from './concat';
+import { concat } from '../array-like/concat';
+
+import { foldl } from './foldl';
 import type { Predicate } from './array-callback';
 
-export const takeWhile = <T>(predicate: Predicate<T>) => (array: T[]): T[] => {
+/**
+ * Creates a copy of the original array with elements that satisfy the predicate.
+ * Stops on the first false occasion.
+ */
+export function takeWhile <T>(predicate: Predicate<T>): (array: T[]) => T[] {
   let isSatistied = false;
 
-  return flatl<T, T[]>(
+  return foldl <T, T[]>(
     ((accumulator, current, index, array) => {
-      if (predicate(current, index, array)) {
+      if (predicate (current, index, array)) {
         isSatistied = true;
 
-        return concat(current)(accumulator);
+        return concat (current) (accumulator);
       }
 
       if (isSatistied) {
-        array.splice(index);
+        array.splice (index);
       }
 
       return accumulator;
     }),
     [],
-  )(array);
-};
+  );
+}

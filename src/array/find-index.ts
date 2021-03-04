@@ -1,17 +1,16 @@
-import { just, Maybe, nothing } from '../type/maybe';
+import { just, Maybe, nothing } from '../monad/maybe';
 
 import type { Predicate } from './array-callback';
 
-export const findIndex = <T>(predicate: Predicate<T>) => (array: T[]): Maybe<number> => {
-  let result: Maybe<number> = nothing();
+/**
+ * Funtional implementation of `Array.prototype.findIndex`.
+ */
+export function findIndex <T>(predicate: Predicate<T>): (array: T[]) => Maybe<number> {
+  return (array) => {
+    const index = array.findIndex (predicate);
 
-  for (let index = 0; index < array.length; index += 1) {
-    if (predicate(array[index], index, array)) {
-      result = just(index);
-
-      break;
-    }
-  }
-
-  return result;
-};
+    return index < 0
+      ? nothing ()
+      : just (index);
+  };
+}
