@@ -18,7 +18,7 @@ export function flip (string: string): string;
 
 export function flip <A extends ArrayLike>(arrayLike: A): A {
   if (typeof arrayLike === 'string') {
-    return compose (join (''), flip, split ('')) (arrayLike) as any;
+    return join ('') (compose (flip, split ('')) (arrayLike) as any) as any;
   }
 
   return foldr <ArrayLikeMember<A>, A>(

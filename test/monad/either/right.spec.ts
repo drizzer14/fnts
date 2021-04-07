@@ -1,6 +1,6 @@
 import { compose } from 'fnts/function';
-import { right } from 'fnts/monad/either';
 import { decr, incr } from 'fnts/number';
+import { right } from 'fnts/monad/either';
 
 describe ('right', () => {
   describe ('bind / ()', () => {

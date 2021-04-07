@@ -1,5 +1,5 @@
-import { identity } from '../identity';
 import { compose } from '../function/compose';
+import { Identity, identity } from '../identity';
 
 import { map } from './map';
 import { filter } from './filter';
@@ -11,6 +11,6 @@ import type { Predicate, Transformer } from './array-callback';
 export function comprehend <T, R>(transformer: Transformer<T, R>, predicate?: Predicate<T>): (array: T[]) => R[] {
   return compose (
     map (transformer),
-    predicate ? filter (predicate) : identity
+    (predicate ? filter (predicate) : identity) as Identity<T[]>
   );
 }

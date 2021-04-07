@@ -1,11 +1,9 @@
 import { ap } from '../../function/ap';
-import type { Foldable } from '../foldable';
-import type { Bifunctor } from '../bifunctor';
 import { compose } from '../../function/compose';
 
 import type { Either } from './either';
 
-export interface Left<A> extends Bifunctor<A, never>, Pick<Foldable<A>, 'fold'> {
+export interface Left<A> extends Either<A, never> {
   /**
    * Binds the value of this monad into the produced monad.
    */
