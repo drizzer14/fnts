@@ -1,6 +1,6 @@
 {
   "name": "fnts",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "license": "MIT",
   "author": "Dmytro Vasylkivskyi",
   "description": "TypeScript / JavaScript FP utilities",
@@ -16,7 +16,9 @@
   "repository": "github:drizzer14/fnts",
   "scripts": {
     "prebuild": "rimraf lib",
-    "build": "babel src --out-dir lib --extensions .ts --copy-files",
+    "build:dts": "tsc -p tsconfig.json",
+    "build:js": "babel src --out-dir lib --extensions .ts --copy-files",
+    "build": "npm-run-all -p build:dts build:js",
     "pretest": "tsc -p tsconfig.ci.json",
     "test": "jest",
     "ci": "npm-run-all -s build test",
