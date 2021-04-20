@@ -1,13 +1,13 @@
-import { gtl } from './gt';
+import { gt } from './gt';
 import type { Ord } from './ord';
 
 /**
  * Tell if `a` is greater than or equals `b` by value.
  */
-export function gtel (a: Ord): (b: Ord) => boolean {
+export function gte (a: Ord): (b: Ord) => boolean {
   return (b) => {
     return (typeof a === 'string' && typeof b === 'string')
-      ? a === b || gtl (a) (b)
+      ? a === b || gt (a) (b)
       : a >= b;
   };
 }
@@ -16,5 +16,5 @@ export function gtel (a: Ord): (b: Ord) => boolean {
  * Tell if `a` is greater than or equals `b` by value.
  */
 export function gter (b: Ord): (a: Ord) => boolean {
-  return (a) => gtel (a) (b);
+  return (a) => gte (a) (b);
 }

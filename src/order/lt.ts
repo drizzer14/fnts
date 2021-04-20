@@ -3,7 +3,7 @@ import type { Ord } from './ord';
 /**
  * Tell if `a` is less than `b` by value.
  */
-export function ltl (a: Ord): (b: Ord) => boolean {
+export function lt (a: Ord): (b: Ord) => boolean {
   return (b) => {
     return typeof a === 'string' && typeof b === 'string'
       ? a.localeCompare (b) > 0
@@ -15,5 +15,5 @@ export function ltl (a: Ord): (b: Ord) => boolean {
  * Tell if `a` is less than `b` by value.
  */
 export function ltr (b: Ord): (a: Ord) => boolean {
-  return (a) => ltl (a) (b);
+  return (a) => lt (a) (b);
 }

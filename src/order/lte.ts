@@ -1,4 +1,4 @@
-import { ltl } from './lt';
+import { lt } from './lt';
 import type { Ord } from './ord';
 
 /**
@@ -7,7 +7,7 @@ import type { Ord } from './ord';
 export function lte (a: Ord): (b: Ord) => boolean {
   return (b) => {
     return (typeof a === 'string' && typeof b === 'string')
-      ? a === b || ltl (a) (b)
+      ? a === b || lt (a) (b)
       : a <= b;
   };
 }
@@ -16,5 +16,5 @@ export function lte (a: Ord): (b: Ord) => boolean {
  * Tell if `a` is less than or equals `b` by value.
  */
 export function lter (b: Ord): (a: Ord) => boolean {
-  return (a) => ltl (a) (b);
+  return (a) => lt (a) (b);
 }
