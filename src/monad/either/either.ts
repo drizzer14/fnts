@@ -1,5 +1,5 @@
-import { Foldable } from '../foldable';
-import { Bifunctor } from '../bifunctor';
+import type { Foldable } from '../foldable';
+import type { Bifunctor } from '../bifunctor';
 import { compose } from '../../function/compose';
 import { included } from '../../array-like/included';
 
