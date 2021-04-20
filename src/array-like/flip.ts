@@ -4,7 +4,7 @@ import { split } from '../string/split';
 import { compose } from '../function/compose';
 
 import { concat } from './concat';
-import { ArrayLike, ArrayLikeMember } from './array-like';
+import type { ArrayLike, ArrayLikeMember } from './array-like';
 
 /**
  * Creates a reversed copy of the original array.

@@ -1,18 +1,10 @@
-import type { Functor } from '../functor';
-import type { Foldable } from '../foldable';
-
 import type { Maybe } from './maybe';
 
-export interface Nothing extends Foldable<undefined>, Functor<undefined> {
-  /**
-   * Binds the value of this monad into nothing.
-   */
-  (f: (a?: undefined) => Nothing): Nothing;
-  map (f: (a: undefined) => Nothing): Nothing;
-  /**
-   * Applies the value of this monad to the function contained inside another monad.
-   */
-  ap <F extends (a: any) => any, M extends Maybe<F>>(m: M): Nothing;
+export interface Nothing extends Maybe<undefined> {
+  <M extends Maybe<any>>(f: (a: any) => M): M;
+  fold (): undefined;
+  foldMap <B>(f: (a: any) => B): undefined;
+  map <B>(f: (a: any) => B): Nothing;
   isJust (): false;
   isNothing (): this is Nothing;
 }
@@ -23,10 +15,10 @@ export interface Nothing extends Foldable<undefined>, Functor<undefined> {
 export function nothing (): Nothing {
   const monad: Nothing = () => nothing ();
 
-  monad.map = nothing;
+  monad.map = ((_) => nothing ()) as Nothing['map'];
   monad.fold = () => undefined;
   monad.foldMap = () => undefined;
-  monad.ap = nothing;
+  monad.ap = ((_) => nothing ()) as Nothing['ap'];
   monad.isJust = () => false;
   monad.isNothing = () => true;
 

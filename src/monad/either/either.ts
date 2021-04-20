@@ -6,7 +6,7 @@ import { included } from '../../array-like/included';
 import { left, Left } from './left';
 import { right, Right } from './right';
 
-export interface Either<L,R> extends Bifunctor<L, R>, Pick<Foldable<L | R>, 'fold'> {
+export interface Either<L, R> extends Bifunctor<L, R>, Pick<Foldable<L | R>, 'fold'> {
   /**
    * Binds the value of this monad into the produced monad.
    */

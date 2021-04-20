@@ -9,7 +9,6 @@ describe ('nothing', () => {
 
   describe ('map', () => {
     it ('should return new nothing monad', () => {
-      // @ts-expect-error
       expect (nothing ().map (() => 1).isNothing ()).toBe (true);
     });
   });

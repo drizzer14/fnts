@@ -12,4 +12,4 @@ export function search (regexp: string | RegExp): (string: string) => Maybe<numb
       ? nothing ()
       : just (index);
   };
-}
+};
