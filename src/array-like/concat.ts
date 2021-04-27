@@ -1,10 +1,20 @@
-export function concat (...b: string[]): (a: string) => string;
+import { curry2 } from '../.internal/curry-2'
 
-export function concat <T>(...b: Array<T | ConcatArray<T>>): (a: T[]) => T[];
+import type { ArrayLike, ArrayLikeMember } from './array-like'
 
-/**
- * Funtional implementation of `Array.prototype.concat` and `String.prototype.concat`.
- */
-export function concat <T>(...b: string[] & Array<T | ConcatArray<T>>): (a: string & T[]) => string | T[] {
-  return (a) => a.concat(...b);
+export interface ConcatFn {
+  (strings: string[]): (string: string) => string
+
+  <T> (items: T[]): (array: T[]) => T[]
+
+  (string: string, strings: string[]): string
+
+  <T> (array: T[], items: T[]): T[]
 }
+
+export const concat = curry2(
+  <A extends ArrayLike> (
+    arrayLike: A,
+    items: ArrayLikeMember<A>[],
+  ): A => arrayLike.concat(items as any) as A,
+) as ConcatFn

@@ -1,16 +1,32 @@
-import { compose } from '../function/compose';
-import { Identity, identity } from '../identity';
+import { curry3 } from '../.internal/curry-3'
+import { compose } from '../function/compose'
 
-import { map } from './map';
-import { filter } from './filter';
-import type { Predicate, Transformer } from './array-callback';
+import { map } from './map'
+import { filter } from './filter'
+import type { Predicate, Transformer } from './array-callback'
 
-/**
- * Optionally filters and maps an array to new array.
- */
-export function comprehend <T, R>(transformer: Transformer<T, R>, predicate?: Predicate<T>): (array: T[]) => R[] {
-  return compose (
-    map (transformer),
-    (predicate ? filter (predicate) : identity) as Identity<T[]>
-  );
+export interface ComprehendFn {
+  <T, R = T> (
+    transformer: Transformer<T, R>,
+    predicate: Predicate<T>,
+  ): (array: T[]) => R[]
+
+  <T, R = T> (
+    array: T[],
+    transformer: Transformer<T, R>,
+    predicate: Predicate<T>,
+  ): R[]
 }
+
+export const comprehend = curry3(
+  <T, R = T> (
+    array: T[],
+    transformer: Transformer<T, R>,
+    predicate: Predicate<T>,
+  ) => {
+    return compose(
+      map(transformer),
+      filter(predicate),
+    )(array)
+  },
+) as ComprehendFn

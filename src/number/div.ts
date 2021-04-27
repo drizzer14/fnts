@@ -1,15 +1,7 @@
-/**
- * Functional implementation of the `/` operator
- * with dividend and divisor being first and second arguments respectively.
- */
-export function div (a: number): (b: number) => number {
-  return (b) => a / b;
-}
+import { curry } from '../function/curry'
 
-/**
- * Functional implementation of the `/` operator
- * with divisor and dividend being first and second arguments respectively.
- */
-export function divBy (b: number): (a: number) => number {
-  return (a) => div (a) (b);
-}
+export const div = curry(
+  (a: number, b: number): number => a / b,
+)
+
+export const divBy = (b: number) => (a: number): number => div(a, b)

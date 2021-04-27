@@ -1,6 +1,3 @@
-/**
- * Funtional implementation of `String.prototype.toLowerCase`.
- */
-export function toLowerCase (string: string): string {
-  return string.toLowerCase ();
+export const toLowerCase = <T extends string> (string: T): Lowercase<T> => {
+  return string.toLowerCase() as Lowercase<T>
 }

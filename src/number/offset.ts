@@ -1,10 +1,27 @@
-import { clamp } from './clamp';
+import { ltr } from '../order/lt'
+import { identity } from '../identity'
+import { curry2 } from '../.internal/curry-2'
+import { ternary } from '../boolean/ternary'
 
-/**
- * For a positive number below `max` returns that number.
- * For a negative number returns 0.
- * For a positive number above `max` offsets `max` by the absolute value of a number to the left.
- */
-export function offset (x: number): (max: number) => number {
-  return (max) => clamp (0, max) ((x < 0) ? (max + x) : x);
+import { add } from './add'
+import { clamp } from './clamp'
+
+export interface OffsetFn {
+  (max: number): (x: number) => number
+
+  (x: number, max: number): number
 }
+
+export const offset = curry2(
+  (x: number, max: number) => {
+    return clamp(
+      ternary(
+        ltr(0),
+        add(max),
+        identity,
+      )(x),
+      0,
+      max,
+    )
+  },
+) as OffsetFn

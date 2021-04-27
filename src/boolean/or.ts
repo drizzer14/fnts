@@ -1,6 +1,7 @@
-/**
- * Functional implementation of the `||` operator.
- */
-export function or<A, B>(a: A): (b: B) => boolean {
-  return (b) => Boolean (a) || Boolean (b);
-}
+import { curry } from '../function/curry'
+
+export const or = curry(
+  <A, B> (a: A, b: B): boolean => {
+    return Boolean(a) || Boolean(b)
+  },
+)

@@ -24,22 +24,22 @@ TypeScript 4.2.2 is required for this package's typings to work properly.
 ## Usage
 
 ```typescript
-import { add } from 'fnts/number';
+import { add } from 'fnts/number'
 
-const onePlusTwo = add (1) (2); // 1 + 2 = 3
-const addToOne = add (1); // (b: number) => b + 1
-const onePlusThree = addToOne (3); // 3 + 1 = 4
+const onePlusTwo = add (1) (2) // 1 + 2 = 3
+const addToOne = add (1) // (b: number) => b + 1
+const onePlusThree = addToOne (3) // 3 + 1 = 4
 ```
 
 There are cases with anticommutative operations, such as division, that have
 two variants of the same function preserving the desired order of calculation:
 
 ```typescript
-import { div, divBy } from 'fnts/number';
+import { div, divBy } from 'fnts/number'
 
-const fourDivByTwo = div (4) (2); // 4 / 2 = 2
-const divByThree = divBy (3); // (a: number) => a / 3
-const sixDivByThree = divByThree (6); // 6 / 3 = 2 
+const fourDivByTwo = div (4) (2) // 4 / 2 = 2
+const divByThree = divBy (3) // (a: number) => a / 3
+const sixDivByThree = divByThree (6) // 6 / 3 = 2 
 ```
 
 ## Examples
@@ -47,10 +47,10 @@ const sixDivByThree = divByThree (6); // 6 / 3 = 2
 [Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial):
 
 ```typescript
-import { mul } from 'fnts/number';
-import { foldl } from 'fnts/array';
-import type { Pair } from 'fnts/pair';
-import { compose } from 'fnts/function';
+import { mul } from 'fnts/number'
+import { foldl } from 'fnts/array'
+import type { Pair } from 'fnts/pair'
+import { compose } from 'fnts/function'
 
 const lagrange = (points: Pair<number>[]) => (x: number): number => {
   const l = (xj: number): number => {
@@ -59,45 +59,45 @@ const lagrange = (points: Pair<number>[]) => (x: number): number => {
         ? p
         : p * ((x - xi) / (xj - xi)),
       1
-    ) (points);
-  };
+    ) (points)
+  }
   
   return foldl <Pair<number>[], number>(
     (s, [xi, yi]) => s + (compose (mul (yi), l) (xi)),
     0
-  ) (points);
-};
+  ) (points)
+}
 
-lagrange ([[1, 1], [2, 4], [3, 9]]) (6); // 36 – interpolates 6 through parabola (y = x^2)
-lagrange ([[1, 1], [2, 8], [3, 27]]) (2); // 8 – interpolates 2 through hyperbola (y = x^3)
+lagrange ([[1, 1], [2, 4], [3, 9]]) (6) // 36 – interpolates 6 through parabola (y = x^2)
+lagrange ([[1, 1], [2, 8], [3, 27]]) (2) // 8 – interpolates 2 through hyperbola (y = x^3)
 ```
 
 Tell if a given directed graph has path between two vertices:
 
 ```typescript
-import { fst } from 'fnts/pair';
-import { not, eq } from 'fnts/boolean';
-import { compose } from 'fnts/function';
-import { or, filter, comprehend, length } from 'fnts/array';
+import { fst } from 'fnts/pair'
+import { not, eq } from 'fnts/boolean'
+import { compose } from 'fnts/function'
+import { or, filter, comprehend, length } from 'fnts/array'
 
 const hasPath = (graph: Pair<number>[]) => (x: number, y: number): boolean => guard (
   [compose (eq (0), length), () => eq (x) (y)],
   [() => eq (x) (y), () => true],
   () => {
-    const feq = compose (eq (x), fst);
-    const nonXNodes = filter <Pair<number>>(compose (not, feq)) (graph);
+    const feq = compose (eq (x), fst)
+    const nonXNodes = filter <Pair<number>>(compose (not, feq)) (graph)
 
     return or (
       comprehend <Pair<number>, boolean>(
         ([, py]) => hasPath (nonXNodes) (py, y),
         feq,
       ) (graph),
-    );
+    )
   }
-) (graph);
+) (graph)
 
-hasPath ([[1, 2], [2, 3], [3, 2], [4, 3], [4, 5]]) (1, 3); // true
-hasPath ([[1, 2], [2, 3], [3, 2], [4, 3], [4, 5]]) (3, 5); // false
+hasPath ([[1, 2], [2, 3], [3, 2], [4, 3], [4, 5]]) (1, 3) // true
+hasPath ([[1, 2], [2, 3], [3, 2], [4, 3], [4, 5]]) (3, 5) // false
 ```
 
 ## Motivation

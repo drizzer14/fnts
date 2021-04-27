@@ -1,15 +1,23 @@
-/**
- * Funtional implementation of `Array.prototype.slice`.
- */
-import type { ArrayLike, ArrayLikeMember } from './array-like';
+import { curry3 } from '../.internal/curry-3'
 
-export function slice (start?: number, end?: number): <T>(array: T[]) => T[];
+import type { ArrayLike } from './array-like'
 
-/**
- * Funtional implementation of `String.prototype.slice`.
- */
-export function slice (start?: number, end?: number): (string: string) => string;
+export interface SliceFn {
+  (start?: number, end?: number): (string: string) => string
 
-export function slice (start = 0, end?: number): <A extends ArrayLike>(arrayLike: A) => ArrayLikeMember<A> {
-  return (arrayLike) => arrayLike.slice (start, end);
+  (start?: number, end?: number): <T>(array: T[]) => T[]
+
+  <T> (array: T[], start?: number, end?: number): T[]
+
+  (string: string, start?: number, end?: number): string
 }
+
+export const slice = curry3(
+  <A extends ArrayLike> (
+    arrayLike: A,
+    start?: number,
+    end?: number,
+  ): A => {
+    return arrayLike.slice(start, end) as A
+  },
+) as SliceFn

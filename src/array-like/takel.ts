@@ -1,9 +1,16 @@
-import { slice } from './slice';
-import type { ArrayLike } from './array-like';
+import { curry2 } from '../.internal/curry-2'
 
-/**
- * Gets specified amount of array-like elements from the left.
- */
-export function takel (amount: number): <A extends ArrayLike>(arrayLike: A) => A {
-  return slice (0, amount);
+import { slice } from './slice'
+import type { ArrayLike } from './array-like'
+
+export interface TakelFn {
+  <A extends ArrayLike> (arrayLike: A, amount: number): A
+
+  (amount: number): <A extends ArrayLike>(arrayLike: A) => A
 }
+
+export const takel = curry2(
+  <A extends ArrayLike> (arrayLike: A, amount: number): A => {
+    return slice(arrayLike as any[], 0, amount) as A
+  },
+) as TakelFn

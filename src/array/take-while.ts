@@ -1,29 +1,35 @@
-import { concat } from '../array-like/concat';
+import { curry2 } from '../.internal/curry-2'
 
-import { foldl } from './foldl';
-import type { Predicate } from './array-callback';
+import { foldl } from './foldl'
 
-/**
- * Creates a copy of the original array with elements that satisfy the predicate.
- * Stops on the first false occasion.
- */
-export function takeWhile <T>(predicate: Predicate<T>): (array: T[]) => T[] {
-  let isSatistied = false;
+import type { Predicate } from './array-callback'
 
-  return foldl <T, T[]>(
-    ((accumulator, current, index, array) => {
-      if (predicate (current, index, array)) {
-        isSatistied = true;
+export interface TakeWhileFn {
+  <T> (predicate: Predicate<T>): (array: T[]) => T[]
 
-        return concat (current) (accumulator);
-      }
-
-      if (isSatistied) {
-        array.splice (index);
-      }
-
-      return accumulator;
-    }),
-    [],
-  );
+  <T> (array: T[], predicate: Predicate<T>): T[]
 }
+
+export const takeWhile = curry2(
+  <T> (array: T[], predicate: Predicate<T>): T[] => {
+    let isSatistied = false
+
+    return foldl<T, T[]>(
+      array,
+      ((accumulator, current, index, array) => {
+        if (predicate(current, index, array)) {
+          isSatistied = true
+
+          return accumulator.concat(current)
+        }
+
+        if (isSatistied) {
+          array.splice(index)
+        }
+
+        return accumulator
+      }),
+      [],
+    )
+  },
+) as TakeWhileFn

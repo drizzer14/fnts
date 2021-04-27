@@ -1,24 +1,28 @@
-import { just, Maybe, nothing } from '../monad/maybe';
+import { curry2 } from '../.internal/curry-2'
+import { just, Maybe, nothing } from '../monad/maybe'
 
-import type { Predicate } from './array-callback';
+import type { Predicate } from './array-callback'
 
-/**
- * Funtional implementation of `Array.prototype.find` from the right side.
- */
-export function findr <T>(predicate: Predicate<T>): (array: T[]) => Maybe<T> {
-  return (array) => {
-    let accumulator: Maybe<T> = nothing ();
+export interface FindrFn {
+  <T> (predicate: Predicate<T>): (array: T[]) => Maybe<T>
+
+  <T> (array: T[], predicate: Predicate<T>): Maybe<T>
+}
+
+export const findr = curry2(
+  <T> (array: T[], predicate: Predicate<T>) => {
+    let accumulator: Maybe<T> = nothing()
 
     for (let index = array.length - 1; index >= 0; index -= 1) {
-      const current = array[index];
+      const current = array[index]
 
-      if (predicate (current, index, array)) {
-        accumulator = just (current);
+      if (predicate(current, index, array)) {
+        accumulator = just(current)
 
-        break;
+        break
       }
     }
 
-    return accumulator;
-  };
-}
+    return accumulator
+  },
+) as FindrFn

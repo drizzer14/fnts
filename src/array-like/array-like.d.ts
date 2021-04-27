@@ -1,3 +1,3 @@
-export type ArrayLike = Array<any> | String;
+export type ArrayLike = Array<any> | string
 
-export type ArrayLikeMember<F extends ArrayLike> = F extends Array<infer T> ? T : string;
+export type ArrayLikeMember<F extends ArrayLike> = F extends Array<infer T> ? T : string

@@ -1,6 +1,5 @@
-/**
- * Functional implementation of the `+` operator.
- */
-export function add (a: number): (b: number) => number {
-  return (b) => a + b;
-}
+import { curry } from '../function/curry'
+
+export const add = curry(
+  (a: number, b: number): number => a + b,
+)

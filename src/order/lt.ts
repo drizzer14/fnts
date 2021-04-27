@@ -1,19 +1,13 @@
-import type { Ord } from './ord';
+import { curry } from '../function/curry'
 
-/**
- * Tell if `a` is less than `b` by value.
- */
-export function lt (a: Ord): (b: Ord) => boolean {
-  return (b) => {
+import type { Ord } from './ord'
+
+export const lt = curry(
+  (a: Ord, b: Ord): boolean => {
     return typeof a === 'string' && typeof b === 'string'
-      ? a.localeCompare (b) > 0
-      : a < b;
-  };
-}
+      ? a.localeCompare(b) > 0
+      : a < b
+  },
+)
 
-/**
- * Tell if `a` is less than `b` by value.
- */
-export function ltr (b: Ord): (a: Ord) => boolean {
-  return (a) => lt (a) (b);
-}
+export const ltr = (b: Ord) => (a: Ord): boolean => lt(a, b)

@@ -1,15 +1,13 @@
-import type { ArrayLike } from './array-like';
+import type { ArrayLike } from './array-like'
 
-/**
- * Gets the length of the array.
- */
-export function length (array: any[]): number;
+export interface LengthFn {
+  (string: string): number
 
-/**
- * Gets the length of the string.
- */
-export function length (string: string): number;
+  <T extends readonly any[]> (array: T): T['length']
 
-export function length (arrayLike: ArrayLike): number {
-  return arrayLike.length;
+  <T extends any[]> (array: T): number
 }
+
+export const length = ((arrayLike: ArrayLike): number => {
+  return arrayLike.length
+}) as LengthFn

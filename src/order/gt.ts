@@ -1,19 +1,13 @@
-import type { Ord } from './ord';
+import { curry } from '../function/curry'
 
-/**
- * Tell if `a` is greater than `b` by value.
- */
-export function gt (a: Ord): (b: Ord) => boolean {
-  return (b) => {
+import type { Ord } from './ord'
+
+export const gt = curry(
+  (a: Ord, b: Ord): boolean => {
     return typeof a === 'string' && typeof b === 'string'
-      ? a.localeCompare (b) < 0
-      : a > b;
-  };
-}
+      ? a.localeCompare(b) < 0
+      : a > b
+  },
+)
 
-/**
- * Tell if `a` is greater than `b` by value.
- */
-export function gtr (b: Ord): (a: Ord) => boolean {
-  return (a) => gt (a) (b);
-}
+export const gtr = (b: Ord) => (a: Ord): boolean => gt(a, b)

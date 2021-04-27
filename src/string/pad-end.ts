@@ -1,6 +1,17 @@
-/**
- * Funtional implementation of `String.prototype.padEnd`.
- */
-export function padEnd (maxLength: number, padString?: string): (string: string) => string {
-  return (string) => string.padEnd (maxLength, padString);
+import { curry3 } from '../.internal/curry-3'
+
+export interface PadEndFn {
+  (maxLength: number, padString?: string): (string: string) => string
+
+  (string: string, maxLength: number, padString?: string): string
 }
+
+export const padEnd = curry3(
+  (
+    string: string,
+    maxLength: number,
+    padString?: string,
+  ): string => {
+    return string.padEnd(maxLength, padString)
+  },
+) as PadEndFn

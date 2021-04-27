@@ -1,1 +1,1 @@
-export type Ord = string | number;
+export type Ord = string | number

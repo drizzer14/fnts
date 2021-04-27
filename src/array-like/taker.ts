@@ -1,11 +1,24 @@
-import { neg } from '../number/neg';
+import { neg } from '../number/neg'
+import { curry2 } from '../.internal/curry-2'
 
-import { slice } from './slice';
-import type { ArrayLike } from './array-like';
+import { slice } from './slice'
+import type { ArrayLike } from './array-like'
 
-/**
- * Gets specified amount of array-like elements from the right.
- */
-export function taker (amount: number): <A extends ArrayLike>(arrayLike: A) => A {
-  return (arrayLike) => slice (neg (amount), arrayLike.length) (arrayLike as any);
+export interface TakerFn {
+  <A extends ArrayLike> (arrayLike: A, amount: number): A
+
+  (amount: number): <A extends ArrayLike>(arrayLike: A) => A
 }
+
+export const taker = curry2(
+  <A extends ArrayLike> (
+    arrayLike: A,
+    amount: number,
+  ): A => {
+    return slice(
+      arrayLike as any,
+      neg(amount),
+      arrayLike.length,
+    ) as A
+  },
+) as TakerFn

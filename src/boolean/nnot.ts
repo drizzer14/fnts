@@ -1,14 +1,11 @@
-import { included } from '../array-like/included';
+import { includes } from '../array-like/includes'
 
-import { not } from './not';
+import { not } from './not'
 
-/**
- * Functional implementation of the `!` operator on nullable values.
- */
-export const nnot = <T>(x: T): boolean => {
-  if (included ([0, '']) (x)) {
-    return false;
+export const nnot = <T> (x: T): boolean => {
+  if (includes([0, ''], x)) {
+    return false
   }
 
-  return not (x);
+  return not(x)
 }

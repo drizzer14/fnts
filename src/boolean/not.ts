@@ -1,6 +1,1 @@
-/**
- * Functional implementation of the `!` operator.
- */
-export function not<T>(x: T): boolean {
-  return !x;
-}
+export const not = <T> (x: T): boolean => !x

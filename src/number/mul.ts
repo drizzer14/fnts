@@ -1,6 +1,5 @@
-/**
- * Curried functional implementation of the `*` operator.
- */
-export function mul (a: number): (b: number) => number {
-  return (b) => a * b;
-}
+import { curry } from '../function/curry'
+
+export const mul = curry(
+  (a: number, b: number): number => a * b,
+)

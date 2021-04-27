@@ -1,16 +1,20 @@
-import { just, Maybe, nothing } from '../monad/maybe';
+import { curry2 } from '../.internal/curry-2'
+import { just, Maybe, nothing } from '../monad/maybe'
 
-import type { Predicate } from './array-callback';
+import type { Predicate } from './array-callback'
 
-/**
- * Funtional implementation of `Array.prototype.findIndex`.
- */
-export function findIndex <T>(predicate: Predicate<T>): (array: T[]) => Maybe<number> {
-  return (array) => {
-    const index = array.findIndex (predicate);
+export interface FindIndexFn {
+  <T> (predicate: Predicate<T>): (array: T[]) => Maybe<number>
+
+  <T> (array: T[], predicate: Predicate<T>): Maybe<number>
+}
+
+export const findIndex = curry2(
+  <T> (array: T[], predicate: Predicate<T>) => {
+    const index = array.findIndex(predicate)
 
     return index < 0
-      ? nothing ()
-      : just (index);
-  };
-}
+      ? nothing()
+      : just(index)
+  },
+) as FindIndexFn

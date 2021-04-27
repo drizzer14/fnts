@@ -1,6 +1,13 @@
-/**
- * Funtional implementation of `String.prototype.split`.
- */
-export function split (separator = '', limit?: number): (string: string) => string[] {
-  return (string) => string.split (separator, limit);
+import { curry3 } from '../.internal/curry-3'
+
+export interface Split {
+  (separator?: string, limit?: number): (string: string) => string[]
+
+  (string: string, separator?: string, limit?: number): string[]
 }
+
+export const split = curry3(
+  (string: string, separator = '', limit?: number): string[] => {
+    return string.split(separator, limit)
+  },
+) as Split

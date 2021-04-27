@@ -1,11 +1,19 @@
-import { offset } from '../number/offset';
+import { offset } from '../number/offset'
+import { curry2 } from '../.internal/curry-2'
 
-import type { ArrayLike, ArrayLikeMember } from './array-like';
+import type { ArrayLike, ArrayLikeMember } from './array-like'
 
-/**
- * Gets an array or string element by its position.
- * Supports negative indices.
- */
-export function at (position: number): <A extends ArrayLike>(arrayLike: A) => ArrayLikeMember<A> {
-  return (arrayLike) => arrayLike[offset (position) (arrayLike.length)];
+export interface AtFn {
+  (position: number): <A extends ArrayLike>(arrayLike: A) => ArrayLikeMember<A>
+
+  <A extends ArrayLike> (arrayLike: A, position: number): ArrayLikeMember<A>
 }
+
+export const at = curry2(
+  <A extends ArrayLike> (
+    arrayLike: A,
+    position: number,
+  ): ArrayLikeMember<A> => {
+    return arrayLike[offset(position, arrayLike.length)]
+  },
+) as AtFn

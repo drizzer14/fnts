@@ -1,8 +1,3 @@
-import { sub } from './sub';
+import { subtOf } from './subt'
 
-/**
- * Decrements a number by 1.
- */
-export function decr (x: number): number {
-  return sub (x) (1);
-}
+export const decr = subtOf(1)

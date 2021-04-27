@@ -1,15 +1,23 @@
-import { maybe, Maybe } from '../monad/maybe';
+import { curry2 } from '../.internal/curry-2'
+import { maybe, Maybe } from '../monad/maybe'
 
-type Matcher = { [Symbol.match](string: string): RegExpMatchArray | null };
+export type Matcher = { [Symbol.match] (string: string): RegExpMatchArray | null }
 
-export function match (matcher: Matcher): (string: string) => Maybe<RegExpMatchArray>;
+export interface MatchFn {
+  (matcher: Matcher): (string: string) => Maybe<RegExpMatchArray>
 
-export function match (regexp: string | RegExp): (string: string) => Maybe<RegExpMatchArray>;
+  (regexp: string | RegExp): (string: string) => Maybe<RegExpMatchArray>
 
-/**
- * Funtional implementation of `String.prototype.match`.
- * Wraps the matched value in the `Maybe` monad.
- */
-export function match (matcher: string | RegExp | Matcher): (string: string) => Maybe<RegExpMatchArray> {
-  return (string) => maybe (string.match (matcher as Matcher));
+  (string: string, matcher: Matcher): Maybe<RegExpMatchArray>
+
+  (string: string, regexp: string | RegExp): Maybe<RegExpMatchArray>
 }
+
+export const match = curry2(
+  (
+    string: string,
+    matcher: string | RegExp | Matcher,
+  ): Maybe<RegExpMatchArray> => {
+    return maybe(string.match(matcher as Matcher))
+  },
+) as MatchFn

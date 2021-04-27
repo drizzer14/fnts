@@ -1,9 +1,10 @@
-import { or } from './or';
-import { and } from './and';
+import { curry } from '../function/curry'
 
-/**
- * Functional implementation of the `XOR` operation.
- */
-export function xor<A, B>(a: A): (b: B) => boolean {
-  return (b) => !and (a) (b) && or (a) (b);
-}
+import { or } from './or'
+import { and } from './and'
+
+export const xor = curry(
+  <A, B> (a: A, b: B): boolean => {
+    return !and(a, b) && or(a, b)
+  },
+)

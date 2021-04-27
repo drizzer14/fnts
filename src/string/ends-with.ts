@@ -1,6 +1,17 @@
-/**
- * Funtional implementation of `String.prototype.endsWith`.
- */
-export function endsWith (substring: string, endPosition?: number): (string: string) => boolean {
-  return (string) => string.endsWith (substring, endPosition);
+import { curry3 } from '../.internal/curry-3'
+
+export interface EndsWithFn {
+  (substring: string, endPosition?: number): (string: string) => boolean
+
+  (string: string, substring: string, endPosition?: number): boolean
 }
+
+export const endsWith = curry3(
+  (
+    string: string,
+    substring: string,
+    endPosition?: number,
+  ): boolean => {
+    return string.endsWith(substring, endPosition)
+  },
+) as EndsWithFn

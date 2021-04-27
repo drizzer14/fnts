@@ -1,29 +1,24 @@
-import { join } from '../array/join';
-import { foldr } from '../array/foldr';
-import { split } from '../string/split';
-import { compose } from '../function/compose';
+import { join } from '../array/join'
+import { foldr } from '../array/foldr'
+import { split } from '../string/split'
+import { compose } from '../function/compose'
 
-import { concat } from './concat';
-import type { ArrayLike, ArrayLikeMember } from './array-like';
+import type { ArrayLike } from './array-like'
 
-/**
- * Creates a reversed copy of the original array.
- */
-export function flip <T>(array: T[]): T[];
+export interface FlipFn {
+  (string: string): string
 
-/**
- * Creates a reversed copy of the original string.
- */
-export function flip (string: string): string;
-
-export function flip <A extends ArrayLike>(arrayLike: A): A {
-  if (typeof arrayLike === 'string') {
-    return join ('') (compose (flip, split ('')) (arrayLike) as any) as any;
-  }
-
-  return foldr <ArrayLikeMember<A>, A>(
-    // @ts-ignore
-    (current, accumulator) => concat (current) (accumulator),
-    []
-  ) (arrayLike as any[]);
+  <T> (array: T[]): T[]
 }
+
+export const flip = (<A extends ArrayLike> (arrayLike: A): A => {
+  return (typeof arrayLike === 'string'
+    ? compose(
+      join(''),
+      compose(flip, split('')),
+    )(arrayLike as string)
+    : foldr<any, any[]>(
+      (current, accumulator) => accumulator.concat(current),
+      [],
+    )(arrayLike as any[])) as A
+}) as FlipFn

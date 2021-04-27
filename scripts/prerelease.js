@@ -1,6 +1,6 @@
-const { resolve } = require('path');
-const { writeFileSync } = require('fs');
-const copyfiles = require('copyfiles');
+const { resolve } = require('path')
+const { writeFileSync } = require('fs')
+const copyfiles = require('copyfiles')
 
 const copyIntoLib = (fileName, onBeforeCopy = (f) => f) => {
 	writeFileSync(
@@ -16,8 +16,8 @@ const copyIntoLib = (fileName, onBeforeCopy = (f) => f) => {
 			null,
 			2
 		)
-	);
-};
+	)
+}
 
 copyfiles(
 	[
@@ -27,7 +27,7 @@ copyfiles(
 	],
 	{},
 	() => {}
-);
+)
 
 [
 	['tsconfig.json', ({ compilerOptions: {
@@ -36,5 +36,5 @@ copyfiles(
 	['package.json', ({ scripts: _s, devDependencies: _dd, ...packageJSON }) => packageJSON]
 ].forEach(
 	([fileName, onBeforeCopy]) => copyIntoLib(fileName, onBeforeCopy)
-);
+)
 

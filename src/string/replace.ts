@@ -1,12 +1,37 @@
-type Replacer = (substring: string) => string;
+import { curry3 } from '../.internal/curry-3'
 
-export function replace (searchValue: string | RegExp, replaceValue: string): (string: string) => string;
+export type Replacer = (substring: string) => string
 
-export function replace (searchValue: string | RegExp, replacer: Replacer): (string: string) => string;
+export interface ReplaceFn {
+  (
+    searchValue: string | RegExp,
+    replaceValue: string,
+  ): (string: string) => string
 
-/**
- * Funtional implementation of `String.prototype.replace`.
- */
-export function replace (searchValue: string | RegExp, replaceValue: Replacer | string): (string: string) => string {
-  return (string) => string.replace (searchValue, replaceValue as string);
+  (
+    searchValue: string | RegExp,
+    replacer: Replacer,
+  ): (string: string) => string
+
+  (
+    string: string,
+    searchValue: string | RegExp,
+    replaceValue: string,
+  ): string
+
+  (
+    string: string,
+    searchValue: string | RegExp,
+    replacer: Replacer,
+  ): string
 }
+
+export const replace = curry3(
+  (
+    string: string,
+    searchValue: string | RegExp,
+    replaceValue: Replacer | string,
+  ): string => {
+    return string.replace(searchValue, replaceValue as string)
+  },
+) as ReplaceFn

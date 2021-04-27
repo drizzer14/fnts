@@ -1,6 +1,3 @@
-/**
- * Funtional implementation of `String.prototype.toUpperCase`.
- */
-export function toUpperCase (string: string): string {
-  return string.toUpperCase ();
+export const toUpperCase = <T extends string> (string: T): Uppercase<T> => {
+  return string.toUpperCase() as Uppercase<T>
 }
