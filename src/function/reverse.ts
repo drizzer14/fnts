@@ -1,5 +1,5 @@
-import type { Reverse } from '../tuple'
 import { flip } from '../array-like/flip'
+import type { Reverse } from '../tuple/reverse'
 
 export const reverse =
   <F extends (...args: any[]) => any> (

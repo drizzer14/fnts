@@ -1,4 +1,4 @@
-import { xor } from 'fnts/boolean'
+import { xor as sut } from 'fnts/boolean'
 
 describe('xor', () => {
   describe('when two operands are equal', () => {
@@ -7,7 +7,7 @@ describe('xor', () => {
         [1, 1],
         [0, 0],
       ].forEach(([a, b]) => {
-        expect(xor(a)(b)).toBe(false)
+        expect(sut(a)(b)).toBe(false)
       })
     })
   })
@@ -18,7 +18,7 @@ describe('xor', () => {
         [1, 0],
         [0, 1],
       ].forEach(([a, b]) => {
-        expect(xor(a)(b)).toBe(true)
+        expect(sut(a)(b)).toBe(true)
       })
     })
   })

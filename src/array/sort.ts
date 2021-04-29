@@ -1,5 +1,6 @@
+import { compose, Curry, curry } from '../function'
 import { curry2 } from '../.internal/curry-2'
-import { compose, curry } from '../function'
+
 import type { Comparator } from './array-callback'
 
 export interface SortFn {
@@ -11,7 +12,7 @@ export interface SortFn {
 export const sort = curry2(
   <T> (array: T[], comparator: Comparator<T>) => {
     return array.sort(
-      compose<Comparator<T>, Comparator<T>>(
+      compose<[Curry<(a: T, b: T) => number>, Comparator<T>]>(
         comparator,
         curry,
       ),

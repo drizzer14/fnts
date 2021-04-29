@@ -17,6 +17,7 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
+    "keyofStringsOnly": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "strictFunctionTypes": true,

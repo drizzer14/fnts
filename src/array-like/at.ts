@@ -4,7 +4,7 @@ import { curry2 } from '../.internal/curry-2'
 import type { ArrayLike, ArrayLikeMember } from './array-like'
 
 export interface AtFn {
-  (position: number): <A extends ArrayLike>(arrayLike: A) => ArrayLikeMember<A>
+  (position: number): <A extends ArrayLike> (arrayLike: A) => ArrayLikeMember<A>
 
   <A extends ArrayLike> (arrayLike: A, position: number): ArrayLikeMember<A>
 }

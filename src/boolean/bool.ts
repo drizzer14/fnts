@@ -1,1 +1,1 @@
-export const bool = <B extends boolean> (b: B) => (_?: any): B => b
+export const bool = <B extends boolean> (b: B) => (..._: any[]): B => b

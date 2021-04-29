@@ -1,7 +1,7 @@
 import { neg } from '../number/neg'
 import { curry2 } from '../.internal/curry-2'
 
-import { slice } from './slice'
+import { sliceTo } from './slice'
 import type { ArrayLike } from './array-like'
 
 export interface TakerFn {
@@ -15,7 +15,7 @@ export const taker = curry2(
     arrayLike: A,
     amount: number,
   ): A => {
-    return slice(
+    return sliceTo(
       arrayLike as any,
       neg(amount),
       arrayLike.length,

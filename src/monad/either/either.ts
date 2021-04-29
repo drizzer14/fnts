@@ -1,7 +1,7 @@
 import type { Foldable } from '../foldable'
 import type { Bifunctor } from '../bifunctor'
+import { includes } from '../../array/includes'
 import { compose } from '../../function/compose'
-import { includes } from '../../array-like/includes'
 
 import { left, Left } from './left'
 import { right, Right } from './right'

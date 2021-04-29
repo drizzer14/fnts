@@ -1,28 +1,28 @@
-import { and } from '../boolean/and'
-import { ofType } from '../type/of-type'
-import { curry2Or3 } from '../.internal/curry-2-or-3'
+import { curry2 } from '../.internal/curry-2'
+import { curry3 } from '../.internal/curry-3'
 
-import { map } from './map'
 import type { Predicate } from './array-callback'
 
 export interface SomeFn {
-  <T> (predicate: Predicate<T>, fromIndex?: number): (array: T[]) => boolean
+  <T> (predicate: Predicate<T>): (array: T[]) => boolean
 
-  <T> (array: T[], predicate: Predicate<T>, fromIndex?: number): boolean
+  <T> (array: T[], predicate: Predicate<T>): boolean
 }
 
-export const some = curry2Or3(
-  <T> (array: T[], predicate: Predicate<T>, fromIndex = 0): boolean => {
+export const some = curry2(
+  <T> (array: T[], predicate: Predicate<T>): boolean => {
+    return array.some(predicate)
+  },
+) as SomeFn
+
+export interface SomeFromFn {
+  <T> (predicate: Predicate<T>, fromIndex: number): (array: T[]) => boolean
+
+  <T> (array: T[], predicate: Predicate<T>, fromIndex: number): boolean
+}
+
+export const someFrom = curry3(
+  <T> (array: T[], predicate: Predicate<T>, fromIndex: number): boolean => {
     return array.some(predicate, fromIndex)
   },
-)(
-  (f, s, t) => {
-    return map(
-      map(
-        [f, s],
-        ofType('function'),
-      ),
-      and(t !== undefined),
-    ).some(Boolean) && 3
-  }
-) as SomeFn
+) as SomeFromFn

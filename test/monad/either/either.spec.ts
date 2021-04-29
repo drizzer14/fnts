@@ -1,4 +1,4 @@
-import { either, eitherN, eitherS } from 'fnts/monad/either'
+import { either as sut, eitherN as sutN, eitherS as sutS } from 'fnts/monad/either'
 
 describe('either', () => {
   describe('eitherN – nullable', () => {
@@ -8,7 +8,7 @@ describe('either', () => {
           null,
           undefined,
         ].forEach((value) => {
-          const monad = eitherN(() => value, value)
+          const monad = sutN(() => value, value)
 
           expect(monad.isLeft()).toBe(true)
           expect(monad.isRight()).toBe(false)
@@ -31,7 +31,7 @@ describe('either', () => {
           false,
           Symbol.for('test'),
         ].forEach((value) => {
-          const monad = eitherN(() => value, value)
+          const monad = sutN(() => value, value)
 
           expect(monad.isLeft()).toBe(false)
           expect(monad.isRight()).toBe(true)
@@ -43,7 +43,7 @@ describe('either', () => {
   describe('eitherS – sync', () => {
     describe('when right function throws', () => {
       it('should produce left monad', () => {
-        const monad = eitherS(
+        const monad = sutS(
           (error) => (error as Error).message,
           () => {
             throw new Error('left')
@@ -57,7 +57,7 @@ describe('either', () => {
 
     describe('when right function resolves successfully', () => {
       it('should produce right monad', () => {
-        const monad = eitherS(
+        const monad = sutS(
           (error) => (error as Error).message,
           () => 5,
         )
@@ -71,7 +71,7 @@ describe('either', () => {
   describe('either – async', () => {
     describe('when right function rejects', () => {
       it('should produce left monad', async () => {
-        const monad = await either(
+        const monad = await sut(
           (error) => (error as Error).message,
           async () => Promise.reject(new Error('left')),
         )
@@ -83,7 +83,7 @@ describe('either', () => {
 
     describe('when right function resolves', () => {
       it('should produce right monad', async () => {
-        const monad = await either(
+        const monad = await sut(
           (error) => (error as Error).message,
           async () => Promise.resolve(5),
         )

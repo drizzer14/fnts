@@ -1,6 +1,6 @@
 import type { Functor } from '../functor'
 import type { Foldable } from '../foldable'
-import { includes } from '../../array-like/includes'
+import { includes } from '../../array/includes'
 
 import type { Fold } from './fold'
 import { just, Just } from './just'

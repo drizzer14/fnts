@@ -6,9 +6,9 @@ export type Matcher = { [Symbol.match] (string: string): RegExpMatchArray | null
 export interface MatchFn {
   (matcher: Matcher): (string: string) => Maybe<RegExpMatchArray>
 
-  (regexp: string | RegExp): (string: string) => Maybe<RegExpMatchArray>
-
   (string: string, matcher: Matcher): Maybe<RegExpMatchArray>
+
+  (regexp: string | RegExp): (string: string) => Maybe<RegExpMatchArray>
 
   (string: string, regexp: string | RegExp): Maybe<RegExpMatchArray>
 }

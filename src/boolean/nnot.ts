@@ -1,4 +1,4 @@
-import { includes } from '../array-like/includes'
+import { includes } from '../array/includes'
 
 import { not } from './not'
 

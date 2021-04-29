@@ -7,15 +7,15 @@ const copyIntoLib = (fileName, onBeforeCopy = (f) => f) => {
 		resolve(
 			__dirname,
 			'../lib',
-			`${fileName}`
+			`${fileName}`,
 		),
 		JSON.stringify(
 			onBeforeCopy(
-				require(`../${fileName}`)
+				require(`../${fileName}`),
 			),
 			null,
-			2
-		)
+			2,
+		),
 	)
 }
 
@@ -26,15 +26,33 @@ copyfiles(
 		'lib',
 	],
 	{},
-	() => {}
-)
+	() => {
+	},
+);
 
 [
-	['tsconfig.json', ({ compilerOptions: {
-		declaration: _d, declarationDir: _dd, emitDeclarationOnly: _edo, rootDir: _rd, ...compilerOptions
-	} }) => ({ compilerOptions })],
-	['package.json', ({ scripts: _s, devDependencies: _dd, ...packageJSON }) => packageJSON]
+	[
+		'tsconfig.json',
+		({
+			 compilerOptions: {
+				 declaration: _d,
+				 declarationDir: _dd,
+				 emitDeclarationOnly: _edo,
+				 rootDir: _rd,
+				 stripInternal: _si,
+				 ...compilerOptions
+			 },
+		 }) => ({ compilerOptions }),
+	],
+	[
+		'package.json',
+		({
+			 scripts: _s,
+			 devDependencies: _dd,
+			 ...packageJSON
+		 }) => packageJSON,
+	],
 ].forEach(
-	([fileName, onBeforeCopy]) => copyIntoLib(fileName, onBeforeCopy)
+	([fileName, onBeforeCopy]) => copyIntoLib(fileName, onBeforeCopy),
 )
 

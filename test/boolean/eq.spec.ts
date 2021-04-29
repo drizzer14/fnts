@@ -1,12 +1,12 @@
-import { eq } from 'fnts/boolean'
 import { flip } from 'fnts/array-like'
+import { eq as sut } from 'fnts/boolean'
 
 describe('eq', () => {
   const primitives = [1, '1', true, null, Symbol.for('test'), undefined]
 
   describe('when two primitive values are compared', () => {
     it('should return true', () => {
-      primitives.forEach((value) => expect(eq(value)(value)).toBe(true))
+      primitives.forEach((value) => expect(sut(value)(value)).toBe(true))
     })
 
     it('should return false for different values', () => {
@@ -17,18 +17,18 @@ describe('eq', () => {
         [null, undefined],
         [Symbol.for('test1'), Symbol.for('test2')],
       ].forEach(
-        (a, b) => expect(eq(a)(b as any)).toBe(false),
+        (a, b) => expect(sut(a)(b as any)).toBe(false),
       )
     })
   })
 
   describe('when two arrays are compared', () => {
     it('should return true for the same values under the same keys', () => {
-      expect(eq(primitives)([...primitives])).toBe(true)
+      expect(sut(primitives)([...primitives])).toBe(true)
     })
 
     it('should return false for arrays with the different values under the same keys', () => {
-      expect(eq(primitives)(flip(primitives))).toBe(false)
+      expect(sut(primitives)(flip(primitives))).toBe(false)
     })
   })
 
@@ -40,11 +40,11 @@ describe('eq', () => {
         c: 3,
       }
 
-      expect(eq(obj)({ ...obj })).toBe(true)
+      expect(sut(obj)({ ...obj })).toBe(true)
     })
 
     it('should return false for objects with different values under the same keys', () => {
-      expect(eq({ a: 1, b: 2, c: 3 })({ a: 3, b: 2, c: 1 })).toBe(false)
+      expect(sut({ a: 1, b: 2, c: 3 })({ a: 3, b: 2, c: 1 })).toBe(false)
     })
   })
 })

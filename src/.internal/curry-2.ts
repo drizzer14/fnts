@@ -16,21 +16,30 @@ export type SecondParameter<F extends (...args: any[]) => any> = Parameters<F>[1
 /**
  * @internal
  */
-export type Curry2<F extends BinaryFunction> =
-  SecondParameter<F> extends undefined
-    ? (s: SecondParameter<F>) => (f: FirstParameter<F>) => ReturnType<F>
-    : (f: FirstParameter<F>, s: SecondParameter<F>) => ReturnType<F>
+export interface Curry2 {
+  <F extends BinaryFunction> (
+    s: SecondParameter<F>,
+  ): (f: FirstParameter<F>) => ReturnType<F>
+
+  <F extends BinaryFunction> (
+    f: FirstParameter<F>,
+    s: SecondParameter<F>,
+  ): ReturnType<F>
+}
 
 /**
  * @internal
  */
 export const curry2 =
-  <F extends BinaryFunction> (fn: F) =>
-    (
+  <F extends BinaryFunction> (
+    fn: F,
+    shouldCurry?: (f: FirstParameter<F> | SecondParameter<F>, s: SecondParameter<F> | undefined) => boolean,
+  ) =>
+    ((
       f1: FirstParameter<F> | SecondParameter<F>,
       s: SecondParameter<F> | undefined,
-    ): Curry2<F> => {
-      return s === undefined
+    ) => {
+      return shouldCurry?.(f1, s) || s === undefined
         ? (f2: FirstParameter<F>) => fn(f2, f1)
         : fn(f1, s)
-    }
+    }) as Curry2

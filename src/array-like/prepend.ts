@@ -4,13 +4,9 @@ import { concat } from './concat'
 import type { ArrayLike, ArrayLikeMember } from './array-like'
 
 export interface PrependFn {
-  (strings: string[]): (string: string) => string
+  <A extends ArrayLike> (items: ArrayLikeMember<A>[]): (arrayLike: A) => A
 
-  <T> (items: T[]): (array: T[]) => T[]
-
-  (string: string, strings: string[]): string
-
-  <T> (array: T[], items: T[]): T[]
+  <A extends ArrayLike> (arrayLike: A, items: ArrayLikeMember<A>[]): A
 }
 
 export const prepend = curry2(
@@ -19,3 +15,6 @@ export const prepend = curry2(
     items: ArrayLikeMember<A>[],
   ): A => concat(items as any, arrayLike as any) as A,
 ) as PrependFn
+
+prepend(['a', 'b'])('sf')
+prepend(['a', 'b'])(['sf'])

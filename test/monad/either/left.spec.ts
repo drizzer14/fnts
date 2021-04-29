@@ -1,12 +1,12 @@
 import { compose } from 'fnts/function'
-import { left } from 'fnts/monad/either'
 import { decr, incr } from 'fnts/number'
+import { left as sut } from 'fnts/monad/either'
 
 describe('left', () => {
   describe('bind / ()', () => {
     describe('when called with a function producing a monad', () => {
       it('should return new either with produced value', () => {
-        const monad = left(5)(compose(left, incr))
+        const monad = sut(5)(compose(sut, incr))
 
         expect(monad.isLeft()).toBe(true)
         expect(monad.fold()).toBe(6)
@@ -17,7 +17,7 @@ describe('left', () => {
   describe('map', () => {
     it('should apply left mapping function', () => {
       expect(
-        left(5).map(decr, incr).fold(),
+        sut(5).map(decr, incr).fold(),
       ).toBe(4)
     })
   })
@@ -25,7 +25,7 @@ describe('left', () => {
   describe('foldMap', () => {
     it('should apply left mapping function and return contained value', () => {
       expect(
-        left(5).foldMap(decr, incr),
+        sut(5).foldMap(decr, incr),
       ).toBe(4)
     })
   })

@@ -1,57 +1,47 @@
-import { or } from '../array/or'
-import { map } from '../array/map'
-import { ofType } from '../type/of-type'
-import { curry2Or3 } from '../.internal/curry-2-or-3'
+import { curry2 } from '../.internal/curry-2'
+import { curry3 } from '../.internal/curry-3'
 import { Maybe, just, nothing } from '../monad/maybe'
 
-import type { ArrayLike, ArrayLikeMember } from './array-like'
+import type { ArrayLike } from './array-like'
 
-export interface IndexOfFn {
+export interface IndexOfFromFn {
   (
-    substring: string,
-    fromPosition?: number,
-  ): (string: string) => Maybe<number>
+    member: unknown,
+    fromIndex: number,
+  ): <A extends ArrayLike> (arrayLike: A[]) => Maybe<number>
 
-  (
-    string: string,
-    substring: string,
-    fromPosition?: number,
-  ): Maybe<number>
-
-  <T> (
-    element: unknown,
-    fromIndex?: number,
-  ): (arrayLike: T[]) => Maybe<number>
-
-  <T> (
-    arrayLike: T[],
-    element: unknown,
-    fromIndex?: number,
+  <A extends ArrayLike> (
+    arrayLike: A[],
+    member: unknown,
+    fromIndex: number,
   ): Maybe<number>
 }
 
-export const indexOf = curry2Or3(
+export const indexOfFrom = curry3(
   <A extends ArrayLike> (
     arrayLike: A,
-    element: ArrayLikeMember<A>,
-    fromIndex = 0,
-  ) => {
-    const index = arrayLike.indexOf(element, fromIndex)
+    member: unknown,
+    fromIndex: number,
+  ): Maybe<number> => {
+    const index = arrayLike.indexOf(member as any, fromIndex)
 
     return index < 0
       ? nothing()
       : just(index)
   },
-)(
-  (f, s, t) => {
-    if (Array.isArray(f)) {
-      return typeof t === 'number'
-    }
+) as IndexOfFromFn
 
-    return or(
-      map(
-        [s, t],
-        ofType('number')),
-    )
-  },
+export interface IndexOfFn {
+  (
+    member: unknown
+  ): <A extends ArrayLike> (arrayLike: A) => Maybe<number>
+
+  <A extends ArrayLike> (arrayLike: A[], member: unknown): Maybe<number>
+}
+
+export const indexOf = curry2(
+  <A extends ArrayLike> (
+    arrayLike: A,
+    member: unknown,
+  ): Maybe<number> => indexOfFrom(arrayLike as any, member, 0),
 ) as IndexOfFn
