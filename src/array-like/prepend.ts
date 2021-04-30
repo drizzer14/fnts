@@ -15,6 +15,3 @@ export const prepend = curry2(
     items: ArrayLikeMember<A>[],
   ): A => concat(items as any, arrayLike as any) as A,
 ) as PrependFn
-
-prepend(['a', 'b'])('sf')
-prepend(['a', 'b'])(['sf'])

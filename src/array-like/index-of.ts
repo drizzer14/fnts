@@ -33,7 +33,7 @@ export const indexOfFrom = curry3(
 
 export interface IndexOfFn {
   (
-    member: unknown
+    member: unknown,
   ): <A extends ArrayLike> (arrayLike: A) => Maybe<number>
 
   <A extends ArrayLike> (arrayLike: A[], member: unknown): Maybe<number>

@@ -17,6 +17,6 @@ export const guard = <F extends (...args: any[]) => any> (...guards: [...Guard<F
 
   return findl(
     ([...sliceTo(guards, 0, -1), defaultGuard] as Guard<F>[]),
-    compose(ap(...args), fst)
+    compose(ap(...args), fst),
   ).foldMap(compose(ap(...args), snd))!
 }

@@ -8,9 +8,6 @@ export interface FilterFn {
   <T> (array: T[], predicate: Predicate<T>): T[]
 }
 
-/**
- * @internal
- */
 export const filter = curry2(
   <T> (array: T[], predicate: Predicate<T>) => array.filter(predicate),
 ) as FilterFn

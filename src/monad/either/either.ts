@@ -24,7 +24,7 @@ export interface Either<L, R> extends Bifunctor<L, R>, Pick<Foldable<L | R>, 'fo
 
 export const eitherN = <L, R> (
   l: () => L,
-  r: R | (() => R)
+  r: R | (() => R),
 ): Either<L, NonNullable<R>> => {
   if (includes([null, undefined], r)) {
     return left(l()) as any
@@ -33,13 +33,13 @@ export const eitherN = <L, R> (
   return right(
     typeof r === 'function'
       ? (r as Function)()
-      : r
+      : r,
   ) as any
 }
 
 export const eitherS = <L, R> (
   l: (error: unknown) => L,
-  r: () => R
+  r: () => R,
 ): Either<L, R> => {
   try {
     return right(r()) as any
@@ -50,7 +50,7 @@ export const eitherS = <L, R> (
 
 export const either = async <L, R> (
   l: (error: unknown) => L,
-  r: () => Promise<R>
+  r: () => Promise<R>,
 ): Promise<Either<L, R>> => {
   return r().then(right).catch(compose(left, l)) as Promise<any>
 }

@@ -4,7 +4,7 @@ import type { ArrayLike, ArrayLikeMember } from './array-like'
 
 export interface ConcatFn {
   <A extends ArrayLike> (
-    items: ArrayLikeMember<A>[]
+    items: ArrayLikeMember<A>[],
   ): (arrayLike: A) => A
 
   <A extends ArrayLike> (

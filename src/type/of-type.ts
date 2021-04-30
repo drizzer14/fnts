@@ -42,5 +42,5 @@ interface OfTypeFn {
 export const ofType = curry2(
   (operand: unknown, type: Type): boolean => {
     return compose(eq(type), typeOf)(operand)
-  }
+  },
 ) as OfTypeFn
