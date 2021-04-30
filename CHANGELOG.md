@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-rc.5](https://github.com/drizzer14/fnts/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2021-04-30)
+
+
+### Features
+
+* rewrite the code ([c57d8a8](https://github.com/drizzer14/fnts/commit/c57d8a8d977c61ed2a32e7950c50612482be70c9))
+* update most of the functions' implementations to allow for optional currying ([67ebadc](https://github.com/drizzer14/fnts/commit/67ebadcdf661439d64078c70c9ad299554de2a06))
+
 ## [1.0.0-rc.4](https://github.com/drizzer14/fnts/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2021-04-20)
 
 
