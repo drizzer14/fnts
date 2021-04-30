@@ -36,10 +36,14 @@ export const curry2 =
     shouldCurry?: (f: FirstParameter<F> | SecondParameter<F>, s: SecondParameter<F> | undefined) => boolean,
   ) =>
     ((
-      f1: FirstParameter<F> | SecondParameter<F>,
-      s: SecondParameter<F> | undefined,
+      ...args: [
+        f1: FirstParameter<F> | SecondParameter<F>,
+        s: SecondParameter<F> | undefined
+      ]
     ) => {
-      return shouldCurry?.(f1, s) || s === undefined
+      const [f1, s] = args
+
+      return shouldCurry?.(f1, s) || args.length < fn.length
         ? (f2: FirstParameter<F>) => fn(f2, f1)
         : fn(f1, s)
     }) as Curry2

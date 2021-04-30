@@ -33,5 +33,5 @@ export const includes = curry2(
     array: T[],
     element: unknown,
   ) => includesFrom(array, element, 0),
-  (f1) => !Array.isArray(f1),
+  (f1) => !Array.isArray(f1)
 ) as ArrayIncludesFn

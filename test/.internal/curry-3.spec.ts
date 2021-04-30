@@ -1,6 +1,6 @@
 import { curry3 as sut } from 'fnts/.internal/curry-3'
 
-const subAndDiv = (a: number, b: number, c = 1): number => (a + b) / c
+const subAndDiv = (a: number, b: number, c: number): number => (a + b) / c
 
 describe('curry3', () => {
   describe('when third argument is `undefined`', () => {

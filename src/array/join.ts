@@ -8,4 +8,5 @@ export interface JoinFn {
 
 export const join = curry2(
   <T> (array: T[], separator = ',') => array.join(separator),
+  (f1) => !Array.isArray(f1)
 ) as JoinFn

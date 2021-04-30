@@ -32,11 +32,15 @@ export interface Curry3 {
 export const curry3 =
   <F extends TernaryFunction> (fn: F) =>
     ((
-      f1: FirstParameter<F> | SecondParameter<F>,
-      s: SecondParameter<F> | ThirdParameter<F>,
-      t: ThirdParameter<F> | undefined,
+      ...args: [
+        f1: FirstParameter<F> | SecondParameter<F>,
+        s: SecondParameter<F> | ThirdParameter<F>,
+        t: ThirdParameter<F> | undefined,
+      ]
     ) => {
-      return t === undefined
+      const [f1, s, t] = args
+
+      return args.length < fn.length
         ? (f2: FirstParameter<F>) => fn(f2, f1, s)
         : fn(f1, s, t)
     }) as Curry3
