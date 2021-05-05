@@ -1,4 +1,4 @@
-import type { Last } from '../tuple'
+import type { Last } from '../tuple/last'
 
 import { at } from './at'
 

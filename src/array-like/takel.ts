@@ -10,7 +10,10 @@ export interface TakelFn {
 }
 
 export const takel = curry2(
-  <A extends ArrayLike> (arrayLike: A, amount: number): A => {
+  <A extends ArrayLike> (
+    arrayLike: A,
+    amount: number
+  ): A => {
     return sliceTo(arrayLike as any[], 0, amount) as A
   },
 ) as TakelFn

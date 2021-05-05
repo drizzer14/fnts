@@ -19,7 +19,9 @@ export const just = <A> (a: A): Just<A> => {
   monad.map = (f) => compose(maybe, f)(a)
   monad.fold = () => a
   monad.foldMap = (f) => monad.map(f).fold()
-  monad.ap = <M extends Just<(arg: any) => any>> (m: M) => compose(maybe, m.foldMap)(ap(a))
+  monad.ap = <M extends Just<(arg: any) => any>> (m: M) => {
+    return compose(maybe, m.foldMap)(ap(a))
+  }
   monad.isJust = () => true
   monad.isNothing = () => false
 

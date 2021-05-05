@@ -1,5 +1,6 @@
-import { compose, Curry, curry } from '../function'
 import { curry2 } from '../.internal/curry-2'
+import { compose } from '../function/compose'
+import { Curry, curry } from '../function/curry'
 
 import type { Comparator } from './array-callback'
 

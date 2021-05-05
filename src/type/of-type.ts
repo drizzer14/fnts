@@ -5,7 +5,7 @@ import { compose } from '../function/compose'
 import { typeOf } from './type-of'
 import type { Type } from './type'
 
-interface OfTypeFn {
+export interface OfTypeFn {
   (type: 'string'): (operand: unknown) => operand is string
 
   (type: 'number'): (operand: unknown) => operand is number

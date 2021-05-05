@@ -18,7 +18,7 @@ export const flip = (<A extends ArrayLike> (arrayLike: A): A => {
       compose(flip, split('')),
     )(arrayLike as string)
     : foldr<any, any[]>(
-      (current, accumulator) => accumulator.concat(current),
+      (current, accumulator) => accumulator!.concat(current),
       [],
     )(arrayLike as any[])) as A
 }) as FlipFn

@@ -1,7 +1,7 @@
 import { ltr } from '../order/lt'
 import { identity } from '../identity'
-import { curry2 } from '../.internal/curry-2'
 import { ternary } from '../boolean/ternary'
+import { curry2 } from '../.internal/curry-2'
 
 import { add } from './add'
 import { clamp } from './clamp'

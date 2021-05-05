@@ -1,6 +1,6 @@
-import { findl } from '../array'
 import { fst } from '../tuple/fst'
 import { snd } from '../tuple/snd'
+import { findl } from '../array/findl'
 import { last } from '../array-like/last'
 import { sliceTo } from '../array-like/slice'
 

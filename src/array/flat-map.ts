@@ -12,5 +12,5 @@ export const flatMap = curry2(
   <T, R> (
     array: T[],
     transformer: Transformer<T, R>,
-  ) => array.flatMap(transformer),
+  ) => array.flatMap(transformer as any),
 ) as FlatMapFn

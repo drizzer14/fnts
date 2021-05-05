@@ -1,9 +1,5 @@
-import type { Slice } from '../tuple'
-
 import { slice } from './slice'
 import type { ArrayLike, ArrayLikeMember } from './array-like'
-
-export type Tail<T extends readonly any[]> = Slice<T, 1>
 
 export interface TailFn {
   (string: string): string

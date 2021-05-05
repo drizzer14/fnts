@@ -13,5 +13,5 @@ export const foldl = curry3(
     array: T[],
     reducer: LeftReducer<T, R>,
     initialValue: R,
-  ) => array.reduce(reducer, initialValue),
+  ) => array.reduce(reducer as any, initialValue),
 ) as FoldlFn

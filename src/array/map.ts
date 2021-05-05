@@ -12,5 +12,5 @@ export const map = curry2(
   <T, R> (
     array: T[],
     transformer: Transformer<T, R>,
-  ) => array.map(transformer),
+  ) => array.map(transformer as any),
 ) as MapFn
