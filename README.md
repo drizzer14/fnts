@@ -57,15 +57,13 @@ const sixDivByThree = divByThree(6) // 6 / 3 = 2
 [Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial):
 
 ```typescript
-import { foldl } from 'fnts/array'
 import { mul, add } from 'fnts/number'
 import type { Pair } from 'fnts/tuple'
 import { compose, pipe } from 'fnts/function'
 
 const lagrange = (points: Pair<number>[]) => (x: number): number => {
   const l = (xj: number): number => {
-    return foldl(
-      points,
+    return points.reduce(
       (p, [xi]) => xi === xj
         ? p
         : p * ((x - xi) / (xj - xi)),
@@ -73,8 +71,7 @@ const lagrange = (points: Pair<number>[]) => (x: number): number => {
     )
   }
 
-  return foldl(
-    points,
+  return points.reduce(
     (s, [xi, yi]) => pipe(
       l,
       mul(yi),
@@ -96,26 +93,24 @@ lagrange([
 Tell if a given directed graph has path between two vertices:
 
 ```typescript
-import { fst } from 'fnts/pair'
+import { head } from 'fnts/pair'
+import { not, eq } from 'fnts/boolean'
+import { comprehend } from 'fnts/list'
 import { compose } from 'fnts/function'
-import { length } from 'fnts/array-like'
-import { not, eq, bool } from 'fnts/boolean'
-import { or, filter, comprehend } from 'fnts/array'
 
 const hasPath =
   (graph: Pair<number>[]) =>
     (x: number, y: number): boolean => guard(
-      [compose(eq(0), length), () => eq(x, y)],
-      [() => eq(x, y), bool(true)],
+      [compose(eq(0), (_) => _.length), () => eq(x, y)],
+      [() => eq(x, y), () => true],
       () => {
-        const feq = compose(eq(x), fst)
-        const nonXNodes = filter(graph, compose(not, feq))
+        const heq = compose(eq(x), head)
+        const nonXNodes = graph.filter(compose(not, heq))
 
-        return or(
-          graph,
+        return graph.some(
           comprehend(
+            heq,
             ([, py]) => hasPath(nonXNodes)(py, y),
-            feq,
           )
         )
       }

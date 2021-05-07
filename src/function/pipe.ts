@@ -1,4 +1,4 @@
-import type { Last } from '../tuple/last'
+import type { Last } from '../list/last'
 
 export type Piping<
   Functions extends Array<(...args: any[]) => any>,

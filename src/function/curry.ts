@@ -1,5 +1,5 @@
-import type { Slice } from '../tuple/slice'
-import type { Gradual } from '../tuple/gradual'
+import type { Slice } from '../list/slice'
+import type { Gradual } from '../list/gradual'
 
 export type Curry<
   Function extends (...args: any[]) => any,

@@ -1,5 +1,5 @@
-import { last } from '../tuple/last'
-import { fst, snd } from '../tuple/pair'
+import { last } from '../list/last'
+import { fst, snd } from '../list/pair'
 
 import { ap } from './ap'
 import { compose } from './compose'
