@@ -4,4 +4,4 @@ export type Last<T extends any[]> =
     : any
 
 export const last =
-  <T extends any[]>(array: T): Last<T> => array[array.length - 1]
+  <T extends any[]>(list: T): Last<T> => list[list.length - 1]
