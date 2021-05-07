@@ -1,6 +1,5 @@
 import type { Functor } from '../functor'
 import type { Foldable } from '../foldable'
-import { includes } from '../../array/includes'
 
 import type { Fold } from './fold'
 import { just, Just } from './just'
@@ -24,7 +23,7 @@ export interface Maybe<A>
 }
 
 export const maybe = <A> (a: A): Maybe<NonNullable<A>> => {
-  if (includes([null, undefined], a)) {
+  if ([null, undefined].includes(a as any)) {
     return (nothing() as unknown) as Maybe<NonNullable<A>>
   }
 

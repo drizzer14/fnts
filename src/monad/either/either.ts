@@ -1,56 +1,65 @@
 import type { Foldable } from '../foldable'
 import type { Bifunctor } from '../bifunctor'
-import { includes } from '../../array/includes'
 import { compose } from '../../function/compose'
 
-import { left, Left } from './left'
-import { right, Right } from './right'
+import { left as l, Left } from './left'
+import { right as r, Right } from './right'
 
-export interface Either<L, R> extends Bifunctor<L, R>, Pick<Foldable<L | R>, 'fold'> {
-  <E extends Either<any, any>> (f: (a: L, b: R) => E): E
+export interface Either<LeftValue, RightValue>
+  extends Bifunctor<LeftValue, RightValue>,
+    Pick<Foldable<LeftValue | RightValue>, 'fold'> {
+  <Next extends Either<any, any>> (
+    binder: (left: LeftValue, right: RightValue) => Next,
+  ): Next
 
-  left<B> (f: (a: L) => B): Left<B>
+  left<Next> (left: (value: LeftValue) => Next): Left<Next>
 
-  right<B> (f: (a: R) => B): Right<B>
+  right<Next> (right: (value: RightValue) => Next): Right<Next>
 
-  map<C, D> (f: (a: L) => C, g: (b: R) => D): Either<C, D>
+  map<NextLeft, NextRight> (
+    left: (value: LeftValue) => NextLeft,
+    right: (value: RightValue) => NextRight,
+  ): Either<NextLeft, NextRight>
 
-  foldMap<C, D> (f: (a: L) => C, g: (b: R) => D): C | D
+  foldMap<ReturnLeft, ReturnRight> (
+    left: (value: LeftValue) => ReturnLeft,
+    right: (value: RightValue) => ReturnRight,
+  ): ReturnLeft | ReturnRight
 
-  isLeft (): this is Left<L>
+  isLeft (): this is Left<LeftValue>
 
-  isRight (): this is Right<R>
+  isRight (): this is Right<RightValue>
 }
 
-export const eitherN = <L, R> (
-  l: () => L,
-  r: R | (() => R),
-): Either<L, NonNullable<R>> => {
-  if (includes([null, undefined], r)) {
-    return left(l()) as any
+export const eitherN = <Left, Right> (
+  left: () => Left,
+  right: Right | (() => Right),
+): Either<Left, NonNullable<Right>> => {
+  if ([null, undefined].includes(r as any)) {
+    return l(left()) as any
   }
 
-  return right(
-    typeof r === 'function'
-      ? (r as Function)()
-      : r,
+  return r(
+    typeof right === 'function'
+      ? (right as Function)()
+      : right,
   ) as any
 }
 
-export const eitherS = <L, R> (
-  l: (error: unknown) => L,
-  r: () => R,
-): Either<L, R> => {
+export const eitherS = <Left, Right> (
+  left: (error: unknown) => Left,
+  right: () => Right,
+): Either<Left, Right> => {
   try {
-    return right(r()) as any
+    return r(right()) as any
   } catch (error) {
-    return compose(left, l)(error) as any
+    return compose(l, left)(error) as any
   }
 }
 
-export const either = async <L, R> (
-  l: (error: unknown) => L,
-  r: () => Promise<R>,
-): Promise<Either<L, R>> => {
-  return r().then(right).catch(compose(left, l)) as Promise<any>
+export const either = async <Left, Right> (
+  left: (error: unknown) => Left,
+  right: () => Promise<Right>,
+): Promise<Either<Left, Right>> => {
+  return right().then(r).catch(compose(l, left)) as Promise<any>
 }

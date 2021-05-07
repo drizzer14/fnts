@@ -1,22 +1,27 @@
-import { fst } from '../tuple/fst'
-import { snd } from '../tuple/snd'
-import { findl } from '../array/findl'
-import { last } from '../array-like/last'
-import { sliceTo } from '../array-like/slice'
+import { last } from '../tuple/last'
+import { fst, snd } from '../tuple/pair'
 
 import { ap } from './ap'
 import { compose } from './compose'
 
-export type Guard<F extends (...args: any[]) => any> = [
-  <G extends boolean>(...args: Parameters<F>) => G,
-  F
+export type Guard<Function extends (...args: any[]) => any> = [
+  <Result extends boolean>(...args: Parameters<Function>) => Result,
+  Function
 ]
 
-export const guard = <F extends (...args: any[]) => any> (...guards: [...Guard<F>[], F]) => (...args: Parameters<F>): ReturnType<F> => {
-  const defaultGuard = [() => true, last(guards)] as Guard<F>
+export const guard =
+  <Function extends (...args: any[]) => any> (
+    ...guards: [...Guard<Function>[], Function]
+  ) =>
+    (...args: Parameters<Function>): ReturnType<Function> => {
+      const defaultGuard: Guard<Function> = [() => true, last(guards)]
 
-  return findl(
-    ([...sliceTo(guards, 0, -1), defaultGuard] as Guard<F>[]),
-    compose(ap(...args), fst),
-  ).foldMap(compose(ap(...args), snd))!
-}
+      return compose(
+        ap(...args),
+        snd,
+      )(
+        ([...guards.slice(0, -1), defaultGuard] as Guard<Function>[]).find(
+          compose(ap(...args), fst),
+        )!,
+      )
+    }

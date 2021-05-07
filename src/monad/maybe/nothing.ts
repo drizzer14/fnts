@@ -1,13 +1,13 @@
 import type { Maybe } from './maybe'
 
 export interface Nothing extends Maybe<undefined> {
-  <M extends Maybe<any>> (f: (a: any) => M): M
+  <M extends Maybe<any>> (binder: (value: any) => M): M
 
   fold (): undefined
 
-  foldMap<B> (f: (a: any) => B): undefined
+  foldMap<Return> (mapper: (value: any) => Return): undefined
 
-  map<B> (f: (a: any) => B): Nothing
+  map<Return> (mapper: (value: any) => Return): Nothing
 
   isJust (): false
 

@@ -1,9 +1,7 @@
-import { includes } from '../array/includes'
-
 import { not } from './not'
 
-export const nnot = <T> (x: T): boolean => {
-  if (includes([0, ''], x)) {
+export const nnot = <Value> (x: Value): boolean => {
+  if ([0, ''].includes(x as any)) {
     return false
   }
 

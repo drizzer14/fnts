@@ -19,4 +19,21 @@ describe('curry', () => {
       ).toBe(3)
     })
   })
+
+  describe('when applied arguments count is less than the specified count', () => {
+    it('should return a new function which expects the rest of the arguments', () => {
+      expect(
+        sut(fn, 2)(2)(1),
+      ).toBe(3)
+    })
+  })
+
+  describe('when applied arguments count is more than the specified count', () => {
+    it('should apply only the count of arguments the function expects', () => {
+      expect(
+        // @ts-expect-error
+        sut(fn, 2)(1, 2, 3),
+      ).toBe(3)
+    })
+  })
 })

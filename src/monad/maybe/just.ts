@@ -3,24 +3,24 @@ import { compose } from '../../function/compose'
 
 import { maybe, Maybe } from './maybe'
 
-export interface Just<A> extends Maybe<A> {
-  fold (): A
+export interface Just<Value> extends Maybe<Value> {
+  fold (): Value
 
-  foldMap<B> (f: (a: A) => B): B
+  foldMap<Return> (mapper: (value: Value) => Return): Return
 
-  isJust (): this is Just<A>
+  isJust (): this is Just<Value>
 
   isNothing (): false
 }
 
-export const just = <A> (a: A): Just<A> => {
-  const monad: Just<A> = (f) => f(a)
+export const just = <Value> (value: Value): Just<Value> => {
+  const monad: Just<Value> = (binder) => binder(value)
 
-  monad.map = (f) => compose(maybe, f)(a)
-  monad.fold = () => a
-  monad.foldMap = (f) => monad.map(f).fold()
+  monad.map = (mapper) => compose(maybe, mapper)(value)
+  monad.fold = () => value
+  monad.foldMap = (mapper) => monad.map(mapper).fold()
   monad.ap = <M extends Just<(arg: any) => any>> (m: M) => {
-    return compose(maybe, m.foldMap)(ap(a))
+    return compose(maybe, m.foldMap)(ap(value))
   }
   monad.isJust = () => true
   monad.isNothing = () => false

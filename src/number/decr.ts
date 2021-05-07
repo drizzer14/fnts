@@ -1,3 +1,3 @@
-import { subtOf } from './subt'
+import { subt } from './subt'
 
-export const decr = subtOf(1)
+export const decr = subt(1)

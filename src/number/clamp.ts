@@ -1,13 +1,13 @@
-import { curry3 } from '../.internal/curry-3'
+import { permutationOf3 } from '../.internal/permutation-of-3'
 
 export interface ClampFn {
-  (min: number, max: number): (x: number) => number
+  (min: number, max: number): (number: number) => number
 
-  (x: number, min: number, max: number): number
+  (number: number, min: number, max: number): number
 }
 
-export const clamp = curry3(
-  (x: number, min: number, max: number): number => {
-    return Math.max(Math.min(x, max), min)
+export const clamp = permutationOf3(
+  (number: number, min: number, max: number): number => {
+    return Math.max(Math.min(number, max), min)
   },
 ) as ClampFn

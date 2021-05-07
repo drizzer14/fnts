@@ -1,30 +1,30 @@
-import { foldl } from '../array/foldl'
 import type { Last } from '../tuple/last'
 
 export type Piping<
-  FS extends Array<(...args: any[]) => any>,
-  L extends number = FS['length']
+  Functions extends Array<(...args: any[]) => any>,
+  Length extends number = Functions['length']
 > =
-  L extends 1
-    ? FS
-    : FS extends [infer F, infer S, ...infer R]
+  Length extends 1
+    ? Functions
+    : Functions extends [infer First, infer Second, ...infer Rest]
       ? [
-        F,
+        First,
         ...Piping<
           // Weirdly `R`, `F` and `S`, which we extended from unary function type,
           // are not considered as functions in this expression
           // @ts-ignore
-          [(arg: ReturnType<F>) => ReturnType<S>, ...R]
+          [(arg: ReturnType<First>) => ReturnType<Second>, ...Rest]
         >
       ]
       : any
 
-export const pipe = <FS extends Array<(arg: any) => any>> (
-  ...fs: Piping<FS>
-) => (arg: Parameters<FS[0]>[0]): ReturnType<Last<FS>> => {
-  return foldl<(arg: any) => any, any>(
-    fs,
-    (current, accumulator) => current(accumulator),
-    arg,
-  )
-}
+export const pipe =
+  <Functions extends Array<(arg: any) => any>> (
+    ...functions: Piping<Functions>
+  ) =>
+    (arg: Parameters<Functions[0]>[0]): ReturnType<Last<Functions>> => {
+      return (functions as any[]).reduce(
+        (current, accumulator) => current(accumulator),
+        arg,
+      )
+    }

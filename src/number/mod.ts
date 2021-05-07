@@ -1,7 +1,11 @@
-import { curry } from '../function/curry'
+import { permutationOf2 } from '../.internal/permutation-of-2'
 
-export const mod = curry(
-  (x: number, m: number): number => x % m,
-)
+export interface ModFn {
+  (divisor: number): (dividend: number) => number
 
-export const modOf = (m: number) => (x: number): number => mod(x, m)
+  (dividend: number, divisor: number): number
+}
+
+export const mod = permutationOf2(
+  (dividend: number, divisor: number): number => dividend % divisor,
+) as ModFn

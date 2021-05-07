@@ -1,7 +1,11 @@
-import { curry } from '../function/curry'
+import { permutationOf2 } from '../.internal/permutation-of-2'
 
-export const subt = curry(
-  (a: number, b: number): number => a - b,
-)
+export interface SubtFn {
+  (subtrahend: number): (minuend: number) => number
 
-export const subtOf = (b: number) => (a: number): number => subt(a, b)
+  (minuend: number, subtrahend: number): number
+}
+
+export const subt = permutationOf2(
+  (minuend: number, subtrahend: number): number => minuend - subtrahend,
+) as SubtFn

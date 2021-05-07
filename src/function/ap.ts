@@ -1,16 +1,16 @@
 export interface ApFn {
-  <F extends (arg: any) => any> (
-    arg: Parameters<F>[0]
-  ): (f: F) => ReturnType<F>
+  <Function extends (arg: any) => any> (
+    arg: Parameters<Function>[0]
+  ): (fn: Function) => ReturnType<Function>
 
-  <F extends (...args: any[]) => any> (
-    ...args: Parameters<F>
-  ): (f: F) => ReturnType<F>
+  <Function extends (...args: any[]) => any> (
+    ...args: Parameters<Function>
+  ): (fn: Function) => ReturnType<Function>
 }
 
 export const ap = (
-  <F extends (...args: any[]) => any> (...args: Parameters<F>) =>
-    (f: F): ReturnType<F> => {
-      return f(...args)
+  <Function extends (...args: any[]) => any> (...args: Parameters<Function>) =>
+    (fn: Function): ReturnType<Function> => {
+      return fn(...args)
     }
 ) as ApFn

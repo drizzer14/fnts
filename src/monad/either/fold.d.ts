@@ -1,5 +1,11 @@
 import type { Either } from './either'
 
-export type FoldLeft<E extends Either<any, any>> = E extends Either<infer L, any> ? L : never
+export type FoldLeft<Return extends Either<any, any>> =
+  Return extends Either<infer Left, any>
+    ? Left
+    : never
 
-export type FoldRight<E extends Either<any, any>> = E extends Either<any, infer R> ? R : never
+export type FoldRight<Return extends Either<any, any>> =
+  Return extends Either<any, infer Right>
+    ? Right
+    : never

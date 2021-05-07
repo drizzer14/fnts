@@ -1,3 +1,3 @@
-export interface Functor<A> {
-  map<B> (f: (a: A) => B): B
+export interface Functor<Value> {
+  map<Next> (mapper: (value: Value) => Next): Next
 }

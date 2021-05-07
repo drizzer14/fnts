@@ -1,1 +1,1 @@
-export const neg = (x: number): number => x >= 0 ? -x : x
+export const neg = (number: number): number => number >= 0 ? -number : number

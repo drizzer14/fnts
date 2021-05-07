@@ -1,23 +1,39 @@
-import type { Gradual, Slice } from '../tuple'
+import type { Slice } from '../tuple/slice'
+import type { Gradual } from '../tuple/gradual'
 
-export type Curry<F extends (...args: any[]) => any> =
-  <A extends Gradual<Parameters<F>>>(...args: A) =>
-    A['length'] extends 1
-      ? (arg: Parameters<F>[0]) => ReturnType<F>
-      : A['length'] extends Parameters<F>['length']
-        ? ReturnType<F>
-        : Curry<(...args: Slice<Parameters<F>, A['length']>) => ReturnType<F>>
+export type Curry<
+  Function extends (...args: any[]) => any,
+  Length extends number = Parameters<Function>['length']
+> =
+  <Args extends Gradual<Parameters<Function>>>(...args: Args) =>
+    Args['length'] extends 1
+      ? (arg: Parameters<Function>[0]) => ReturnType<Function>
+      : Args['length'] extends Length
+        ? ReturnType<Function>
+        : Curry<
+          (
+            ...args: Slice<Parameters<Function>, Args['length']>
+          ) => ReturnType<Function>
+        >
 
-export function curry<F extends (...args: any[]) => any> (f: F): Curry<F> {
-  return <A extends Gradual<Parameters<F>>> (...args: A) => {
-    if (args.length > f.length) {
-      return f(...args.slice(0, f.length))
+export const curry = <
+  Function extends (...args: any[]) => any,
+  Length extends number = Parameters<Function>['length']
+> (
+  fn: Function,
+  length = fn.length as Length
+): Curry<Function, Length> => {
+  return <A extends Gradual<Parameters<Function>>> (...args: A) => {
+    const argsLength = args.length
+
+    if (argsLength > length) {
+      return fn(...args.slice(0, length))
     }
 
-    if (args.length === f.length) {
-      return f(...args)
+    if (argsLength === length) {
+      return fn(...args)
     }
 
-    return curry(f.bind(null, ...args))
+    return curry(fn.bind(null, ...args))
   }
 }

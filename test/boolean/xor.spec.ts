@@ -7,7 +7,7 @@ describe('xor', () => {
         [1, 1],
         [0, 0],
       ].forEach(([a, b]) => {
-        expect(sut(a)(b)).toBe(false)
+        expect(sut(a, b)).toBe(false)
       })
     })
   })
@@ -18,7 +18,7 @@ describe('xor', () => {
         [1, 0],
         [0, 1],
       ].forEach(([a, b]) => {
-        expect(sut(a)(b)).toBe(true)
+        expect(sut(a, b)).toBe(true)
       })
     })
   })

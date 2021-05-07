@@ -1,7 +1,11 @@
-import { curry } from '../function/curry'
+import { permutationOf2 } from '../.internal/permutation-of-2'
 
-export const exp = curry(
-  (x: number, p: number): number => x ** p,
-)
+export interface ExpFn {
+  (power: number): (base: number) => number
 
-export const expTo = (p: number) => (x: number): number => exp(x, p)
+  (base: number, power: number): number
+}
+
+export const exp = permutationOf2(
+  (base: number, power: number): number => base ** power,
+) as ExpFn

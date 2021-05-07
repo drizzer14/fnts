@@ -1,30 +1,30 @@
-import { foldr } from '../array/foldr'
 import type { Last } from '../tuple/last'
 
 export type Composition<
-  FS extends Array<(...args: any[]) => any>,
-  L extends number = FS['length']
+  Functions extends Array<(...args: any[]) => any>,
+  Length extends number = Functions['length']
 > =
-  L extends 1
-    ? FS
-    : FS extends [...infer R, infer S, infer F]
+  Length extends 1
+    ? Functions
+    : Functions extends [...infer Rest, infer Penultimate, infer Last]
       ? [
         ...Composition<
           // Weirdly `R`, `F` and `S`, which we extended from unary function type,
           // are not considered as functions in this expression
           // @ts-ignore
-          [...R, (arg: ReturnType<F>) => ReturnType<S>]
+          [...Rest, (arg: ReturnType<Last>) => ReturnType<Penultimate>]
         >,
-        F
+        Last
       ]
       : any
 
-export const compose = <FS extends Array<(arg: any) => any>> (
-  ...fs: Composition<FS>
-) => (arg: Parameters<Last<FS>>[0]): ReturnType<FS[0]> => {
-  return foldr<(arg: any) => any, any>(
-    fs,
-    (current, accumulator) => current(accumulator),
-    arg,
-  )
-}
+export const compose =
+  <Functions extends Array<(arg: any) => any>> (
+    ...functions: Composition<Functions>
+  ) =>
+    (arg: Parameters<Last<Functions>>[0]): ReturnType<Functions[0]> => {
+      return (functions as any[]).reduceRight(
+        (accumulator, current) => current(accumulator),
+        arg,
+      )
+    }

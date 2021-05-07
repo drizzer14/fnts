@@ -1,5 +1,5 @@
-export interface Foldable<A> {
-  fold (): A
+export interface Foldable<Value> {
+  fold (): Value
 
-  foldMap<B> (f: (a: A) => B): B
+  foldMap<Return> (mapper: (value: Value) => Return): Return
 }

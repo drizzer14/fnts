@@ -1,1 +1,1 @@
-export const show = <T extends number> (x: T): `${T}` => `${x}` as const
+export const show = <T extends number> (number: T): `${T}` => `${number}` as const

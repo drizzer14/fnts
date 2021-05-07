@@ -1,32 +1,41 @@
-import { ap } from '../../function/ap'
 import { compose } from '../../function/compose'
 
 import type { Either } from './either'
 
-export interface Right<A> extends Either<never, A> {
-  <E extends Either<any, any>> (f: (a: A) => E): E
+export interface Right<Value> extends Either<never, Value> {
+  <Next extends Either<any, any>> (binder: (value: Value) => Next): Next
 
   left (): never
 
-  right<B> (f: (a: A) => B): Right<B>
+  right<Next> (mapper: (value: Value) => Next): Right<Next>
 
-  map<C, D> (f: (a: never) => C, g: (b: A) => D): Right<D>
+  map<NextLeft, NextRight> (
+    left: (value: never) => NextLeft,
+    right: (value: Value) => NextRight
+  ): Right<NextRight>
 
-  foldMap<C, D> (f: (a: never) => C, g: (b: A) => D): D
+  foldMap<ReturnLeft, ReturnRight> (
+    left: (value: never) => ReturnLeft,
+    right: (value: Value) => ReturnRight
+  ): ReturnRight
 
   isLeft (): false
 
-  isRight (): this is Right<A>
+  isRight (): this is Right<Value>
 }
 
-export const right = <A> (a: A): Right<A> => {
-  const monad = ap(a) as Right<A>
+export const right = <Value> (value: Value): Right<Value> => {
+  const monad = (
+    <Next extends Either<any, any>>(
+      binder: (value: Value) => Next
+    ): Next => binder(value)
+  ) as Right<Value>
 
-  monad.fold = () => a
-  monad.foldMap = (_, g) => monad.map(() => undefined, g).fold()
-  monad.map = (_, g) => compose(right, g)(a)
+  monad.fold = () => value
+  monad.foldMap = (_, mapper) => monad.map(() => undefined, mapper).fold()
+  monad.map = (_, mapper) => compose(right, mapper)(value)
   monad.left = () => undefined as never
-  monad.right = (f) => compose(right, f)(a)
+  monad.right = (mapper) => compose(right, mapper)(value)
   monad.isLeft = () => false
   monad.isRight = () => true
 

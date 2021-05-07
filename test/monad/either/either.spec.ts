@@ -1,14 +1,16 @@
-import { either as sut, eitherN as sutN, eitherS as sutS } from 'fnts/monad/either'
+import { either, eitherN, eitherS } from 'fnts/monad/either'
 
 describe('either', () => {
   describe('eitherN – nullable', () => {
+    const sut = eitherN
+
     describe('when provided a nullable value', () => {
       it('should produce left monad', () => {
         [
           null,
           undefined,
         ].forEach((value) => {
-          const monad = sutN(() => value, value)
+          const monad = sut(() => value, value)
 
           expect(monad.isLeft()).toBe(true)
           expect(monad.isRight()).toBe(false)
@@ -31,7 +33,7 @@ describe('either', () => {
           false,
           Symbol.for('test'),
         ].forEach((value) => {
-          const monad = sutN(() => value, value)
+          const monad = sut(() => value, value)
 
           expect(monad.isLeft()).toBe(false)
           expect(monad.isRight()).toBe(true)
@@ -41,9 +43,11 @@ describe('either', () => {
   })
 
   describe('eitherS – sync', () => {
+    const sut = eitherS
+
     describe('when right function throws', () => {
       it('should produce left monad', () => {
-        const monad = sutS(
+        const monad = sut(
           (error) => (error as Error).message,
           () => {
             throw new Error('left')
@@ -57,7 +61,7 @@ describe('either', () => {
 
     describe('when right function resolves successfully', () => {
       it('should produce right monad', () => {
-        const monad = sutS(
+        const monad = sut(
           (error) => (error as Error).message,
           () => 5,
         )
@@ -69,6 +73,8 @@ describe('either', () => {
   })
 
   describe('either – async', () => {
+    const sut = either
+
     describe('when right function rejects', () => {
       it('should produce left monad', async () => {
         const monad = await sut(

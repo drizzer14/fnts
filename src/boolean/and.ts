@@ -1,7 +1,10 @@
-import { curry } from '../function/curry'
+export const and = (...args: unknown[]): boolean => {
+  const length = args.length
+  let target = false
 
-export const and = curry(
-  <A, B> (a: A, b: B): boolean => {
-    return Boolean(a) && Boolean(b)
-  },
-)
+  for (let index = 0; index < length; index += 1) {
+    target = Boolean(args[index]) && target
+  }
+
+  return target
+}

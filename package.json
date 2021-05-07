@@ -21,6 +21,7 @@
     "build": "npm-run-all -p build:dts build:js",
     "pretest": "tsc -p tsconfig.ci.json",
     "test": "jest",
+    "test:cov": "jest --coverage",
     "ci": "npm-run-all -s build test",
     "bump": "standard-version",
     "prerelease": "node scripts/prerelease.js",

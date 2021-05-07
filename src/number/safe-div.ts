@@ -1,11 +1,10 @@
-import { curry } from '../function/curry'
+import { permutationOf2 } from '../.internal/permutation-of-2'
 
-import { div } from './div'
+import { div, DivFn } from './div'
 
-export const safeDiv = curry(
-  (a: number, b: number): number => {
-    return div(a, b || 1)
-  },
-)
-
-export const safeDivBy = (b: number, a: number): number => safeDiv(a, b)
+export const safeDiv = permutationOf2(
+  (
+    dividend: number,
+    divisor: number
+  ): number => div(dividend, divisor || 1),
+) as DivFn

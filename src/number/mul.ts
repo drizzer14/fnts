@@ -1,5 +1,8 @@
 import { curry } from '../function/curry'
 
 export const mul = curry(
-  (a: number, b: number): number => a * b,
+  (
+    multiplicand: number,
+    multiplier: number
+  ): number => multiplicand * multiplier,
 )

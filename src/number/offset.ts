@@ -1,25 +1,25 @@
-import { ltr } from '../order/lt'
+import { lt } from '../ord/lt'
 import { identity } from '../identity'
 import { ternary } from '../boolean/ternary'
-import { curry2 } from '../.internal/curry-2'
+import { permutationOf2 } from '../.internal/permutation-of-2'
 
 import { add } from './add'
 import { clamp } from './clamp'
 
 export interface OffsetFn {
-  (max: number): (x: number) => number
+  (max: number): (number: number) => number
 
-  (x: number, max: number): number
+  (number: number, max: number): number
 }
 
-export const offset = curry2(
-  (x: number, max: number) => {
+export const offset = permutationOf2(
+  (number: number, max: number) => {
     return clamp(
       ternary(
-        ltr(0),
+        lt(0),
         add(max),
         identity,
-      )(x),
+      )(number),
       0,
       max,
     )

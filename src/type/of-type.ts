@@ -1,5 +1,5 @@
 import { eq } from '../boolean/eq'
-import { curry2 } from '../.internal/curry-2'
+import { permutationOf2 } from '../.internal/permutation-of-2'
 import { compose } from '../function/compose'
 
 import { typeOf } from './type-of'
@@ -39,7 +39,7 @@ export interface OfTypeFn {
   (operand: unknown, type: 'function'): operand is Function
 }
 
-export const ofType = curry2(
+export const ofType = permutationOf2(
   (operand: unknown, type: Type): boolean => {
     return compose(eq(type), typeOf)(operand)
   },
