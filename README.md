@@ -57,8 +57,8 @@ const sixDivByThree = divByThree(6) // 6 / 3 = 2
 [Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial):
 
 ```typescript
+import type { Pair } from 'fnts/list'
 import { mul, add } from 'fnts/number'
-import type { Pair } from 'fnts/tuple'
 import { compose, pipe } from 'fnts/function'
 
 const lagrange = (points: Pair<number>[]) => (x: number): number => {
@@ -95,8 +95,8 @@ Tell if a given directed graph has path between two vertices:
 ```typescript
 import { head } from 'fnts/pair'
 import { not, eq } from 'fnts/boolean'
-import { comprehend } from 'fnts/list'
 import { compose } from 'fnts/function'
+import { comprehend, Pair} from 'fnts/list'
 
 const hasPath =
   (graph: Pair<number>[]) =>
@@ -129,7 +129,7 @@ hasPath([
 
 This project was made as a fun excercise around functional programming
 principlces. It comes nowhere near more serious projects described below as
-alternatives, so treat it as the utilitary toy making it easier to approach FP
+alternatives, so treat it as the utilitary toy facilitating the approach to FP
 in TypeScript.
 
 ## Alternatives
