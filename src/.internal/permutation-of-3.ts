@@ -1,4 +1,4 @@
-import { FirstParameter, SecondParameter } from './permutation-of-2'
+import type { FirstParameter, SecondParameter } from './permutation-of-2'
 
 /**
  * @internal

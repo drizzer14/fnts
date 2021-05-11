@@ -6,13 +6,13 @@ type BinaryFunction = (a: any, b: any) => any
 /**
  * @internal
  */
-export type FirstParameter<Function extends BinaryFunction> =
+export type FirstParameter<Function extends (...args: any[]) => any> =
   Parameters<Function>[0]
 
 /**
  * @internal
  */
-export type SecondParameter<Function extends BinaryFunction> =
+export type SecondParameter<Function extends (...args: any[]) => any> =
   Parameters<Function>[1]
 
 /**
