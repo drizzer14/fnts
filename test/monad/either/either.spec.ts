@@ -10,7 +10,7 @@ describe('either', () => {
           null,
           undefined,
         ].forEach((value) => {
-          const monad = sut(() => value, value)
+          const monad = sut(() => value, () => value)
 
           expect(monad.isLeft()).toBe(true)
           expect(monad.isRight()).toBe(false)
@@ -33,7 +33,7 @@ describe('either', () => {
           false,
           Symbol.for('test'),
         ].forEach((value) => {
-          const monad = sut(() => value, value)
+          const monad = sut(() => value, () => value)
 
           expect(monad.isLeft()).toBe(false)
           expect(monad.isRight()).toBe(true)

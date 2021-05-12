@@ -33,16 +33,14 @@ export interface Either<LeftValue, RightValue>
 
 export const eitherN = <Left, Right> (
   left: () => Left,
-  right: Right | (() => Right),
+  right: () => Right,
 ): Either<Left, NonNullable<Right>> => {
-  if ([null, undefined].includes(r as any)) {
+  if ([null, undefined].includes(right() as any)) {
     return l(left()) as any
   }
 
   return r(
-    typeof right === 'function'
-      ? (right as Function)()
-      : right,
+    right()
   ) as any
 }
 
