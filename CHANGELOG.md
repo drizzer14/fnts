@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-rc.8](https://github.com/drizzer14/fnts/compare/v1.0.0-rc.7...v1.0.0-rc.8) (2021-05-13)
+
+
+### Features
+
+* **list:** place `filter` before `map` in `comprehend` arguments' order ([d427fae](https://github.com/drizzer14/fnts/commit/d427fae756d2d9b95df17a7f50e625763ca7b5a4))
+* **list:** update types for list functions ([9d2d17c](https://github.com/drizzer14/fnts/commit/9d2d17c5ba91b1e9e94dd17525b9602158826db1))
+
 ## [1.0.0-rc.7](https://github.com/drizzer14/fnts/compare/v1.0.0-rc.5...v1.0.0-rc.7) (2021-05-12)
 
 
