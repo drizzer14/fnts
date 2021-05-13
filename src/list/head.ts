@@ -1,3 +1,4 @@
-export type Head<T extends any[]> = T[0]
+export type Head<T extends any[] | readonly any[]> = T[0]
 
-export const head = <T extends any[]> (list: T): Head<T> => list[0]
+export const head =
+  <T extends any[] | readonly any[]> (list: T): Head<T> => list[0]
