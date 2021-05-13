@@ -13,8 +13,8 @@ export interface ComprehendFn {
 export const comprehend = permutationOf3(
   <T, R = T> (
     list: T[],
+    filter: Predicate<T>,
     map: Mapper<T, R>,
-    filter: Predicate<T>
   ): R[] => {
     const length = list.length
     const target: R[] = []
