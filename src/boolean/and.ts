@@ -3,7 +3,7 @@ export const and = (...args: unknown[]): boolean => {
   let target = false
 
   for (let index = 0; index < length; index += 1) {
-    target = Boolean(args[index]) && target
+    target = Boolean(args[index]) || target
   }
 
   return target

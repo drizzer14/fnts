@@ -13,7 +13,11 @@ export const xor = (...args: unknown[]): boolean => {
     if (!current && !hasFalse) {
       hasFalse = true
     }
+
+    if (hasTrue && hasFalse) {
+      return true
+    }
   }
 
-  return hasTrue && hasFalse
+  return false
 }
