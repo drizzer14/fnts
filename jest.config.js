@@ -7,7 +7,7 @@ module.exports = {
 	testRegex: '.*\\.spec.ts$',
 	preset: 'ts-jest/presets/js-with-babel',
 	rootDir: './',
-	roots: ['<rootDir>/src', '<rootDir>/test'],
+	roots: ['<rootDir>/src', '<rootDir>/tests'],
 	globals: {
   	'ts-jest': {
   		tsconfig: '<rootDir>/tsconfig.spec.json',

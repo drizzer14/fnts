@@ -9,5 +9,6 @@
     "declaration": false
   },
   
-  "include": ["src", "test", "jest.config.js"]
+  "include": ["src",
+    "tests", "jest.config.js"]
 }
