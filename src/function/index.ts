@@ -1,5 +1,0 @@
-export * from './ap'
-export * from './pipe'
-export * from './guard'
-export * from './curry'
-export * from './compose'
