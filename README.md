@@ -33,103 +33,59 @@ TypeScript / JavaScript functional programming utilities inspired by the
 
 ## Usage
 
-```typescript
-import { add } from 'fnts/number'
-
-const onePlusTwo = add(1, 2) // 1 + 2 = 3
-const addToOne = add(1) // b => b + 1
-const onePlusThree = addToOne(3) // 3 + 1 = 4
-```
-
-There are cases with anticommutative operations, such as division, that have two
-variants of the same function preserving the desired order of calculation:
+Every function comes with its own module providing the named export of every public API 
+and default export of the function itself:
 
 ```typescript
-import { div, divBy } from 'fnts/number'
-
-const fourDivByTwo = div(4, 2) // 4 / 2 = 2
-const divByThree = divBy(3) // a => a / 3
-const sixDivByThree = divByThree(6) // 6 / 3 = 2 
+import compose from 'fnts/compose'
+import maybe, { Maybe } from 'fnts/maybe'
 ```
 
-## Examples
-
-[Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial):
+Also, it is possible to import everything from the root by name:
 
 ```typescript
-import type { Pair } from 'fnts/list'
-import { mul, add } from 'fnts/number'
-import { compose, pipe } from 'fnts/function'
-
-const lagrange = (points: Pair<number>[]) => (x: number): number => {
-  const l = (xj: number): number => {
-    return points.reduce(
-      (p, [xi]) => xi === xj
-        ? p
-        : p * ((x - xi) / (xj - xi)),
-      1
-    )
-  }
-
-  return points.reduce(
-    (s, [xi, yi]) => pipe(
-      l,
-      mul(yi),
-      add(s),
-    )(xi),
-    0
-  )
-}
-
-lagrange([
-  [1, 1], [2, 4], [3, 9]
-])(6) // 36 – interpolates 6 through parabola (y = x^2)
-
-lagrange([
-  [1, 1], [2, 8], [3, 27]
-])(2) // 8 – interpolates 2 through hyperbola (y = x^3)
+import { compose, maybe, identity } from 'fnts'
 ```
 
-Tell if a given directed graph has path between two vertices:
+### Currying
 
-```typescript
-import { head } from 'fnts/pair'
-import { not, eq } from 'fnts/boolean'
-import { compose } from 'fnts/function'
-import { comprehend, Pair} from 'fnts/list'
+The [curry](src/curry.ts) function is an attempt to create 
+a generic currying without relying on overloads.
+It supports the currying of functions with a set amount of arguments, 
+as well as variadic functions or the functions with optional arguments.
+The last two, though, require you to set the threshold upon which to curry them,
+as JavaScript does not supply the information about the number of arguments
+in those kinds of functions.
 
-const hasPath =
-  (graph: Pair<number>[]) =>
-    (x: number, y: number): boolean => guard(
-      [compose(eq(0), (_) => _.length), () => eq(x, y)],
-      [() => eq(x, y), () => true],
-      () => {
-        const heq = compose(eq(x), head)
-        const nonXNodes = graph.filter(compose(not, heq))
+### Composition and pipelines
 
-        return graph.some(
-          comprehend(
-            heq,
-            ([, py]) => hasPath(nonXNodes)(py, y),
-          )
-        )
-      }
-    )(graph)
+[Compose](src/compose.ts) and [pipe](src/pipe.ts) functions you'll encounter
+here are pretty unique in their implementation, as they also are described 
+generically rather than through overloads. 
+If you encounter any unexpected behaviour in them, 
+please feel free to create an [issue](https://github.com/drizzer14/fnts/issues).
 
-hasPath([
-  [1, 2], [2, 3], [3, 2], [4, 3], [4, 5]
-])(1, 3) // true
+### Monads
 
-hasPath([
-  [1, 2], [2, 3], [3, 2], [4, 3], [4, 5]
-])(3, 5) // false
-```
+There are two commonly used monads in this package: 
+[Maybe](src/maybe/maybe.ts) and [Either](src/either/either.ts).
+
+Both have their own set of constructors, which rely upon special tags
+represented through symbols – this way the "operators" know you pass them
+the objects related to those monads 
+(e.g. [just](src/maybe/maybe.ts) and [nothing](src/maybe/maybe.ts) from `Maybe` monad).
+
+For both monads there are aforementioned operators, 
+which can perform different transformations on their monads.
+These operators look just like plain functions, so, 
+if you are familiar with Haskell or RxJS, 
+you should quickly get a grasp on them.
 
 ## Motivation
 
-This project was made as a fun excercise around functional programming
-principlces. It comes nowhere near more serious projects described below as
-alternatives, so treat it as the utilitary toy facilitating the approach to FP
+This project was made as a fun exercise around functional programming
+principles. It comes nowhere near more serious projects described below as
+alternatives, so treat it as the utility toy facilitating the approach to FP
 in TypeScript.
 
 ## Alternatives
