@@ -1,6 +1,6 @@
 {
   "name": "fnts",
-  "version": "1.0.0-rc.8",
+  "version": "1.0.0",
   "license": "MIT",
   "author": "Dmytro Vasylkivskyi",
   "description": "TypeScript / JavaScript FP utilities",
