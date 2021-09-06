@@ -1,6 +1,3 @@
-/**
- * @internal
- */
 export const jid = Symbol.for('@@functional/just')
 
 /**
@@ -21,9 +18,6 @@ export const just = <Value>(value: Value): Just<Value> => ({
   [jid]: value as Exclude<Value, null | undefined>
 })
 
-/**
- * @internal
- */
 export const nid = Symbol.for('@@functional/nothing')
 
 /**
