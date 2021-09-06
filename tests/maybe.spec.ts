@@ -1,5 +1,5 @@
-import sut, { just, Maybe } from 'fnts/maybe'
-import { bind, fmap, fold, isJust, isNothing } from 'fnts/maybe/operators'
+import sut, { just, Maybe, nothing } from 'fnts/maybe'
+import { bind, fmap, fold, isJust, isNothing, foldMap } from 'fnts/maybe/operators'
 
 describe('maybe', () => {
   describe('when provided with a non-nullable value', () => {
@@ -88,6 +88,30 @@ describe('maybe', () => {
         it('should return `null`', () => {
           expect(
             fold(sut(undefined))
+          ).toBe(null)
+        })
+      })
+    })
+
+    describe('foldMap', () => {
+      describe('when provided with a `just` wrapper', () => {
+        it('should map and return the wrapped value', () => {
+          expect(
+            foldMap(
+              just(5),
+              (x) => x + 1
+            )
+          ).toBe(6)
+        })
+      })
+
+      describe('when provided with a `nothing` wrapper', () => {
+        it('should return `null`', () => {
+          expect(
+            foldMap(
+              nothing() as Maybe<number>,
+              (x) => x + 1
+            )
           ).toBe(null)
         })
       })
