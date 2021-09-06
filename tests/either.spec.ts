@@ -1,5 +1,6 @@
 import sut from 'fnts/either'
-import { bimap, isLeft, isRight } from 'fnts/either/operators'
+import identity from 'fnts/identity'
+import { bimap, isLeft, isRight, bifoldMap } from 'fnts/either/operators'
 
 describe('either', () => {
   describe('when provided with a successful promise', () => {
@@ -24,35 +25,89 @@ describe('either', () => {
 
   describe('operators', () => {
     describe('bimap', () => {
-      describe('when the wrapper is `left`', () => {
-        it('should execute `mapLeft` function', async () => {
-          const mapLeft = jest.fn((error: unknown) => error)
+      describe('when provided with a `left` wrapper', () => {
+        it('should execute only the `mapLeft` function', async () => {
+          const mapLeft = jest.fn()
+          const mapRight = jest.fn()
 
           bimap(
             await sut(() => Promise.reject('5')),
             mapLeft,
-            () => 1
+            mapRight
           )
 
-          expect(
-            mapLeft
-          ).toHaveBeenCalled()
+          expect(mapLeft).toHaveBeenCalled()
+          expect(mapRight).not.toHaveBeenCalled()
         })
       })
 
-      describe('when the wrapper is `right`', () => {
-        it('should execute `mapRight` function', async () => {
-          const mapRight = jest.fn((x: number) => x)
+      describe('when provided with a `right` wrapper', () => {
+        it('should execute only the `mapRight` function', async () => {
+          const mapLeft = jest.fn()
+          const mapRight = jest.fn()
 
           bimap(
-            await sut(() => Promise.resolve(5)),
-            (error: unknown) => error,
+            await sut(() => Promise.resolve()),
+            mapLeft,
             mapRight
           )
 
-          expect(
+          expect(mapRight).toHaveBeenCalled()
+          expect(mapLeft).not.toHaveBeenCalled()
+        })
+      })
+    })
+
+    describe('bifoldMap', () => {
+      describe('when provided with a `left` wrapper', () => {
+        it('should execute only the `mapLeft` function', async () => {
+          const mapLeft = jest.fn()
+          const mapRight = jest.fn()
+
+          bifoldMap(
+            await sut(() => Promise.reject()),
+            mapLeft,
             mapRight
-          ).toHaveBeenCalled()
+          )
+
+          expect(mapLeft).toHaveBeenCalled()
+          expect(mapRight).not.toHaveBeenCalled()
+        })
+
+        it('should map and return the value', async () => {
+          expect(
+            bifoldMap(
+              await sut<number, never>(() => Promise.reject(5)),
+              (x) => x + 1,
+              identity
+            )
+          ).toBe(6)
+        })
+      })
+
+      describe('when provided with a `right` wrapper', () => {
+        it('should execute only the `mapRight` function', async () => {
+          const mapLeft = jest.fn()
+          const mapRight = jest.fn()
+
+          bifoldMap(
+            await sut(() => Promise.resolve()),
+            mapLeft,
+            mapRight
+          )
+
+          expect(mapRight).toHaveBeenCalled()
+          expect(mapLeft).not.toHaveBeenCalled()
+        })
+
+        it('should map and return the value', async () => {
+          expect(
+            bifoldMap(
+              await sut(() => Promise.resolve(5)),
+              identity,
+              (x) => x + 1
+            )
+          ).toBe(6)
         })
       })
     })
