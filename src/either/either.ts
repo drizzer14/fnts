@@ -1,6 +1,3 @@
-/**
- * @internal
- */
 export const lid = Symbol.for('@@functional/left')
 
 export type Left<Value> = {
@@ -11,9 +8,6 @@ export const left = <Value>(value: Value): Left<Value> => ({
   [lid]: value
 })
 
-/**
- * @internal
- */
 export const rid = Symbol.for('@@functional/right')
 
 export type Right<Value> = {
