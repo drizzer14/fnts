@@ -1,6 +1,9 @@
 import type { Slice } from './.internal/slice'
 import type { Gradual } from './.internal/gradual'
 
+/**
+ * Creates a type for an auto-curried function.
+ */
 export type Currying<
   Function extends (...args: any[]) => any,
   Length extends number = Parameters<Function>['length']
@@ -16,6 +19,14 @@ export type Currying<
           ) => ReturnType<Function>
         >
 
+/**
+ * Creates an auto-curried function from the one provided.
+ * Until the curried function receives an expected number of arguments,
+ * defined by either its `length` property or the `length` argument of `curry`,
+ * it will return new function which receives from one to the remaining amount
+ * of arguments.
+ * Any excess arguments will not be applied.
+ */
 export const curry = <
   Function extends (...args: any[]) => any,
   Length extends number = Parameters<Function>['length']

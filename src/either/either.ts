@@ -26,9 +26,9 @@ export const right = <Value>(value: Value): Right<Value> => ({
 
 export type Either<LeftValue, RightValue> = Left<LeftValue> | Right<RightValue>
 
-export const either = async <Value>(
-  value: () => Promise<Value>
-): Promise<Either<unknown, Value>> => {
+export const either = async <LeftValue, RightValue>(
+  value: () => Promise<RightValue>
+): Promise<Either<LeftValue, RightValue>> => {
   return value().then(right).catch(left)
 }
 

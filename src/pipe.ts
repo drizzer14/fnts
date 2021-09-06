@@ -1,5 +1,12 @@
 import type { Last } from './.internal/last'
 
+/**
+ * Creates a `Pipeline` type which parses all of the provided functions' types.
+ * Any function with either an incorrect argument or a return type will not fit
+ * into the pipeline and should be typed according to it, so that its argument's
+ * type matches the return type of the previous function and its return type
+ * matches the type of the next function's argument.
+ */
 export type Pipeline<
   Functions extends Array<(...args: any[]) => any>,
   Length extends number = Functions['length']
@@ -10,7 +17,7 @@ export type Pipeline<
       ? [
         First,
         ...Pipeline<
-          // Weirdly `R`, `F` and `S`, which we extended from unary function type,
+          // Weirdly `First`, `Second` and `Rest`, which we extended from unary function type,
           // are not considered as functions in this expression
           // @ts-ignore
           [(arg: ReturnType<First>) => ReturnType<Second>, ...Rest]
@@ -18,6 +25,10 @@ export type Pipeline<
       ]
       : any
 
+/**
+ * Applies all of the provided `functions` one-by-one in left-to-right order
+ * starting from the `argument`.
+ */
 export const pipe =
   <Functions extends Array<(arg: any) => any>> (
     ...functions: Pipeline<Functions>

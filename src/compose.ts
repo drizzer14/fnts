@@ -1,5 +1,12 @@
 import type { Last } from './.internal/last'
 
+/**
+ * Creates a `Composition` type which parses all of the provided functions' types.
+ * Any function with either an incorrect argument or a return type will not fit
+ * into the composition and should be typed according to it, so that its argument's
+ * type matches the return type of the next function and its return type
+ * matches the type of the previous function's argument.
+ */
 export type Composition<
   Functions extends Array<(...args: any[]) => any>,
   Length extends number = Functions['length']
@@ -19,6 +26,10 @@ export type Composition<
       ]
       : any
 
+/**
+ * Applies all of the provided `functions` one-by-one in right-to-left order
+ * starting from the `argument`.
+ */
 export const compose =
   <Functions extends Array<(arg: any) => any>> (
     ...functions: Composition<Functions>
