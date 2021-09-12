@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/drizzer14/fnts/compare/v1.0.1...v1.0.2) (2021-09-12)
+
+
+### Bug Fixes
+
+* **either:** add JSDoc comments ([72d45b6](https://github.com/drizzer14/fnts/commit/72d45b62e83d127b0616a9d192ca98a684873c37))
+* remove excess `[@internal](https://github.com/internal)` JSDoc decorators ([a3680a2](https://github.com/drizzer14/fnts/commit/a3680a2a73aef2c22a025a905d3bb4b0516fc305))
+
 ### [1.0.1](https://github.com/drizzer14/fnts/compare/v1.0.0-rc.8...v1.0.1) (2021-09-06)
 
 
