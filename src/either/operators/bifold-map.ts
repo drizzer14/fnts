@@ -6,9 +6,6 @@ import permutationOf3 from '../../.internal/permutation-of-3'
 import { isLeft } from './guards'
 import { bifoldl, bifoldr } from './bifold'
 
-/**
- * @internal
- */
 interface BifoldMap {
   <
     LeftValue,

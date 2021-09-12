@@ -7,9 +7,6 @@ import permutationOf3 from '../../.internal/permutation-of-3'
 import { isLeft, isRight } from './guards'
 import { bifoldl, bifoldr } from './bifold'
 
-/**
- * @internal
- */
 interface First {
   <
     LeftValue,
@@ -48,9 +45,6 @@ export const first = permutationOf2(
   }
 ) as First
 
-/**
- * @internal
- */
 interface Second {
   <
     LeftValue,
@@ -89,9 +83,6 @@ export const second = permutationOf2(
   }
 ) as Second
 
-/**
- * @internal
- */
 interface Bimap {
   <
     LeftValue,

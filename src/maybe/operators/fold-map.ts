@@ -1,14 +1,11 @@
 import compose from '../../compose'
-import type { Just, Maybe, Nothing } from '../maybe'
 import type { Map } from '../../.internal/map'
+import type { Just, Maybe, Nothing } from '../maybe'
 import permutationOf2 from '../../.internal/permutation-of-2'
 
 import { fold } from './fold'
 import { isJust } from './guards'
 
-/**
- * @internal
- */
 interface FoldMap {
   <Value, NextValue>(
     transition: Map<Value, NextValue>

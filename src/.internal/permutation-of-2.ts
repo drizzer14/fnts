@@ -53,4 +53,7 @@ export const permutationOf2 =
         : fn(a1, b)
     }) as PermutationOf2
 
+/**
+ * @internal
+ */
 export default permutationOf2

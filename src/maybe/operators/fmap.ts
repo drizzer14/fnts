@@ -6,9 +6,6 @@ import permutationOf2 from '../../.internal/permutation-of-2'
 import { fold } from './fold'
 import { isJust } from './guards'
 
-/**
- * @internal
- */
 interface Fmap {
   <Value, NextValue>(
     transition: Map<Value, NextValue>

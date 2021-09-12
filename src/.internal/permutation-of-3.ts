@@ -46,4 +46,7 @@ export const permutationOf3 =
         : fn(a1, b, c)
     }) as PermutationOf3
 
+/**
+ * @internal
+ */
 export default permutationOf3
