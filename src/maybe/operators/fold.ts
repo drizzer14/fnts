@@ -1,4 +1,6 @@
-import { Maybe, Just, jid, Nothing, nid } from '../maybe'
+import { jid, Just } from '../just'
+import type { Maybe } from '../maybe'
+import { nid, Nothing } from '../nothing'
 
 import { isJust } from './guards'
 
@@ -15,9 +17,9 @@ export type Fold<Monad extends Maybe<any>> =
 /**
  * Returns the value of the provided `monad`.
  */
-export const fold = <Monad extends Maybe<any>>(
+export function fold<Monad extends Maybe<any>> (
   monad: Monad
-): Fold<Monad> => {
+): Fold<Monad> {
   return isJust(monad)
     ? monad[jid]
     : (monad as Nothing)[nid]

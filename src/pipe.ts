@@ -29,21 +29,22 @@ export type Pipeline<
  * Applies all of the provided `functions` one-by-one in left-to-right order
  * starting from the `argument`.
  */
-export const pipe =
+export function pipe
   <Functions extends Array<(arg: any) => any>> (
     ...functions: Pipeline<Functions>
-  ) =>
-    (arg: Parameters<Functions[0]>[0]): ReturnType<Last<Functions>> => {
-      const length = (functions as any[]).length
-      let pipeline = arg
+  ): (arg: Parameters<Functions[0]>[0]) => ReturnType<Last<Functions>> {
+  return (arg) => {
+    const length = (functions as any[]).length
+    let pipeline = arg
 
-      for (let index = 0; index < length; index += 1) {
-        const current = functions[index]
+    for (let index = 0; index < length; index += 1) {
+      const current = functions[index]
 
-        pipeline = current(pipeline)
-      }
-
-      return pipeline as ReturnType<Last<Functions>>
+      pipeline = current(pipeline)
     }
+
+    return pipeline
+  }
+}
 
 export default pipe

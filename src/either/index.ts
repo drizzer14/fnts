@@ -1,1 +1,3 @@
-export { default, left, Left, right, Right, either, Either } from './either'
+export { left, Left } from './left'
+export { right, Right } from './right'
+export { default, Either } from './either'

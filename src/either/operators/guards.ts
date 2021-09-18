@@ -1,19 +1,21 @@
-import { Either, Left, lid, Right, rid } from '../either'
+import { Left, lid } from '../left'
+import { Right, rid } from '../right'
+import type { Either } from '../either'
 
 /**
  * Type guard function to tell if the provided `monad` is `Left`.
  */
-export const isLeft = <LeftValue>(
+export function isLeft<LeftValue> (
   monad: Either<LeftValue, any>
-): monad is Left<LeftValue> => {
+): monad is Left<LeftValue> {
   return Object.prototype.hasOwnProperty.call(monad, lid)
 }
 
 /**
  * Type guard function to tell if the provided `monad` is `Right`.
  */
-export const isRight = <RightValue>(
+export function isRight<RightValue> (
   monad: Either<any, RightValue>
-): monad is Right<RightValue> => {
+): monad is Right<RightValue> {
   return Object.prototype.hasOwnProperty.call(monad, rid)
 }

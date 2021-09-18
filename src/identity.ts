@@ -6,6 +6,8 @@ export type Identity<T> = (x: T) => T
 /**
  * A function which returns the provided value.
  */
-export const identity = <T> (x: T): T => x
+export function identity<T> (x: T): T {
+  return x
+}
 
 export default identity

@@ -1,6 +1,6 @@
 const { resolve } = require('path')
-const { writeFileSync } = require('fs')
 const copyfiles = require('copyfiles')
+const { writeFileSync } = require('fs')
 
 const copyIntoLib = (fileName, onBeforeCopy = (f) => f) => {
 	writeFileSync(
@@ -26,8 +26,7 @@ copyfiles(
 		'lib',
 	],
 	{},
-	() => {
-	},
+	() => {},
 );
 
 [

@@ -27,13 +27,13 @@ export type Currying<
  * of arguments.
  * Any excess arguments will not be applied.
  */
-export const curry = <
+export function curry<
   Function extends (...args: any[]) => any,
   Length extends number = Parameters<Function>['length']
 > (
   fn: Function,
   length = fn.length as Length
-): Currying<Function, Length> => {
+): Currying<Function, Length> {
   return <A extends Gradual<Parameters<Function>>> (...args: A) => {
     const argsLength = args.length
 

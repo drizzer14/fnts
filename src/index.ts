@@ -1,7 +1,5 @@
 export * from './pipe'
 export * from './curry'
 export * from './guard'
-export * from './maybe'
-export * from './either'
 export * from './compose'
 export * from './identity'
