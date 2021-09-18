@@ -1,8 +1,11 @@
-import sut from 'fnts/either'
+import compose from 'fnts/compose'
 import identity from 'fnts/identity'
+import either, { eitherSync } from 'fnts/either'
 import { bimap, isLeft, isRight, bifoldMap } from 'fnts/either/operators'
 
 describe('either', () => {
+  const sut = either
+
   describe('when provided with a successful promise', () => {
     it('should create a `right` wrapper', async () => {
       expect(
@@ -110,6 +113,37 @@ describe('either', () => {
           ).toBe(6)
         })
       })
+    })
+  })
+})
+
+describe('eitherSync', () => {
+  const sut = eitherSync
+
+  describe('when a value function does not throw', () => {
+    it('should create a `right` wrapper', () => {
+      expect(
+        isRight(
+          sut(() => compose(
+            JSON.parse,
+            JSON.stringify
+          )({ a: 1 }))
+        )
+      ).toBe(true)
+    })
+  })
+
+  describe('when a value function throws', () => {
+    it('should create a `right` wrapper', () => {
+      expect(
+        isLeft(
+          sut(() => compose(
+            JSON.parse,
+            (jsonString: string) => `1${jsonString}`,
+            JSON.stringify
+          )({ a: 1 }))
+        )
+      ).toBe(true)
     })
   })
 })
