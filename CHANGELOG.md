@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/drizzer14/fnts/compare/v1.0.1...v1.1.0) (2021-09-18)
+
+
+### Features
+
+* **either:** add `eitherSync` – synchronous version of `either` ([1a118e5](https://github.com/drizzer14/fnts/commit/1a118e54e5d23ad47c2e17fc5dc7f625b78d07fc))
+
 ### [1.0.2](https://github.com/drizzer14/fnts/compare/v1.0.1...v1.0.2) (2021-09-12)
 
 
