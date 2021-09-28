@@ -38,11 +38,11 @@ export function curry<
     const argsLength = args.length
 
     if (argsLength === length) {
-      return fn.apply(undefined, args)
+      return fn(...args)
     }
 
     if (argsLength > length) {
-      return fn.apply(undefined, args.slice(0, length))
+      return fn(...args.slice(0, length))
     }
 
     return curry(fn.bind(undefined, ...args))
