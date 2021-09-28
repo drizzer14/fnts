@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/drizzer14/fnts/compare/v1.0.1...v1.2.0) (2021-09-28)
+
+
+### Features
+
+* **either:** add `eitherSync` – synchronous version of `either` ([1a118e5](https://github.com/drizzer14/fnts/commit/1a118e54e5d23ad47c2e17fc5dc7f625b78d07fc))
+* **inject:** add `inject` function ([acc0456](https://github.com/drizzer14/fnts/commit/acc0456ae42fd3a8fe0cdb47f1c5e61f7b51b9a5))
+* **tap:** add `tap` function ([30804f1](https://github.com/drizzer14/fnts/commit/30804f197877bd90e828ca3e108bb979d768fab7))
+
+
+### Bug Fixes
+
+* **either:** add JSDoc comments ([72d45b6](https://github.com/drizzer14/fnts/commit/72d45b62e83d127b0616a9d192ca98a684873c37))
+* remove excess `[@internal](https://github.com/internal)` JSDoc decorators ([a3680a2](https://github.com/drizzer14/fnts/commit/a3680a2a73aef2c22a025a905d3bb4b0516fc305))
+
 ## [1.1.0](https://github.com/drizzer14/fnts/compare/v1.0.1...v1.1.0) (2021-09-18)
 
 
