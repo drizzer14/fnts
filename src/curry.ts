@@ -27,7 +27,7 @@ export type Currying<
  * of arguments.
  * Any excess arguments will not be applied.
  */
-export function curry<
+export default function curry<
   Function extends (...args: any[]) => any,
   Length extends number = Parameters<Function>['length']
 > (
@@ -45,8 +45,6 @@ export function curry<
       return fn(...args.slice(0, length))
     }
 
-    return curry(fn.bind(undefined, ...args))
+    return curry((...nextArgs) => fn(...args.concat(nextArgs)), length - argsLength)
   }
 }
-
-export default curry

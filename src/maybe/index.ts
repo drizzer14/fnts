@@ -1,3 +1,3 @@
-export { just, Just } from './just'
 export { default, Maybe } from './maybe'
-export { nothing, Nothing } from './nothing'
+export { default as just, Just } from './just'
+export { default as nothing, Nothing } from './nothing'

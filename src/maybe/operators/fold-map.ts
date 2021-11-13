@@ -2,6 +2,7 @@ import compose from '../../compose'
 import type { Just } from '../just'
 import type { Maybe } from '../maybe'
 import type { Nothing } from '../nothing'
+import conditional from '../../conditional'
 import type { Map } from '../../.internal/map'
 import permutationOf2 from '../../.internal/permutation-of-2'
 
@@ -22,7 +23,7 @@ export type FoldMap<Monad extends Maybe<any>, NextValue> =
  * Maps the value of the provided `monad` through the `transition` function
  * and returns the mapped value or `null`.
  */
-export function foldMap<Value, NextValue> (
+export default function foldMap<Value, NextValue = Value> (
   transition: Map<Value, NextValue>
 ): (monad: Just<Value>) => NextValue
 
@@ -30,7 +31,7 @@ export function foldMap<Value, NextValue> (
  * Maps the value of the provided `monad` through the `transition` function
  * and returns the mapped value or `null`.
  */
-export function foldMap<Value, NextValue> (
+export default function foldMap<Value, NextValue = Value> (
   transition: Map<Value, NextValue>
 ): (monad: Nothing) => null
 
@@ -38,7 +39,7 @@ export function foldMap<Value, NextValue> (
  * Maps the value of the provided `monad` through the `transition` function
  * and returns the mapped value or `null`.
  */
-export function foldMap<Value, NextValue> (
+export default function foldMap<Value, NextValue = Value> (
   transition: Map<Value, NextValue>
 ): (monad: Maybe<Value>) => NextValue | null
 
@@ -46,7 +47,7 @@ export function foldMap<Value, NextValue> (
  * Maps the value of the provided `monad` through the `transition` function
  * and returns the mapped value or `null`.
  */
-export function foldMap<Value, NextValue> (
+export default function foldMap<Value, NextValue = Value> (
   monad: Just<Value>,
   transition: Map<Value, NextValue>
 ): NextValue
@@ -55,7 +56,7 @@ export function foldMap<Value, NextValue> (
  * Maps the value of the provided `monad` through the `transition` function
  * and returns the mapped value or `null`.
  */
-export function foldMap<Value, NextValue> (
+export default function foldMap<Value, NextValue = Value> (
   monad: Nothing,
   transition: Map<Value, NextValue>
 ): null
@@ -64,22 +65,22 @@ export function foldMap<Value, NextValue> (
  * Maps the value of the provided `monad` through the `transition` function
  * and returns the mapped value or `null`.
  */
-export function foldMap<Value, NextValue> (
+export default function foldMap<Value, NextValue = Value> (
   monad: Maybe<Value>,
   transition: Map<Value, NextValue>
 ): NextValue | null
 
-export function foldMap (...args: [any, any?]) {
+export default function foldMap (...args: [any, any?]): any {
   return permutationOf2(
     <Value, NextValue> (
       monad: Maybe<Value>,
       transition: Map<Value, NextValue>
     ): NextValue | null => {
-      return isJust(monad)
-        ? compose(transition, fold)(monad)
-        : null
+      return conditional(
+        isJust,
+        compose(transition, fold),
+        () => null
+      )(monad)
     }
   )(...args)
 }
-
-export default foldMap

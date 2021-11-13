@@ -13,24 +13,23 @@ export type Guard<Function extends (...args: any[]) => any> = [
  *
  * When no `validator` succeeds, the default executor is run.
  */
-export function guard
+export default function guard
   <Function extends (...args: any[]) => any> (
     ...guards: [...Guard<Function>[], Function]
   ): (...args: Parameters<Function>) => ReturnType<Function> {
   return (...args) => {
     const length = guards.length - 1
+
     const defaultExecutor = guards[length] as Function
 
     for (let index = 0; index < length; index += 1) {
       const [validator, executor] = (guards as Guard<Function>[])[index]
 
-      if (validator.apply(undefined, args)) {
-        return executor.apply(undefined, args)
+      if (validator(...args)) {
+        return executor(...args)
       }
     }
 
-    return defaultExecutor.apply(undefined, args)
+    return defaultExecutor(...args)
   }
 }
-
-export default guard

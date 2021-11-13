@@ -2,7 +2,9 @@ import { isLeft } from '../guards'
 import { bifoldl } from '../bifold'
 import compose from '../../../compose'
 import left, { Left } from '../../left'
+import identity from '../../../identity'
 import type { Either } from '../../either'
+import conditional from '../../../conditional'
 import type { Map } from '../../../.internal/map'
 import permutationOf2 from '../../../.internal/permutation-of-2'
 
@@ -10,7 +12,7 @@ import permutationOf2 from '../../../.internal/permutation-of-2'
  * Maps the left value of the provided `monad` to a new `Either` monad
  * with the same right value.
  */
-export function first<
+export default function first<
   LeftValue,
   RightValue,
   NextLeftValue
@@ -22,7 +24,7 @@ export function first<
  * Maps the left value of the provided `monad` to a new `Either` monad
  * with the same right value.
  */
-export function first<
+export default function first<
   LeftValue,
   RightValue,
   NextLeftValue
@@ -31,7 +33,7 @@ export function first<
   mapLeft: Map<LeftValue, NextLeftValue>,
 ): Either<NextLeftValue, RightValue>
 
-export function first (...args: [any, any?]) {
+export default function first (...args: [any, any?]): any {
   return permutationOf2(
     <
       LeftValue,
@@ -41,13 +43,11 @@ export function first (...args: [any, any?]) {
       monad: Either<LeftValue, RightValue>,
       mapLeft: Map<LeftValue, NextLeftValue>,
     ): Either<NextLeftValue, RightValue> => {
-      return isLeft(monad)
-        ? compose(
-          left, mapLeft, bifoldl
-        )(monad) as Left<NextLeftValue>
-        : monad
+      return conditional(
+        isLeft,
+        compose(left, mapLeft, bifoldl) as Map<typeof monad, Left<NextLeftValue>>,
+        identity
+      )(monad)
     }
   )(...args)
 }
-
-export default first

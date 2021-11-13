@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+
+    "outDir": "lib/cjs",
+    "declaration": false,
+    "declarationDir": null,
+    "emitDeclarationOnly": null,
+  }
+}

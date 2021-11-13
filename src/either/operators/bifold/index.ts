@@ -1,3 +1,3 @@
-export { bifoldl, Bifoldl } from './bifoldl'
-export { bifoldr, Bifoldr } from './bifoldr'
-export { default, bifold, Bifold } from './bifold'
+export { default, Bifold } from './bifold'
+export { default as bifoldl, Bifoldl } from './bifoldl'
+export { default as bifoldr, Bifoldr } from './bifoldr'

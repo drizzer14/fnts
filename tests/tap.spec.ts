@@ -1,4 +1,4 @@
-import sut from 'fnts/tap'
+import sut from '../src/tap'
 
 describe('tap', () => {
   jest.spyOn(console, 'log').mockImplementation(() => {})

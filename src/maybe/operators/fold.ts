@@ -17,12 +17,10 @@ export type Fold<Monad extends Maybe<any>> =
 /**
  * Returns the value of the provided `monad`.
  */
-export function fold<Monad extends Maybe<any>> (
+export default function fold<Monad extends Maybe<any>> (
   monad: Monad
 ): Fold<Monad> {
   return isJust(monad)
     ? monad[jid]
     : (monad as Nothing)[nid]
 }
-
-export default fold

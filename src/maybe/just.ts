@@ -17,10 +17,8 @@ export type Just<Value> = {
  * Creates the special object with one property, represented as unique symbol
  * key, holding the provided value.
  */
-export function just<Value> (value: Value): Just<Value> {
+export default function just<Value> (value: Value): Just<Value> {
   return {
     [jid]: value as Exclude<Value, null | undefined>
   }
 }
-
-export default just

@@ -1,4 +1,4 @@
-import sut from 'fnts/pipe'
+import sut from '../src/pipe'
 
 describe('pipe', () => {
   describe('when provided with arbitrary amount of functions', () => {

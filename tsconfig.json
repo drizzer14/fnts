@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
     "lib": ["es2015.iterable", "es2019"],
     
-    "rootDir": "src",
-    "declaration": true,
+    "declaration": false,
     "stripInternal": true,
-    "declarationDir": "lib",
-    "emitDeclarationOnly": true,
-    
+    "declarationDir": null,
+    "emitDeclarationOnly": null,
+
     "strict": true,
     "alwaysStrict": true,
     "skipLibCheck": true,
@@ -26,6 +25,6 @@
     "forceConsistentCasingInFileNames": true
   },
   
-  "include": ["src"],
+  "include": ["src", "tests"],
   "exclude": ["node_modules"]
 }

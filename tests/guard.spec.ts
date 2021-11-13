@@ -1,4 +1,4 @@
-import sut from 'fnts/guard'
+import sut from '../src/guard'
 
 describe('guard', () => {
   describe('when encountering a truthy guard', () => {

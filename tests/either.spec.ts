@@ -1,7 +1,7 @@
-import compose from 'fnts/compose'
-import identity from 'fnts/identity'
-import either, { eitherSync } from 'fnts/either'
-import { bimap, isLeft, isRight, bifoldMap } from 'fnts/either/operators'
+import compose from '../src/compose'
+import identity from '../src/identity'
+import either, { eitherSync } from '../src/either'
+import { bimap, isLeft, isRight, bifoldMap } from '../src/either/operators'
 
 describe('either', () => {
   const sut = either

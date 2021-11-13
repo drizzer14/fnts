@@ -17,10 +17,8 @@ export type Nothing = {
  * Creates the special object with one property, represented as unique symbol
  * key, holding the `null` value.
  */
-export function nothing (): Nothing {
+export default function nothing (): Nothing {
   return {
     [nid]: null
   }
 }
-
-export default nothing

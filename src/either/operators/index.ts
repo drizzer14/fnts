@@ -1,8 +1,8 @@
 export {
   bifoldl, Bifoldl,
   bifoldr, Bifoldr,
-  bifold, Bifold,
+  default as bifold, Bifold,
 } from './bifold'
 export * from './guards'
-export * from './bifold-map'
-export { bimap, first, second } from './bimap'
+export { default as bifoldMap } from './bifold-map'
+export { default as bimap, first, second } from './bimap'

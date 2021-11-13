@@ -5,9 +5,5 @@
     "declaration": false,
     "declarationDir": null,
     "emitDeclarationOnly": null
-  },
-  "include": [
-    "src",
-    "tests"
-  ]
+  }
 }

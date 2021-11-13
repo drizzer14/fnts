@@ -1,5 +1,5 @@
-import sut, { just, Maybe, nothing } from 'fnts/maybe'
-import { bind, fmap, fold, isJust, isNothing, foldMap } from 'fnts/maybe/operators'
+import sut, { just, Maybe, nothing } from '../src/maybe'
+import { bind, fmap, fold, isJust, isNothing, foldMap } from '../src/maybe/operators'
 
 describe('maybe', () => {
   describe('when provided with a non-nullable value', () => {

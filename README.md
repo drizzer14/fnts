@@ -68,9 +68,11 @@ please feel free to create an [issue](https://github.com/drizzer14/fnts/issues).
 ### Monads
 
 There are two commonly used monads in this package: 
-[Maybe](src/maybe/maybe.ts) and [Either](src/either/either.ts).
 
-Both have their own set of constructors, which rely upon special tags
+- [Maybe](src/maybe/maybe.ts).
+- [Either](src/either/either.ts), which is `async` by default. The sync version of `Either` is called `eitherSync`.
+
+Both have their own set of constructors, which rely on special tags
 represented through symbols – this way the "operators" know you pass them
 the objects related to those monads 
 (e.g. [just](src/maybe/maybe.ts) and [nothing](src/maybe/maybe.ts) from `Maybe` monad).

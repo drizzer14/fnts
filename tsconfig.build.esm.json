@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+
+    "outDir": "lib/esm",
+    "declaration": false,
+    "declarationDir": null,
+    "emitDeclarationOnly": null,
+  }
+}

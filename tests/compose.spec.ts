@@ -1,4 +1,4 @@
-import sut from 'fnts/compose'
+import sut from '../src/compose'
 
 describe('compose', () => {
   describe('when provided with arbitrary amount of functions', () => {

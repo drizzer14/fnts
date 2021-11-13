@@ -33,23 +33,27 @@ copyfiles(
   [
     'tsconfig.json',
     ({
-       compilerOptions: {
-         declaration: _d,
-         declarationDir: _dd,
-         emitDeclarationOnly: _edo,
-         rootDir: _rd,
-         stripInternal: _si,
-         ...compilerOptions
-       },
-     }) => ({ compilerOptions }),
+      compilerOptions: {
+        declaration,
+        declarationDir,
+        emitDeclarationOnly,
+        rootDir,
+        stripInternal,
+        ...compilerOptions
+      },
+    }) => ({ compilerOptions }),
   ],
   [
     'package.json',
     ({
-       scripts: _s,
-       devDependencies: _dd,
-       ...packageJSON
-     }) => packageJSON,
+      scripts,
+      devDependencies,
+      ...packageJSON
+    }) => ({
+      ...packageJSON,
+      main: 'cjs/index.js',
+      module: 'esm/index.js'
+    }),
   ],
 ].forEach(
   ([fileName, onBeforeCopy]) => copyIntoLib(fileName, onBeforeCopy),

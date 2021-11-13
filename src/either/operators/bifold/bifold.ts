@@ -19,10 +19,8 @@ export type Bifold<Monad extends Either<any, any>> =
 /**
  * Unwraps either the left or the right value of the provided `monad`.
  */
-export function bifold<Monad extends Either<any, any>> (
+export default function bifold<Monad extends Either<any, any>> (
   monad: Monad
 ): Bifold<Monad> {
   return bifoldl(monad) ?? bifoldr(monad as Right<any>)
 }
-
-export default bifold

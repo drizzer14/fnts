@@ -17,10 +17,8 @@ export type Right<Value> = {
  * Creates the special object with one property, represented as unique symbol
  * key, holding the provided value.
  */
-export function right<Value> (value: Value): Right<Value> {
+export default function right<Value> (value: Value): Right<Value> {
   return {
     [rid]: value
   }
 }
-
-export default right

@@ -1,4 +1,4 @@
-import sut from 'fnts/.internal/permutation-of-2'
+import sut from '../../src/.internal/permutation-of-2'
 
 const subtract = (a: number, b: number): number => a - b
 
@@ -22,7 +22,7 @@ describe('curry2', () => {
       })
 
       describe('when the second argument is defined', () => {
-        it('should not curry, applying arguments it order', () => {
+        it('should not curry, applying arguments in order', () => {
           expect(
             sut(subtract, () => false)(3, 1),
           ).toBe(2)

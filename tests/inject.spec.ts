@@ -1,4 +1,4 @@
-import sut from 'fnts/inject'
+import sut from '../src/inject'
 
 describe('inject', () => {
   jest.spyOn(console, 'log').mockImplementation(() => {})

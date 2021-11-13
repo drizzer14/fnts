@@ -1,4 +1,4 @@
-import sut from 'fnts/curry'
+import sut from '../src/curry'
 
 const fn = (a: number, b: number): number => a + b
 

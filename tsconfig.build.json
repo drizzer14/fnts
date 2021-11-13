@@ -1,14 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-
-    "noEmit": true,
+    "rootDir": "src",
     "declaration": false,
     "declarationDir": null,
     "emitDeclarationOnly": null
   },
-  
-  "include": ["src", "tests", "jest.config.js"]
+  "include": ["src"]
 }
