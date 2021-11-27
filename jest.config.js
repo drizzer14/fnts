@@ -1,13 +1,12 @@
 module.exports = {
   testEnvironment: 'node',
 	testRegex: '.*\\.spec.ts$',
-	preset: 'ts-jest/presets/js-with-babel',
+	preset: 'ts-jest',
 	rootDir: './',
 	roots: ['<rootDir>/src', '<rootDir>/tests'],
 	globals: {
   	'ts-jest': {
   		tsconfig: '<rootDir>/tsconfig.spec.json',
-		  babelConfig: '<rootDir>/.babelrc'
 	  }
 	},
 	transform: {

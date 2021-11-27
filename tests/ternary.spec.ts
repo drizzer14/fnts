@@ -1,5 +1,5 @@
-import sut from '../src/conditional'
-import type { Map } from '../src/.internal/map'
+import sut from '../src/ternary'
+import type { Map } from '../src/types/map'
 
 describe('conditional', () => {
   describe('when predicate returns "true"', () => {

@@ -2,7 +2,7 @@ import sut from '../src/guard'
 
 describe('guard', () => {
   describe('when encountering a truthy guard', () => {
-    it('should execute the function within that guard', () => {
+    it('should execute the function next to that guard', () => {
       expect(
         sut<(x: number) => number>(
           [(x) => x < 5, (x) => x + 1],

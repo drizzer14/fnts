@@ -1,4 +1,4 @@
-import sut from '../../src/.internal/permutation-of-2'
+import sut from '../../src/permutation/permutation-2'
 
 const subtract = (a: number, b: number): number => a - b
 

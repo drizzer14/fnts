@@ -1,4 +1,4 @@
-import sut from '../../src/.internal/permutation-of-3'
+import sut from '../../src/permutation/permutation-3'
 
 const subAndDiv = (a: number, b: number, c: number): number => (a + b) / c
 

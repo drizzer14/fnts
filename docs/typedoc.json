@@ -1,0 +1,32 @@
+{
+  "name": "",
+  
+  "entryPoints": [
+    "../src"
+  ],
+  "exclude": [
+    "../src/index.d.ts",
+    "../src/**/index.d.ts",
+    "../src/index.ts",
+    "../src/**/index.ts"
+  ],
+  "entryPointStrategy": "expand",
+
+  "tsconfig": "../tsconfig.json",
+
+  "out": "docs/api",
+  "disableSources": true,
+  "githubPages": false,
+  "readme": "none",
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-merge-modules"
+  ],
+
+  "indexTitle": "Overview",
+  "entryDocument": "Overview.md",
+  "hideInPageTOC": true,
+  "hideBreadcrumbs": true,
+
+  "mergeModulesMergeMode": "module"
+}
