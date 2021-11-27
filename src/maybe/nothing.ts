@@ -1,4 +1,8 @@
 /**
+ * @module Maybe
+ */
+
+/**
  * Internal unique identifier for `Nothing`.
  */
 export const nid = Symbol.for('@@functional/nothing')

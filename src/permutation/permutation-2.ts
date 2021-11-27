@@ -1,24 +1,16 @@
 /**
- * @internal
+ * @module Permutation
  */
-type BinaryFunction = (a: any, b: any) => any
 
-/**
- * @internal
- */
+export type BinaryFunction = (a: any, b: any) => any
+
 export type FirstParameter<Function extends (...args: any[]) => any> =
   Parameters<Function>[0]
 
-/**
- * @internal
- */
 export type SecondParameter<Function extends (...args: any[]) => any> =
   Parameters<Function>[1]
 
-/**
- * @internal
- */
-export default function permutationOf2
+export default function permutation2
   <Function extends BinaryFunction> (
     fn: Function,
     shouldCurry?: (

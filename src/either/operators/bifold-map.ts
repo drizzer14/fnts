@@ -1,8 +1,12 @@
+/**
+ * @module Either Operators
+ */
+
 import compose from '../../compose'
 import type { Either } from '../either'
-import conditional from '../../conditional'
-import type { Map } from '../../.internal/map'
-import permutationOf3 from '../../.internal/permutation-of-3'
+import ternary from '../../ternary'
+import type { Map } from '../../types/map'
+import permutation3 from '../../permutation/permutation-3'
 
 import { isLeft } from './guards'
 import { bifoldl, bifoldr } from './bifold'
@@ -37,7 +41,7 @@ export default function bifoldMap<
 ): MappedValue
 
 export default function bifoldMap (...args: [any, any, any?]): any {
-  return permutationOf3(
+  return permutation3(
     <
       LeftValue,
       RightValue,
@@ -47,7 +51,7 @@ export default function bifoldMap (...args: [any, any, any?]): any {
       mapLeft: Map<LeftValue, MappedValue>,
       mapRight: Map<RightValue, MappedValue>,
     ): MappedValue => {
-      return conditional(
+      return ternary(
         isLeft,
         compose(mapLeft, bifoldl),
         compose(mapRight, bifoldr)

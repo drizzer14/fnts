@@ -1,5 +1,9 @@
-import type { Effect } from './.internal/effect'
-import permutationOf2 from './.internal/permutation-of-2'
+/**
+ * @module Side Effects
+ */
+
+import type { Effect } from './types/effect'
+import permutation2 from './permutation/permutation-2'
 
 /**
  * Injects a function with a side effect.
@@ -19,7 +23,7 @@ export default function inject<Function extends (...args: any[]) => any> (
 ): Function
 
 export default function inject (...args: [any, any?]): any {
-  return permutationOf2(
+  return permutation2(
     <Function extends (...args: any[]) => any>(
       fn: Function,
       effect: Effect<Function>

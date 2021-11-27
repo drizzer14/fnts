@@ -1,4 +1,8 @@
 /**
+ * @module Identity
+ */
+
+/**
  * A type describing the `identity` function.
  */
 export type Identity<T> = (x: T) => T

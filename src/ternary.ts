@@ -1,11 +1,15 @@
-import type { Map } from './.internal/map'
+/**
+ * @module Ternary
+ */
+
+import type { Map } from './types/map'
 
 /**
  * Functional alternative to the ternary operator.
  * Enforces the same return type for both branches,
  * the result is evaluated lazily.
  */
-export default function conditional<Value, Return> (
+export default function ternary<Value, Return> (
   predicate: Map<Value, boolean>,
   left: Map<Value, Return>,
   right: Map<Value, Return>,

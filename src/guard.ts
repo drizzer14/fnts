@@ -1,4 +1,8 @@
-export type Guard<Function extends (...args: any[]) => any> = [
+/**
+ * @module Guard
+ */
+
+export type GuardQualifier<Function extends (...args: any[]) => any> = [
   validator: <Result extends boolean>(...args: Parameters<Function>) => Result,
   executor: Function
 ]
@@ -15,21 +19,21 @@ export type Guard<Function extends (...args: any[]) => any> = [
  */
 export default function guard
   <Function extends (...args: any[]) => any> (
-    ...guards: [...Guard<Function>[], Function]
+    ...qualifiers: [...GuardQualifier<Function>[], Function]
   ): (...args: Parameters<Function>) => ReturnType<Function> {
   return (...args) => {
-    const length = guards.length - 1
+    const length = qualifiers.length - 1
 
-    const defaultExecutor = guards[length] as Function
+    const defaultExpression = qualifiers[length] as Function
 
     for (let index = 0; index < length; index += 1) {
-      const [validator, executor] = (guards as Guard<Function>[])[index]
+      const [validator, expression] = (qualifiers as GuardQualifier<Function>[])[index]
 
       if (validator(...args)) {
-        return executor(...args)
+        return expression(...args)
       }
     }
 
-    return defaultExecutor(...args)
+    return defaultExpression(...args)
   }
 }

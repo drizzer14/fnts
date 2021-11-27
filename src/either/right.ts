@@ -1,4 +1,8 @@
 /**
+ * @module Either
+ */
+
+/**
  * Internal unique identifier for `Right`.
  */
 export const rid = Symbol.for('@@functional/right')

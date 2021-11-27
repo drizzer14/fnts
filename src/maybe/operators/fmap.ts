@@ -1,12 +1,16 @@
+/**
+ * @module Maybe Operators
+ */
+
 import compose from '../../compose'
 import identity from '../../identity'
 import maybe, { Maybe } from '../maybe'
-import type { Map } from '../../.internal/map'
-import permutationOf2 from '../../.internal/permutation-of-2'
+import type { Map } from '../../types/map'
+import permutation2 from '../../permutation/permutation-2'
 
 import fold from './fold'
 import { isJust } from './guards'
-import conditional from '../../conditional'
+import ternary from '../../ternary'
 
 /**
  * Maps the value of the provided `monad` through the `transition` function
@@ -26,12 +30,12 @@ export default function fmap<Value, NextValue = Value>(
 ): Maybe<NextValue>
 
 export default function fmap (...args: [any, any?]): any {
-  return permutationOf2(
+  return permutation2(
     <Value, NextValue>(
       monad: Maybe<Value>,
       transition: Map<Value, NextValue>
     ): Maybe<NextValue> => {
-      return conditional(
+      return ternary(
         isJust,
         compose(maybe, transition, fold) as (monad: Maybe<Value>) => Maybe<NextValue>,
         identity

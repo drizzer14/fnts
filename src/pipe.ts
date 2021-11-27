@@ -1,4 +1,8 @@
-import type { Last } from './.internal/last'
+/**
+ * @module Composition
+ */
+
+import type { Last } from './types/last'
 
 /**
  * Creates a `Pipeline` type which parses all of the provided functions' types.

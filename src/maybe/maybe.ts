@@ -1,3 +1,7 @@
+/**
+ * @module Maybe
+ */
+
 import just, { Just } from './just'
 import nothing, { Nothing } from './nothing'
 

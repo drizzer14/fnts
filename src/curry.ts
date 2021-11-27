@@ -1,5 +1,9 @@
-import type { Slice } from './.internal/slice'
-import type { Gradual } from './.internal/gradual'
+/**
+ * @module Curry
+ */
+
+import type { Slice } from './types/slice'
+import type { Gradual } from './types/gradual'
 
 /**
  * Creates a type for an auto-curried function.
@@ -45,6 +49,9 @@ export default function curry<
       return fn(...args.slice(0, length))
     }
 
-    return curry((...nextArgs) => fn(...args.concat(nextArgs)), length - argsLength)
+    return curry(
+      (...nextArgs) => fn(...args.concat(nextArgs)),
+      length - argsLength
+    )
   }
 }

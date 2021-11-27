@@ -1,3 +1,7 @@
+/**
+ * @module Maybe Operators
+ */
+
 import { jid, Just } from '../just'
 import type { Maybe } from '../maybe'
 import { nid, Nothing } from '../nothing'

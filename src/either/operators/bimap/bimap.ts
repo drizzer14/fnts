@@ -1,8 +1,12 @@
+/**
+ * @module Either Operators
+ */
+
 import { isLeft } from '../guards'
 import type { Either } from '../../either'
-import conditional from '../../../conditional'
-import type { Map } from '../../../.internal/map'
-import permutationOf3 from '../../../.internal/permutation-of-3'
+import ternary from '../../../ternary'
+import type { Map } from '../../../types/map'
+import permutation3 from '../../../permutation/permutation-3'
 
 import first from './first'
 import second from './second'
@@ -37,7 +41,7 @@ export default function bimap<
 ): Either<NextLeftValue, NextRightValue>
 
 export default function bimap (...args: [any, any, any?]): any {
-  return permutationOf3(
+  return permutation3(
     <
       LeftValue,
       RightValue,
@@ -48,7 +52,7 @@ export default function bimap (...args: [any, any, any?]): any {
       mapLeft: Map<LeftValue, NextLeftValue>,
       mapRight: Map<RightValue, NextRightValue>,
     ): Either<NextLeftValue, NextRightValue> => {
-      return conditional(
+      return ternary(
         isLeft,
         first(mapLeft) as Map<typeof monad, Either<NextLeftValue, NextRightValue>>,
         second(mapRight) as Map<typeof monad, Either<NextLeftValue, NextRightValue>>,

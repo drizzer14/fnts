@@ -1,4 +1,7 @@
 /**
+ * @module Maybe
+ */
+/**
  * Internal unique identifier for `Just`.
  */
 export const jid = Symbol.for('@@functional/just')

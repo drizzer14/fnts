@@ -1,10 +1,14 @@
+/**
+ * @module Maybe Operators
+ */
+
 import compose from '../../compose'
 import type { Just } from '../just'
 import type { Maybe } from '../maybe'
 import type { Nothing } from '../nothing'
-import conditional from '../../conditional'
-import type { Map } from '../../.internal/map'
-import permutationOf2 from '../../.internal/permutation-of-2'
+import ternary from '../../ternary'
+import type { Map } from '../../types/map'
+import permutation2 from '../../permutation/permutation-2'
 
 import fold from './fold'
 import { isJust } from './guards'
@@ -71,12 +75,12 @@ export default function foldMap<Value, NextValue = Value> (
 ): NextValue | null
 
 export default function foldMap (...args: [any, any?]): any {
-  return permutationOf2(
+  return permutation2(
     <Value, NextValue> (
       monad: Maybe<Value>,
       transition: Map<Value, NextValue>
     ): NextValue | null => {
-      return conditional(
+      return ternary(
         isJust,
         compose(transition, fold),
         () => null

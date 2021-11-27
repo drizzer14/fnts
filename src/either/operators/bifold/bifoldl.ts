@@ -1,3 +1,7 @@
+/**
+ * @module Either Operators
+ */
+
 import { isLeft } from '../guards'
 import { Left, lid } from '../../left'
 import type { Either } from '../../either'

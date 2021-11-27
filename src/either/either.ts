@@ -1,3 +1,7 @@
+/**
+ * @module Either
+ */
+
 import left, { Left } from './left'
 import right, { Right } from './right'
 

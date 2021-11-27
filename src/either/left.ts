@@ -1,4 +1,8 @@
 /**
+ * @module Either
+ */
+
+/**
  * Internal unique identifier for `Left`.
  */
 export const lid = Symbol.for('@@functional/left')

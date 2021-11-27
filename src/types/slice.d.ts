@@ -1,5 +1,12 @@
+/**
+ * @module Types
+ */
+
 import type { Tuple } from './tuple'
 
+/**
+ * Slices the tuple by `C` amount of entries from the **end**.
+ */
 export type Slice<
   T extends any[] | readonly any[],
   C extends number
