@@ -12,8 +12,8 @@
     "typescript",
     "javascript"
   ],
-  "homepage": "https://github.com/drizzer14/fnts",
-  "repository": "github:drizzer14/fnts",
+  "homepage": "https://drizzer14.github.io/fnts",
+  "repository": "https://github.com/drizzer14/fnts",
   "scripts": {
     "prebuild": "rimraf lib",
     "copy:dts": "copyfiles --up 1 --all \"./src/**/*.d.ts\" lib",
@@ -43,5 +43,10 @@
   },
   "peerDependencies": {
     "typescript": ">=4.2.2"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   }
 }
