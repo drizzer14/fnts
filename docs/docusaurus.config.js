@@ -52,7 +52,7 @@ const config = {
         },
         items: [
           {
-            href: homepage,
+            href: repository,
             label: 'GitHub',
             position: 'right',
           },
