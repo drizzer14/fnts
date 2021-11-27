@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/drizzer14/fnts/compare/v1.2.0...v1.3.0) (2021-11-27)
+
+
+### Features
+
+* update build, add `conditional`, remove named exports from sources ([b984fb3](https://github.com/drizzer14/fnts/commit/b984fb37eb520b7df8e7e441f29d676f00636d79))
+* update source code ([707a512](https://github.com/drizzer14/fnts/commit/707a512b8452f6f2a49c9c24d03140c225074aa9))
+
 ## [1.2.0](https://github.com/drizzer14/fnts/compare/v1.0.1...v1.2.0) (2021-09-28)
 
 
