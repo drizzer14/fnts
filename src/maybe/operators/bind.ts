@@ -3,6 +3,7 @@
  */
 
 import compose from '../../compose'
+import ternary from '../../ternary'
 import type { Maybe } from '../maybe'
 import identity from '../../identity'
 import type { Map } from '../../types/map'
@@ -10,7 +11,6 @@ import permutation2 from '../../permutation/permutation-2'
 
 import fold from './fold'
 import { isJust } from './guards'
-import { conditional } from '../..'
 
 /**
  * Binds the value of the `monad` to new monad created
@@ -35,7 +35,7 @@ export default function bind (...args: [any, any?]): any {
       monad: Maybe<Value>,
       transition: Map<Value, Maybe<NextValue>>
     ): Maybe<NextValue> => {
-      return conditional(
+      return ternary(
         isJust,
         compose(transition, fold),
         identity

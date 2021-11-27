@@ -13,14 +13,15 @@ const config = {
   tagline: description,
   favicon: '/favicon.ico',
   
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   organizationName: author,
   projectName: title,
   deploymentBranch: 'gh-pages',
   url: homepage,
-  baseUrl: '/',
+  baseUrl: process.env.NODE_ENV === 'production' ? '/fnts/' : '/',
+  trailingSlash: false,
 
   presets: [
     [

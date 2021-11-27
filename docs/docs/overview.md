@@ -179,4 +179,4 @@ Equivalent to:
 
 ---
 
-For a full overview of the available tools consult with the [API](/API) reference.
+For a full overview of the available tools consult with the [API](/api) reference.

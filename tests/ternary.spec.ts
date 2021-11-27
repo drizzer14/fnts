@@ -1,7 +1,7 @@
 import sut from '../src/ternary'
 import type { Map } from '../src/types/map'
 
-describe('conditional', () => {
+describe('ternary', () => {
   describe('when predicate returns "true"', () => {
     let left: Map<number, number>
     let right: jest.Mock
