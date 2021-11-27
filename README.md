@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/drizzer14/fnts/main/logo.svg" height="64" />
-  <h1 align="center">fnts</h1>
+  <h1 align="center">λ fnts</h1>
 </p>
 
 <p align="center">
@@ -24,64 +24,16 @@ TypeScript / JavaScript functional programming utilities inspired by the
 **TypeScript 4.2.2 is required for this package's typings to work properly.**
 
 ```shell
-λ npm i fnts typescript@4.2.2
+npm i fnts
 ```
 
 ```shell
-λ yarn add fnts typescript@4.2.2
+yarn add fnts
 ```
 
 ## Usage
 
-Every function comes with its own module providing the named export of every public API 
-and default export of the function itself:
-
-```typescript
-import compose from 'fnts/compose'
-import maybe, { Maybe } from 'fnts/maybe'
-```
-
-Also, it is possible to import everything from the root by name:
-
-```typescript
-import { compose, maybe, identity } from 'fnts'
-```
-
-### Currying
-
-The [curry](src/curry.ts) function is an attempt to create 
-a generic currying without relying on overloads.
-It supports the currying of functions with a set amount of arguments, 
-as well as variadic functions or the functions with optional arguments.
-The last two, though, require you to set the threshold upon which to curry them,
-as JavaScript does not supply the information about the number of arguments
-in those kinds of functions.
-
-### Composition and pipelines
-
-[Compose](src/compose.ts) and [pipe](src/pipe.ts) functions you'll encounter
-here are pretty unique in their implementation, as they also are described 
-generically rather than through overloads. 
-If you encounter any unexpected behaviour in them, 
-please feel free to create an [issue](https://github.com/drizzer14/fnts/issues).
-
-### Monads
-
-There are two commonly used monads in this package: 
-
-- [Maybe](src/maybe/maybe.ts).
-- [Either](src/either/either.ts), which is `async` by default. The sync version of `Either` is called `eitherSync`.
-
-Both have their own set of constructors, which rely on special tags
-represented through symbols – this way the "operators" know you pass them
-the objects related to those monads 
-(e.g. [just](src/maybe/maybe.ts) and [nothing](src/maybe/maybe.ts) from `Maybe` monad).
-
-For both monads there are aforementioned operators, 
-which can perform different transformations on their monads.
-These operators look just like plain functions, so, 
-if you are familiar with Haskell or RxJS, 
-you should quickly get a grasp on them.
+Please, visit the [documentation](https://drizzer14.github.io/fnts) to obtain the information about the usage and API of `fnts`.
 
 ## Motivation
 
