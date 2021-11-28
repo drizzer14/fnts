@@ -51,8 +51,7 @@ copyfiles(
       ...packageJSON
     }) => ({
       ...packageJSON,
-      main: 'cjs/index.js',
-      module: 'esm/index.js'
+      main: 'index.js',
     }),
   ],
 ].forEach(

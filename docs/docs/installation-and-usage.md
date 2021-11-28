@@ -29,5 +29,3 @@ import { left, Either } from 'fnts/either';
 import { permutation2 } from 'fnts/permutation';
 import { bifoldMap, first } from 'fnts/either/operators';
 ```
-
-There are two builds – one with ES modules and CommonJS modules. The needed one will be picked automatically by the bundler.
