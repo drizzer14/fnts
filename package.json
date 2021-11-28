@@ -26,7 +26,7 @@
     "ci": "npm-run-all -s lint build test",
     "bump": "standard-version",
     "prerelease": "node scripts/prerelease.js",
-    "release": "yarn publish lib"
+    "release": "yarn publish lib --non-interactive"
   },
   "devDependencies": {
     "@babel/core": "7.12.17",
