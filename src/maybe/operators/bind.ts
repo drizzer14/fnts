@@ -4,8 +4,8 @@
 
 import compose from '../../compose'
 import ternary from '../../ternary'
-import type { Maybe } from '../maybe'
 import identity from '../../identity'
+import type { Maybe } from '../maybe'
 import type { Map } from '../../types/map'
 import permutation2 from '../../permutation/permutation-2'
 

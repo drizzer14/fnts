@@ -3,6 +3,7 @@
  */
 
 import type { Last } from './types/last'
+import type { UnaryFunction } from './types/function'
 
 /**
  * Creates a `Composition` type which parses all of the provided functions' types.
@@ -12,40 +13,40 @@ import type { Last } from './types/last'
  * matches the type of the previous function's argument.
  */
 export type Composition<
-  Functions extends Array<(...args: any[]) => any>,
+  Functions extends UnaryFunction[],
   Length extends number = Functions['length']
-  > =
+> =
   Length extends 1
     ? Functions
     : Functions extends [...infer Rest, infer Penultimate, infer Last]
       ? [
         ...Composition<
-          // Weirdly `Rest`, `Penultimate` and `Last`,
-          // which we extended from unary function type,
-          // are not considered as functions in this expression
-          // @ts-ignore
-          [...Rest, (arg: ReturnType<Last>) => ReturnType<Penultimate>]
-          >,
+          Rest extends UnaryFunction[]
+            ? Last extends UnaryFunction
+              ? Penultimate extends UnaryFunction
+                ? [...Rest, (arg: ReturnType<Last>) => ReturnType<Penultimate>]
+                : never
+              : never
+            : never
+        >,
         Last
       ]
-      : any
+      : Functions
 
 /**
  * Applies all of the provided `functions` one-by-one in right-to-left order
  * starting from the `argument`.
  */
-export default function compose<Functions extends Array<(arg: any) => any>> (
+export default function compose<Functions extends UnaryFunction[]>(
   ...functions: Composition<Functions>
 ): (arg: Parameters<Last<Functions>>[0]) => ReturnType<Functions[0]> {
   return (arg) => {
-    const length = (functions as any[]).length
+    const length = functions.length
 
     let composition = arg
 
     for (let index = length - 1; index >= 0; index -= 1) {
-      const current = functions[index]
-
-      composition = current(composition)
+      composition = functions[index](composition)
     }
 
     return composition as ReturnType<Functions[0]>
