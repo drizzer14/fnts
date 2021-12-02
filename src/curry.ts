@@ -4,12 +4,13 @@
 
 import type { Slice } from './types/slice'
 import type { Gradual } from './types/gradual'
+import type { VariadicFunction } from './types/function'
 
 /**
  * Creates a type for an auto-curried function.
  */
 export type Currying<
-  Function extends (...args: any[]) => any,
+  Function extends VariadicFunction,
   Length extends number = Parameters<Function>['length']
 > =
   <Args extends Gradual<Parameters<Function>>>(...args: Args) =>
@@ -32,7 +33,7 @@ export type Currying<
  * Any excess arguments will not be applied.
  */
 export default function curry<
-  Function extends (...args: any[]) => any,
+  Function extends VariadicFunction,
   Length extends number = Parameters<Function>['length']
 > (
   fn: Function,

@@ -2,7 +2,9 @@
  * @module Guard
  */
 
-export type GuardQualifier<Function extends (...args: any[]) => any> = [
+import type { VariadicFunction } from './types/function';
+
+export type GuardQualifier<Function extends VariadicFunction> = [
   validator: <Result extends boolean>(...args: Parameters<Function>) => Result,
   executor: Function
 ]
@@ -18,13 +20,11 @@ export type GuardQualifier<Function extends (...args: any[]) => any> = [
  * When no `validator` succeeds, the default executor is run.
  */
 export default function guard
-  <Function extends (...args: any[]) => any> (
+  <Function extends VariadicFunction> (
     ...qualifiers: [...GuardQualifier<Function>[], Function]
   ): (...args: Parameters<Function>) => ReturnType<Function> {
   return (...args) => {
     const length = qualifiers.length - 1
-
-    const defaultExpression = qualifiers[length] as Function
 
     for (let index = 0; index < length; index += 1) {
       const [validator, expression] = (qualifiers as GuardQualifier<Function>[])[index]
@@ -34,6 +34,6 @@ export default function guard
       }
     }
 
-    return defaultExpression(...args)
+    return (qualifiers[length] as Function)(...args)
   }
 }

@@ -5,10 +5,10 @@
 import { bifoldr } from '../bifold'
 import { isRight } from '../guards'
 import compose from '../../../compose'
+import ternary from '../../../ternary'
 import identity from '../../../identity'
 import type { Either } from '../../either'
 import right, { Right } from '../../right'
-import ternary from '../../../ternary'
 import type { Map } from '../../../types/map'
 import permutation2 from '../../../permutation/permutation-2'
 

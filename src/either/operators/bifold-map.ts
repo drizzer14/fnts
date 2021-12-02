@@ -3,8 +3,8 @@
  */
 
 import compose from '../../compose'
-import type { Either } from '../either'
 import ternary from '../../ternary'
+import type { Either } from '../either'
 import type { Map } from '../../types/map'
 import permutation3 from '../../permutation/permutation-3'
 

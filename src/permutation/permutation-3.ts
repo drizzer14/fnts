@@ -2,11 +2,12 @@
  * @module Permutation
  */
 
+import type { VariadicFunction } from './../types/function';
 import type { FirstParameter, SecondParameter } from './permutation-2'
 
 export type TernaryFunction = (a: any, b: any, c: any) => any
 
-export type ThirdParameter<Function extends (...args: any[]) => any> =
+export type ThirdParameter<Function extends VariadicFunction> =
   Parameters<Function>[2]
 
 export default function permutation3
@@ -18,7 +19,7 @@ export default function permutation3
       c: ThirdParameter<Function> | undefined
     ) => boolean,
   ):
-   (...args: any[]) => any {
+   VariadicFunction {
     return (...args) => {
       const [a1, b, c] = args
 

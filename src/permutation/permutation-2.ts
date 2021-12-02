@@ -2,12 +2,14 @@
  * @module Permutation
  */
 
+import type { VariadicFunction } from './../types/function';
+
 export type BinaryFunction = (a: any, b: any) => any
 
-export type FirstParameter<Function extends (...args: any[]) => any> =
+export type FirstParameter<Function extends VariadicFunction> =
   Parameters<Function>[0]
 
-export type SecondParameter<Function extends (...args: any[]) => any> =
+export type SecondParameter<Function extends VariadicFunction> =
   Parameters<Function>[1]
 
 export default function permutation2
@@ -17,7 +19,7 @@ export default function permutation2
       a: FirstParameter<Function> | SecondParameter<Function>,
       b: SecondParameter<Function> | undefined
     ) => boolean,
-  ): (...args: any[]) => any {
+  ): VariadicFunction {
     return (...args) => {
       const [a1, b] = args
 

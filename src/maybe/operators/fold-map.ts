@@ -3,10 +3,10 @@
  */
 
 import compose from '../../compose'
+import ternary from '../../ternary'
 import type { Just } from '../just'
 import type { Maybe } from '../maybe'
 import type { Nothing } from '../nothing'
-import ternary from '../../ternary'
 import type { Map } from '../../types/map'
 import permutation2 from '../../permutation/permutation-2'
 

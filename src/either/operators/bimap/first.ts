@@ -5,10 +5,10 @@
 import { isLeft } from '../guards'
 import { bifoldl } from '../bifold'
 import compose from '../../../compose'
+import ternary from '../../../ternary'
 import left, { Left } from '../../left'
 import identity from '../../../identity'
 import type { Either } from '../../either'
-import ternary from '../../../ternary'
 import type { Map } from '../../../types/map'
 import permutation2 from '../../../permutation/permutation-2'
 
