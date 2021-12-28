@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/drizzer14/fnts/compare/v1.3.1...v1.3.2) (2021-12-28)
+
+
+### Bug Fixes
+
+* **curry:** remove broken `Args['length'] extends 1` condition ([5a48a55](https://github.com/drizzer14/fnts/commit/5a48a5580141784b1cc69e63745679e1d8da902f))
+* get rid of ts-ignore from type declarations of compose and pipeline ([658514f](https://github.com/drizzer14/fnts/commit/658514f3d76b3ef7416f7a823d65f23ce562d1dc))
+
 ### [1.3.1](https://github.com/drizzer14/fnts/compare/v1.3.0...v1.3.1) (2021-11-28)
 
 ## [1.3.0](https://github.com/drizzer14/fnts/compare/v1.2.0...v1.3.0) (2021-11-27)
