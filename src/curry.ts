@@ -14,15 +14,13 @@ export type Currying<
   Length extends number = Parameters<Function>['length']
 > =
   <Args extends Gradual<Parameters<Function>>>(...args: Args) =>
-    Args['length'] extends 1
-      ? (arg: Parameters<Function>[0]) => ReturnType<Function>
-      : Args['length'] extends Length
-        ? ReturnType<Function>
-        : Currying<
-          (
-            ...args: Slice<Parameters<Function>, Args['length']>
-          ) => ReturnType<Function>
-        >
+    Args['length'] extends Length
+      ? ReturnType<Function>
+      : Currying<
+        (
+          ...args: Slice<Parameters<Function>, Args['length']>
+        ) => ReturnType<Function>
+      >
 
 /**
  * Creates an auto-curried function from the one provided.
