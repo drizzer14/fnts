@@ -1,39 +1,47 @@
-import sut from '../src/curry'
-
-const fn = (a: number, b: number): number => a + b
+import sut from '../src/curry';
 
 describe('curry', () => {
-  describe('when applied arguments count is less than the function expects', () => {
-    it('should return a new function which expects the rest of the arguments', () => {
-      expect(
-        sut(fn)(2)(1),
-      ).toBe(3)
+  const fn = sut((a: number, b: string, c: boolean): [number, string, boolean] => [a, b, c])
+
+  describe('when amount of arguments is less than curry length', () => {
+    it('should curry until amount of arguments reaches length', () => {
+      [
+        fn(0),
+        fn(0, ''),
+        fn(0)('')
+      ].forEach((fixture) => {
+        expect(fixture).toBeInstanceOf(Function)
+      })
     })
   })
 
-  describe('when applied arguments count is more than the function expects', () => {
-    it('should apply only the count of arguments the function expects', () => {
-      expect(
+  describe('when amount of arguments equals to curry length', () => {
+    it('should return function\'s result', () => {
+      [
+        fn(0, '', true),
+        fn(0)('')(true),
+        fn(0, '')(true),
+        fn(0)('', true)
+      ].forEach((fixture) => {
+        expect(fixture).toStrictEqual([0, '', true])
+      })
+    })
+  })
+
+  describe('when amount of arguments is more than curry length', () => {
+    it('should return function\'s result neglecting excess arguments', () => {
+      [
         // @ts-expect-error
-        sut(fn)(1, 2, 3),
-      ).toBe(3)
-    })
-  })
-
-  describe('when applied arguments count is less than the specified count', () => {
-    it('should return a new function which expects the rest of the arguments', () => {
-      expect(
-        sut(fn, 2)(2)(1),
-      ).toBe(3)
-    })
-  })
-
-  describe('when applied arguments count is more than the specified count', () => {
-    it('should apply only the count of arguments the function expects', () => {
-      expect(
+        fn(0, '', true, false),
         // @ts-expect-error
-        sut(fn, 2)(1, 2, 3),
-      ).toBe(3)
-    })
+        fn(0)('')(true, false),
+        // @ts-expect-error
+        fn(0, '')(true, false),
+        // @ts-expect-error
+        fn(0)('', true, false)
+      ].forEach((fixture) => {
+        expect(fixture).toStrictEqual([0, '', true])
+      })
+    });
   })
 })
