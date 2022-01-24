@@ -23,6 +23,10 @@ export type Nothing = {
  */
 export default function nothing (): Nothing {
   return {
-    [nid]: null
+    [nid]: null,
+    // @ts-expect-error: Undocumented API for external use
+    toString() {
+      return 'Nothing'
+    }
   }
 }
