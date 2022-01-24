@@ -23,6 +23,10 @@ export type Right<Value> = {
  */
 export default function right<Value> (value: Value): Right<Value> {
   return {
-    [rid]: value
+    [rid]: value,
+    // @ts-expect-error: Undocumented API for external use
+    toString() {
+      return `Right ${value}`
+    }
   }
 }

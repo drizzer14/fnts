@@ -23,6 +23,10 @@ export type Left<Value> = {
  */
 export default function left<Value> (value: Value): Left<Value> {
   return {
-    [lid]: value
+    [lid]: value,
+    // @ts-expect-error: Undocumented API for external use
+    toString() {
+      return `Left ${value}`
+    }
   }
 }
