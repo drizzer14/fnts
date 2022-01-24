@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.3](https://github.com/drizzer14/fnts/compare/v1.3.2...v1.3.3) (2022-01-24)
+
+
+### Bug Fixes
+
+* **maybe:** remove buggy overloads of `foldMap` ([184cd50](https://github.com/drizzer14/fnts/commit/184cd505546eef335d0f0c0b157b1f00466f8c58))
+
 ### [1.3.2](https://github.com/drizzer14/fnts/compare/v1.3.1...v1.3.2) (2021-12-28)
 
 
