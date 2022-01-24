@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/drizzer14/fnts/compare/v1.3.3...v1.4.0) (2022-01-24)
+
+
+### Features
+
+* **either:** make `left` and `right` serializable ([591537f](https://github.com/drizzer14/fnts/commit/591537f90c43dc32f517bf6c429b545992e1d212))
+* **maybe:** make `just` and `nothing` serializable ([3fe826f](https://github.com/drizzer14/fnts/commit/3fe826f9eb573afcabdd03aa744ff8334756f5ee))
+
 ### [1.3.3](https://github.com/drizzer14/fnts/compare/v1.3.2...v1.3.3) (2022-01-24)
 
 
