@@ -29,41 +29,7 @@ export type FoldMap<Monad extends Maybe<any>, NextValue> =
  */
 export default function foldMap<Value, NextValue = Value> (
   transition: Map<Value, NextValue>
-): (monad: Just<Value>) => NextValue
-
-/**
- * Maps the value of the provided `monad` through the `transition` function
- * and returns the mapped value or `null`.
- */
-export default function foldMap<Value, NextValue = Value> (
-  transition: Map<Value, NextValue>
-): (monad: Nothing) => null
-
-/**
- * Maps the value of the provided `monad` through the `transition` function
- * and returns the mapped value or `null`.
- */
-export default function foldMap<Value, NextValue = Value> (
-  transition: Map<Value, NextValue>
 ): (monad: Maybe<Value>) => NextValue | null
-
-/**
- * Maps the value of the provided `monad` through the `transition` function
- * and returns the mapped value or `null`.
- */
-export default function foldMap<Value, NextValue = Value> (
-  monad: Just<Value>,
-  transition: Map<Value, NextValue>
-): NextValue
-
-/**
- * Maps the value of the provided `monad` through the `transition` function
- * and returns the mapped value or `null`.
- */
-export default function foldMap<Value, NextValue = Value> (
-  monad: Nothing,
-  transition: Map<Value, NextValue>
-): null
 
 /**
  * Maps the value of the provided `monad` through the `transition` function
