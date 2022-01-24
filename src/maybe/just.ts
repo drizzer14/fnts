@@ -22,6 +22,10 @@ export type Just<Value> = {
  */
 export default function just<Value> (value: Value): Just<Value> {
   return {
-    [jid]: value as Exclude<Value, null | undefined>
+    [jid]: value as Exclude<Value, null | undefined>,
+    // @ts-expect-error: Undocumented API for external use
+    toString() {
+      return `Just ${value}`
+    }
   }
 }
