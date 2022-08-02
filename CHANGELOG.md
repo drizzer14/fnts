@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/drizzer14/fnts/compare/v1.4.0...v1.5.0) (2022-08-02)
+
+
+### Features
+
+* **either:** add `bindr` operator ([899ac91](https://github.com/drizzer14/fnts/commit/899ac9191786d5b78a49f61bc06a7a596777a08e))
+
 ## [1.4.0](https://github.com/drizzer14/fnts/compare/v1.3.3...v1.4.0) (2022-01-24)
 
 
