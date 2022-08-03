@@ -1,7 +1,7 @@
 import compose from '../src/compose'
 import identity from '../src/identity'
-import either, { eitherSync } from '../src/either'
-import { bimap, isLeft, isRight, bifoldMap } from '../src/either/operators'
+import either, { eitherSync, right, left } from '../src/either'
+import { bimap, isLeft, isRight, bifoldMap, bindr, bifoldr, bifoldl } from '../src/either/operators'
 
 describe('either', () => {
   const sut = either
@@ -111,6 +111,47 @@ describe('either', () => {
               (x) => x + 1
             )
           ).toBe(6)
+        })
+      })
+    })
+
+    describe('bindr', () => {
+      describe('when provided with a `right` wrapper', () => {
+        const monad = right(1)
+
+        it('should map the value', () => {
+          const mapRight = jest.fn()
+
+          bindr(monad, mapRight)
+
+          expect(mapRight).toHaveBeenCalled()
+        })
+
+        it('should return new monad with mapped value', () => {
+          expect(
+            compose(
+              bifoldr,
+              bindr(() => right(2))
+            )(monad)
+          ).toBe(2)
+        })
+      })
+
+      describe('when provided with a `left` wrapper', () => {
+        const monad = left(1)
+
+        it('should not call the mapper function', () => {
+          const mapRight = jest.fn()
+
+          bindr(monad, mapRight)
+
+          expect(mapRight).not.toHaveBeenCalled()
+        })
+
+        it('should return this `left` wrapper', () => {
+          const boundMonad = bindr(monad, left)
+
+          expect(bifoldl(boundMonad)).toBe(1)
         })
       })
     })
