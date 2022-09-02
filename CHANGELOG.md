@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.2](https://github.com/drizzer14/fnts/compare/v1.5.1...v1.5.2) (2022-09-02)
+
+
+### Bug Fixes
+
+* **maybe:** make constructor typing more predictable ([e247050](https://github.com/drizzer14/fnts/commit/e24705014671b8e835e4c68a21e3a692d1307b9f))
+
 ### [1.5.1](https://github.com/drizzer14/fnts/compare/v1.5.0...v1.5.1) (2022-08-03)
 
 ## [1.5.0](https://github.com/drizzer14/fnts/compare/v1.4.0...v1.5.0) (2022-08-02)
