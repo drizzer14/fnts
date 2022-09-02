@@ -12,7 +12,7 @@ export const jid = Symbol.for('@@functional/just')
  * key, holding the provided value type.
  */
 export type Just<Value> = {
-  [jid]: Exclude<Value, null | undefined>
+  [jid]: NonNullable<Value>
 }
 
 /**
@@ -20,9 +20,9 @@ export type Just<Value> = {
  * Creates the special object with one property, represented as unique symbol
  * key, holding the provided value.
  */
-export default function just<Value> (value: Value): Just<Value> {
+export default function just<Value extends NonNullable<any>> (value: Value): Just<Value> {
   return {
-    [jid]: value as Exclude<Value, null | undefined>,
+    [jid]: value as NonNullable<Value>,
     // @ts-expect-error: Undocumented API for external use
     toString() {
       return `Just ${value}`

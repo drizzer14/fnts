@@ -15,6 +15,18 @@ export type Maybe<Value> = Just<Value> | Nothing
  * Constructor function for `Maybe`.
  * Creates either `just` of a provided value, or `nothing`.
  */
+export default function maybe(value: null | undefined): Nothing
+
+/**
+ * Constructor function for `Maybe`.
+ * Creates either `just` of a provided value, or `nothing`.
+ */
+export default function maybe<Value>(value: Value | null | undefined): Just<Value>
+
+/**
+ * Constructor function for `Maybe`.
+ * Creates either `just` of a provided value, or `nothing`.
+ */
 export default function maybe<Value> (value: Value | null | undefined): Maybe<Value> {
   return value === null || value === undefined
     ? nothing()
