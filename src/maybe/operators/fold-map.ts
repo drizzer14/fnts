@@ -18,7 +18,7 @@ import { isJust } from './guards'
  */
 export type FoldMap<Monad extends Maybe<any>, NextValue> =
   Monad extends Just<any>
-    ? NextValue
+    ? NonNullable<NextValue>
     : Monad extends Nothing
       ? null
       : never
@@ -29,7 +29,7 @@ export type FoldMap<Monad extends Maybe<any>, NextValue> =
  */
 export default function foldMap<Value, NextValue = Value> (
   transition: Map<Value, NextValue>
-): (monad: Maybe<Value>) => NextValue | null
+): (monad: Maybe<Value>) => FoldMap<Maybe<Value>, NextValue>
 
 /**
  * Maps the value of the provided `monad` through the `transition` function
@@ -38,19 +38,19 @@ export default function foldMap<Value, NextValue = Value> (
 export default function foldMap<Value, NextValue = Value> (
   monad: Maybe<Value>,
   transition: Map<Value, NextValue>
-): NextValue | null
+): FoldMap<Maybe<Value>, NextValue>
 
 export default function foldMap (...args: [any, any?]): any {
   return permutation2(
     <Value, NextValue> (
       monad: Maybe<Value>,
       transition: Map<Value, NextValue>
-    ): NextValue | null => {
+    ): FoldMap<Maybe<Value>, NextValue> => {
       return ternary(
         isJust,
         compose(transition, fold),
         () => null
-      )(monad)
+      )(monad) as FoldMap<Maybe<Value>, NextValue>
     }
   )(...args)
 }
