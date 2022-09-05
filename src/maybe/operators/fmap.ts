@@ -18,7 +18,7 @@ import ternary from '../../ternary'
  */
 export default function fmap<Value, NextValue = Value>(
   transition: Map<Value, NextValue>
-): (monad: Maybe<Value>) => Maybe<NextValue>
+): (monad: Maybe<Value>) => Maybe<NonNullable<NextValue>>
 
 /**
  * Maps the value of the provided `monad` through the `transition` function
@@ -27,19 +27,19 @@ export default function fmap<Value, NextValue = Value>(
 export default function fmap<Value, NextValue = Value>(
   monad: Maybe<Value>,
   transition: Map<Value, NextValue>
-): Maybe<NextValue>
+): Maybe<NonNullable<NextValue>>
 
 export default function fmap (...args: [any, any?]): any {
   return permutation2(
     <Value, NextValue>(
       monad: Maybe<Value>,
       transition: Map<Value, NextValue>
-    ): Maybe<NextValue> => {
+    ): Maybe<NonNullable<NextValue>> => {
       return ternary(
         isJust,
-        compose(maybe, transition, fold) as (monad: Maybe<Value>) => Maybe<NextValue>,
+        compose(maybe, transition, fold),
         identity
-      )(monad)
+      )(monad) as Maybe<NonNullable<NextValue>>
     }
   )(...args)
 }
