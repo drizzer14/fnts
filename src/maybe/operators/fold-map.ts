@@ -28,7 +28,7 @@ export type FoldMap<Monad extends Maybe<any>, NextValue> =
  * and returns the mapped value or `null`.
  */
 export default function foldMap<Value, NextValue = Value> (
-  transition: Map<Value, NextValue>
+  map: Map<Value, NextValue>
 ): (monad: Maybe<Value>) => FoldMap<Maybe<Value>, NextValue>
 
 /**
@@ -37,18 +37,18 @@ export default function foldMap<Value, NextValue = Value> (
  */
 export default function foldMap<Value, NextValue = Value> (
   monad: Maybe<Value>,
-  transition: Map<Value, NextValue>
+  map: Map<Value, NextValue>
 ): FoldMap<Maybe<Value>, NextValue>
 
 export default function foldMap (...args: [any, any?]): any {
   return permutation2(
     <Value, NextValue> (
       monad: Maybe<Value>,
-      transition: Map<Value, NextValue>
+      map: Map<Value, NextValue>
     ): FoldMap<Maybe<Value>, NextValue> => {
       return ternary(
         isJust,
-        compose(transition, fold),
+        compose(map, fold),
         () => null
       )(monad) as FoldMap<Maybe<Value>, NextValue>
     }

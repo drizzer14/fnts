@@ -17,7 +17,7 @@ import ternary from '../../ternary'
  * and returns a new `Maybe` of the mapped value.
  */
 export default function fmap<Value, NextValue = Value>(
-  transition: Map<Value, NextValue>
+  map: Map<Value, NextValue>
 ): (monad: Maybe<Value>) => Maybe<NonNullable<NextValue>>
 
 /**
@@ -26,18 +26,18 @@ export default function fmap<Value, NextValue = Value>(
  */
 export default function fmap<Value, NextValue = Value>(
   monad: Maybe<Value>,
-  transition: Map<Value, NextValue>
+  map: Map<Value, NextValue>
 ): Maybe<NonNullable<NextValue>>
 
 export default function fmap (...args: [any, any?]): any {
   return permutation2(
     <Value, NextValue>(
       monad: Maybe<Value>,
-      transition: Map<Value, NextValue>
+      map: Map<Value, NextValue>
     ): Maybe<NonNullable<NextValue>> => {
       return ternary(
         isJust,
-        compose(maybe, transition, fold),
+        compose(maybe, map, fold),
         identity
       )(monad) as Maybe<NonNullable<NextValue>>
     }
