@@ -17,7 +17,7 @@ import { isJust } from './guards'
  * by the `transition` function.
  */
 export default function bind<Value, NextValue> (
-  transition: Map<Value, Maybe<NextValue>>
+  map: Map<Value, Maybe<NextValue>>
 ): (monad: Maybe<Value>) => Maybe<NonNullable<NextValue>>
 
 /**
@@ -26,18 +26,18 @@ export default function bind<Value, NextValue> (
  */
 export default function bind<Value, NextValue> (
   monad: Maybe<Value>,
-  transition: Map<Value, Maybe<NextValue>>
+  map: Map<Value, Maybe<NextValue>>
 ): Maybe<NonNullable<NextValue>>
 
 export default function bind (...args: [any, any?]): any {
   return permutation2(
     <Value, NextValue>(
       monad: Maybe<Value>,
-      transition: Map<Value, Maybe<NextValue>>
+      map: Map<Value, Maybe<NextValue>>
     ): Maybe<NonNullable<NextValue>> => {
       return ternary(
         isJust,
-        compose(transition, fold),
+        compose(map, fold),
         identity
       )(monad) as Maybe<NonNullable<NextValue>>
     }

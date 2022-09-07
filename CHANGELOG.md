@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/drizzer14/fnts/compare/v1.5.3...v1.6.0) (2022-09-07)
+
+
+### Features
+
+* **either:** add `isEither` guard ([8db7e42](https://github.com/drizzer14/fnts/commit/8db7e423d1fa4651516046de0b847dd9dbed0b93))
+* **either:** add new overloads for `bifoldMap` ([41dd485](https://github.com/drizzer14/fnts/commit/41dd485a7a1d4ab779017b2ab7c627ed638e70fa))
+* **maybe:** add `isMaybe` guard ([8916af0](https://github.com/drizzer14/fnts/commit/8916af0574ef4dbeeb34f24dd202afa4b6385ec1))
+
 ### [1.5.3](https://github.com/drizzer14/fnts/compare/v1.5.2...v1.5.3) (2022-09-05)
 
 

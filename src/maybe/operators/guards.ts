@@ -19,3 +19,10 @@ export function isJust <Value>(monad: Maybe<Value>): monad is Just<Value> {
 export function isNothing <Value>(monad: Maybe<Value>): monad is Nothing {
   return Object.prototype.hasOwnProperty.call(monad, nid)
 }
+
+/**
+ * Type guard function to tell if the provided `value` is `Maybe`.
+ */
+export function isMaybe <Value>(value: any): value is Maybe<Value> {
+  return isJust(value) || isNothing(value)
+}

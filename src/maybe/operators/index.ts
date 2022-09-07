@@ -1,5 +1,5 @@
+export * from './guards'
 export { default as fmap } from './fmap'
 export { default as bind } from './bind'
 export { default as fold } from './fold'
-export { isJust, isNothing } from './guards'
 export { default as foldMap, FoldMap } from './fold-map'
