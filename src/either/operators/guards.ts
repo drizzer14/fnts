@@ -23,3 +23,12 @@ export function isRight<RightValue> (
 ): monad is Right<RightValue> {
   return Object.prototype.hasOwnProperty.call(monad, rid)
 }
+
+/**
+ * Type guard function to tell if the provided `value` is `Either`.
+ */
+export function isEither<LeftValue, RightValue> (
+  value: any
+): value is Either<LeftValue, RightValue> {
+  return isLeft(value) || isRight(value)
+}
