@@ -106,11 +106,16 @@ describe('either', () => {
         it('should map and return the value', async () => {
           expect(
             bifoldMap(
-              await sut(() => Promise.resolve(5)),
-              identity,
-              (x) => x + 1
+              await sut<string, number>(() => Promise.resolve(5)),
+              (x) => x && 1
             )
-          ).toBe(6)
+          ).toBe(1)
+
+          expect(
+            bifoldMap<string, number, string | number>(
+              (x) => x && 1
+            )(await sut(() => Promise.reject('')))
+          ).toBe('')
         })
       })
     })
