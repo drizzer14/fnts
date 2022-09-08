@@ -5,14 +5,14 @@ const lightCodeTheme = require('prism-react-renderer/themes/github');
 
 const packageJSON = require('../package.json');
 
-const { name: title, repository, homepage, description, author } = packageJSON;
+const { name: title, version, repository, homepage, description, author } = packageJSON;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title,
   tagline: description,
   favicon: '/favicon.ico',
-  
+
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
@@ -51,6 +51,11 @@ const config = {
           src: '/logo.svg',
         },
         items: [
+          {
+            label: `v${version}`,
+            position: 'right',
+            href: `https://github.com/drizzer14/fnts/releases/tag/v${version}`
+          },
           {
             href: repository,
             label: 'GitHub',
