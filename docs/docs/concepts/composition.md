@@ -41,6 +41,25 @@ isTwoDigits(5) === 'false';
 isTwoDigits(14) === 'true';
 ```
 
+Both `compose` and `pipe` allow for their first to-be-executed function to 
+have multiple arguments.
+
+
+```typescript
+import compose from 'fnts/compose';
+
+const isEvenSum = compose(
+  (b: boolean) => b ? 'true' : 'false',
+  (s: number) => s % 2 === 0,
+  (a: number, b: number) => a + b,
+);
+
+isEvenSum(2, 2) === 'true';
+isEvenSum(17, 32) === 'false';
+```
+
+---
+
 An important thing to note here, once again, is that there are no overloads
 present, so make to sure to have your functions properly typed and placed in a
 right order. Otherwise `compose` and `pipe` will emit TypeScript errors
@@ -57,7 +76,7 @@ functions. For example (taken from
 the [issue](https://github.com/drizzer14/fnts/issues/16) on GitHub):
 
 ```typescript
-import compose from "fnts/compose";
+import compose from 'fnts/compose';
 
 declare const as: number[];
 
