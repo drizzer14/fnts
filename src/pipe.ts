@@ -3,7 +3,7 @@
  */
 
 import type { Last } from './types/last'
-import type { UnaryFunction } from './types/function'
+import type { UnaryFunction, VariadicFunction } from './types/function';
 
 /**
  * Creates a `Pipeline` type which parses all of the provided functions' types.
@@ -13,7 +13,7 @@ import type { UnaryFunction } from './types/function'
  * matches the type of the next function's argument.
  */
 export type Pipeline<
-  Functions extends UnaryFunction[],
+  Functions extends [VariadicFunction, ...UnaryFunction[]],
   Length extends number = Functions['length']
   > =
   Length extends 1
@@ -28,29 +28,36 @@ export type Pipeline<
                 ? [(arg: ReturnType<First>) => ReturnType<Second>, ...Rest]
                 : never
               : never
-            : never
-            
+            : First extends VariadicFunction
+              ? Second extends UnaryFunction
+                ? Rest extends UnaryFunction[]
+                  ? [(arg: ReturnType<First>) => ReturnType<Second>, ...Rest]
+                  : never
+                : never
+              : never
+
         >
       ]
       : Functions
 
 /**
- * Applies all of the provided `functions` one-by-one in left-to-right order
- * starting from the `argument`.
+ * Applies all of the provided `functions` one-by-one in left-to-right order.
  */
 export default function pipe
-  <Functions extends Array<(arg: any) => any>>(
+  <Functions extends [VariadicFunction, ...UnaryFunction[]]>(
     ...functions: Pipeline<Functions>
-  ): (arg: Parameters<Functions[0]>[0]) => ReturnType<Last<Functions>> {
-  return (arg) => {
+  ): (...args: Parameters<Functions[0]>) => ReturnType<Last<Functions>> {
+  return (...args) => {
     const length = functions.length
 
-    let pipeline = arg
+    let pipeline = functions[0](...args)
 
-    for (let index = 0; index < length; index += 1) {
-      pipeline = functions[index](pipeline)
+    if (length > 1) {
+      for (let index = 1; index < length; index += 1) {
+        pipeline = functions[index](pipeline)
+      }
     }
 
-    return pipeline
+    return pipeline as ReturnType<Last<Functions>>
   }
 }

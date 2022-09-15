@@ -107,15 +107,15 @@ describe('either', () => {
           expect(
             bifoldMap(
               await sut<string, number>(() => Promise.resolve(5)),
-              (x) => x && 1
+              identity
             )
-          ).toBe(1)
+          ).toBe(5)
 
           expect(
             bifoldMap<string, number, string | number>(
-              (x) => x && 1
-            )(await sut(() => Promise.reject('')))
-          ).toBe('')
+              identity
+            )(await sut(() => Promise.reject('err')))
+          ).toBe('err')
         })
       })
     })

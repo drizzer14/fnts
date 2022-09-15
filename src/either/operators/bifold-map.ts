@@ -73,7 +73,9 @@ export default function bifoldMap (...args: [any, any?, any?]): any {
       LeftValue,
       RightValue,
       Value
-    > (monad: Either<LeftValue, RightValue>): Value => args[0](monad)
+    > (monad: Either<LeftValue, RightValue>): Value => {
+      return compose(args[0], bifold)(monad);
+    }
   }
 
   if (args.length === 2 && isEither(args[0])) {

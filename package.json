@@ -1,6 +1,6 @@
 {
   "name": "fnts",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "license": "MIT",
   "author": "Dmytro Vasylkivskyi",
   "description": "TypeScript / JavaScript FP utilities",
@@ -25,8 +25,9 @@
     "test:coverage": "jest --coverage",
     "ci": "npm-run-all -s lint build test",
     "bump": "standard-version",
-    "prerelease": "node scripts/prerelease.js",
-    "release": "yarn publish lib --non-interactive"
+    "prepublish": "node scripts/prepublish.js",
+    "publish": "yarn publish lib --non-interactive",
+    "release": "npm-run-all -s build publish"
   },
   "devDependencies": {
     "@babel/core": "7.12.17",
