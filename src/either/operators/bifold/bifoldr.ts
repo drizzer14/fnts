@@ -22,7 +22,7 @@ export type Bifoldr<Monad extends Either<any, any>> =
 export default function bifoldr<Monad extends Either<any, any>> (
   monad: Monad
 ): Bifoldr<Monad> {
-  return isRight(monad)
+  return (isRight(monad)
     ? monad[rid]
-    : undefined
+    : undefined) as Bifoldr<Monad>
 }
