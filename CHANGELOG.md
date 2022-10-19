@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/drizzer14/fnts/compare/v1.6.0...v1.8.0) (2022-10-19)
+
+
+### Features
+
+* **compose:** allow the last function to have multiple arguments ([3ee087f](https://github.com/drizzer14/fnts/commit/3ee087f5cc6c7b1dafe0a922fc2d4be72821b55e))
+* **pipe:** allow the first function to have multiple arguments ([b895446](https://github.com/drizzer14/fnts/commit/b895446e783a0ae9c34d36942ae55cdbb89416af))
+* **rethrow:** make `effect` parameter optional ([b4edf8c](https://github.com/drizzer14/fnts/commit/b4edf8cd0ca07fcb14fce9eacdb70683106533ab))
+
+
+### Bug Fixes
+
+* **either:** fix `bifoldMap` first overload implementation ([20b4070](https://github.com/drizzer14/fnts/commit/20b40707f1f70a0058d8c4d0ee8259ccb13f7032))
+
 ## [1.7.0](https://github.com/drizzer14/fnts/compare/v1.6.0...v1.7.0) (2022-09-15)
 
 
