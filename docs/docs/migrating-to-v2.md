@@ -1,6 +1,6 @@
 ---
 id: migrating-to-v2
-slug: /
+slug: /migrating-to-v2
 title: Migrating to v2
 sidebar_position: 2
 ---
