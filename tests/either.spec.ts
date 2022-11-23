@@ -184,8 +184,10 @@ describe('eitherSync', () => {
       expect(
         isLeft(
           sut(() => compose(
-            JSON.parse,
-            (jsonString: string) => `1${jsonString}`,
+            compose(
+              JSON.parse,
+              (jsonString: string) => `1${jsonString}`
+            ),
             JSON.stringify
           )({ a: 1 }))
         )

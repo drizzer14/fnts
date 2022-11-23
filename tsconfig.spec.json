@@ -10,5 +10,5 @@
     "emitDeclarationOnly": null
   },
   
-  "include": ["src", "tests", "jest.config.js"]
+  "include": ["src", "tests", "typetests", "jest.config.js"]
 }
