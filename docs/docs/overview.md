@@ -42,8 +42,10 @@ Composition in `fnts` is represented through the `compose` and `pipe` functions.
 import compose from 'fnts/compose';
 
 const isTwoDigits = compose(
-  (b: boolean) => b ? 'true' : 'false',
-  (s: string) => s.length === 2, // argument type imposed from the next function
+  compose(
+    (b: boolean) => b ? 'true' : 'false',
+    (s: string) => s.length === 2 // argument type imposed from the next function
+  ),
   (n: number) => `${n}`,
 ); // will accept only a number as argument
 
@@ -55,8 +57,10 @@ isTwoDigits(14) === 'true';
 import pipe from 'fnts/pipe';
 
 const isTwoDigits = pipe(
-  (n: number) => `${n}`,
-  (s: string) => s.length === 2,
+  pipe(
+    (n: number) => `${n}`,
+    (s: string) => s.length === 2
+  ),
   (b: boolean) => b ? 'true' : 'false',
 );
 
@@ -151,31 +155,28 @@ guard<(x: number) => number>(
 )(5) // 4
 ```
 
-### Control Flow
+### Lensing (-ish?)
 
-A `ternary` function is here to help, when there's a need to add a simple control flow expression which relies on the same argument in a condition and both branches. Additionally, it enforces the same return type for truthy and falsy expressions.
-
-```typescript
-import ternary from 'fnts/ternary';
-
-const lt = (b: number) => (a: number) => a < b;
-
-const incr = (a: number) => a + 1;
-
-const decr = (a: number) => a - 1;
-
-ternary(
-  lt(5), // condition
-  incr, // if true
-  decr // if false
-)(4);
-```
-
-Equivalent to:
+Functional lenses have not (and probably will not) yet seen its way into 
+`fnts`, but for now there's one special `get` function that knows how to 
+safely get a value from an object (even a nested one):
 
 ```typescript
-4 < 5 ? 4 + 1 : 4 - 1;
+import get from 'fnts/get';
+
+get(
+  { a: { b: { c: 1 } } },
+  'a.b.c'
+);
+
+get(
+  { a: { b: { c: [{ d: 1 }] } } },
+  'a.b.c.0.d'
+);
 ```
+
+Dot-notated path is always validated, although intellisense breaks at array 
+indices and onward.
 
 ---
 

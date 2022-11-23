@@ -3,14 +3,20 @@
  */
 
 import { isLeft } from '../guards'
-import { bifoldl } from '../bifold'
 import compose from '../../../compose'
-import ternary from '../../../ternary'
+import bifoldl from '../bifold/bifoldl'
 import left, { Left } from '../../left'
 import identity from '../../../identity'
 import type { Either } from '../../either'
 import type { Map } from '../../../types/map'
 import permutation2 from '../../../permutation/permutation-2'
+
+export type First<Monad extends Either<any, any>> =
+  Monad extends Left<infer LeftValue>
+    ? LeftValue
+    : Monad extends Either<infer LeftValue, any>
+      ? LeftValue
+      : never
 
 /**
  * Maps the left value of the provided `monad` to a new `Either` monad
@@ -47,11 +53,13 @@ export default function first (...args: [any, any?]): any {
       monad: Either<LeftValue, RightValue>,
       mapLeft: Map<LeftValue, NextLeftValue>,
     ): Either<NextLeftValue, RightValue> => {
-      return ternary(
-        isLeft,
-        compose(left, mapLeft, bifoldl) as Map<typeof monad, Left<NextLeftValue>>,
-        identity
-      )(monad)
+      return isLeft(monad)
+        ? compose(
+          compose(left, mapLeft),
+          bifoldl,
+          monad
+        )
+        : identity(monad)
     }
   )(...args)
 }

@@ -11,7 +11,7 @@ describe('maybe', () => {
   })
 
   describe('when provided with a nullable value', () => {
-    it('should create a `nothing` wrapper with `null` value', () => {
+    it('should create a `nothing` wrapper with `undefined` value', () => {
       [
         sut(null),
         sut(undefined)
@@ -41,7 +41,7 @@ describe('maybe', () => {
           expect(
             isNothing(
               bind(
-                sut<number>(null),
+                sut<number>(undefined),
                 (x) => just(x + 1)
               )
             )
@@ -85,10 +85,10 @@ describe('maybe', () => {
       })
 
       describe('when provided with `nothing` monad', () => {
-        it('should return `null`', () => {
+        it('should return `undefined`', () => {
           expect(
             fold(sut(undefined))
-          ).toBe(null)
+          ).toBe(undefined)
         })
       })
     })
@@ -106,13 +106,13 @@ describe('maybe', () => {
       })
 
       describe('when provided with a `nothing` wrapper', () => {
-        it('should return `null`', () => {
+        it('should return `undefined`', () => {
           expect(
             foldMap(
               nothing() as Maybe<number>,
               (x) => x + 1
             )
-          ).toBe(null)
+          ).toBe(undefined)
         })
       })
     })

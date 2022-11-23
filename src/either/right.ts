@@ -21,9 +21,9 @@ export type Right<Value> = {
  * Creates the special object with one property, represented as unique symbol
  * key, holding the provided value.
  */
-export default function right<Value> (value: Value): Right<Value> {
+export default function right<Value = undefined> (value?: Value): Right<Value> {
   return {
-    [rid]: value,
+    [rid]: value as Value,
     // @ts-expect-error: Undocumented API for external use
     toString() {
       return `Right ${value}`

@@ -2,14 +2,15 @@
  * @module Either Operators
  */
 
-import compose from '../../compose'
-import ternary from '../../ternary'
-import type { Either } from '../either'
-import type { Map } from '../../types/map'
-import permutation3 from '../../permutation/permutation-3'
+import bifold from '../bifold'
+import compose from '../../../compose'
+import type { Either } from '../../either'
+import { isEither, isLeft } from '../guards'
+import type { Map } from '../../../types/map'
+import permutation3 from '../../../permutation/permutation-3'
 
-import { isEither, isLeft } from './guards';
-import bifold, { bifoldl, bifoldr } from './bifold'
+import bifoldlMap from './bifoldl-map'
+import bifoldrMap from './bifoldr-map'
 
 /**
  * Maps provided `monad` to a value,
@@ -74,12 +75,12 @@ export default function bifoldMap (...args: [any, any?, any?]): any {
       RightValue,
       Value
     > (monad: Either<LeftValue, RightValue>): Value => {
-      return compose(args[0], bifold)(monad);
+      return compose(args[0], bifold, monad) as Value;
     }
   }
 
   if (args.length === 2 && isEither(args[0])) {
-    return compose(args[1], bifold)(args[0])
+    return compose(args[1], bifold, args[0])
   }
 
   return permutation3(
@@ -92,11 +93,9 @@ export default function bifoldMap (...args: [any, any?, any?]): any {
       mapLeft: Map<LeftValue, Value>,
       mapRight: Map<RightValue, Value>,
     ): Value => {
-      return ternary(
-        isLeft,
-        compose(mapLeft, bifoldl),
-        compose(mapRight, bifoldr)
-      )(monad)
+      return (isLeft(monad)
+        ? bifoldlMap(monad, mapLeft)
+        : bifoldrMap(monad, mapRight))!
     }
   )(...args)
 }

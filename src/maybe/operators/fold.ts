@@ -15,16 +15,32 @@ export type Fold<Monad extends Maybe<any>> =
   Monad extends Just<infer Value>
     ? Value
     : Monad extends Nothing
-      ? null
-      : never
+      ? undefined
+      : Monad extends Maybe<infer Value>
+        ? Value | undefined
+        : never
 
 /**
  * Returns the value of the provided `monad`.
  */
-export default function fold<Monad extends Maybe<any>> (
+export default function fold<Monad extends Just<any>> (
   monad: Monad
-): Fold<Monad> {
+): Fold<Monad>
+
+/**
+ * Returns the value of the provided `monad`.
+ */
+export default function fold<Value> (
+  monad: Maybe<Value>
+): Value | undefined
+
+/**
+ * Returns the value of the provided `monad`.
+ */
+export default function fold<Value> (
+  monad: Maybe<Value>
+): Value | undefined {
   return isJust(monad)
     ? monad[jid]
-    : (monad as Nothing)[nid]
+    : monad[nid]
 }

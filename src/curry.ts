@@ -9,14 +9,14 @@ import type { VariadicFunction } from './types/function'
 /**
  * Creates a type for an auto-curried function.
  */
-export type Currying<
+export type Curry<
   Function extends VariadicFunction,
   Length extends number = Parameters<Function>['length']
 > =
   <Args extends Gradual<Parameters<Function>>>(...args: Args) =>
     Args['length'] extends Length
       ? ReturnType<Function>
-      : Currying<
+      : Curry<
         (
           ...args: Slice<Parameters<Function>, Args['length']>
         ) => ReturnType<Function>
@@ -36,7 +36,7 @@ export default function curry<
 > (
   fn: Function,
   length = fn.length as Length
-): Currying<Function, Length> {
+): Curry<Function, Length> {
   return <A extends Gradual<Parameters<Function>>> (...args: A) => {
     const argsLength = args.length
 

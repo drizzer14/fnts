@@ -3,7 +3,6 @@
  */
 
 import compose from '../../compose'
-import ternary from '../../ternary'
 import identity from '../../identity'
 import type { Maybe } from '../maybe'
 import type { Map } from '../../types/map'
@@ -18,7 +17,7 @@ import { isJust } from './guards'
  */
 export default function bind<Value, NextValue> (
   map: Map<Value, Maybe<NextValue>>
-): (monad: Maybe<Value>) => Maybe<NonNullable<NextValue>>
+): (monad: Maybe<Value>) => Maybe<NextValue>
 
 /**
  * Binds the value of the `monad` to new monad created
@@ -27,19 +26,17 @@ export default function bind<Value, NextValue> (
 export default function bind<Value, NextValue> (
   monad: Maybe<Value>,
   map: Map<Value, Maybe<NextValue>>
-): Maybe<NonNullable<NextValue>>
+): Maybe<NextValue>
 
 export default function bind (...args: [any, any?]): any {
   return permutation2(
     <Value, NextValue>(
       monad: Maybe<Value>,
       map: Map<Value, Maybe<NextValue>>
-    ): Maybe<NonNullable<NextValue>> => {
-      return ternary(
-        isJust,
-        compose(map, fold),
-        identity
-      )(monad) as Maybe<NonNullable<NextValue>>
+    ): Maybe<NextValue> => {
+      return isJust(monad)
+        ? compose(map, fold, monad)
+        : identity(monad)
     }
   )(...args)
 }

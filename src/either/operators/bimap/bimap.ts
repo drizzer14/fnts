@@ -3,7 +3,6 @@
  */
 
 import { isLeft } from '../guards'
-import ternary from '../../../ternary'
 import type { Either } from '../../either'
 import type { Map } from '../../../types/map'
 import permutation3 from '../../../permutation/permutation-3'
@@ -52,11 +51,9 @@ export default function bimap (...args: [any, any, any?]): any {
       mapLeft: Map<LeftValue, NextLeftValue>,
       mapRight: Map<RightValue, NextRightValue>,
     ): Either<NextLeftValue, NextRightValue> => {
-      return ternary(
-        isLeft,
-        first(mapLeft) as Map<typeof monad, Either<NextLeftValue, NextRightValue>>,
-        second(mapRight) as Map<typeof monad, Either<NextLeftValue, NextRightValue>>,
-      )(monad)
+      return isLeft(monad)
+        ? first(monad, mapLeft)
+        : second(monad, mapRight)
     }
   )(...args)
 }

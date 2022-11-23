@@ -21,4 +21,8 @@ describe('rethrow', () => {
   it('should rethrow the received error', () => {
     expect(() => sut(effect)(error)).toThrowError(error)
   })
+
+  it('should just rethrow the received error if no effect was provided', () => {
+    expect(() => sut()(error)).toThrowError(error)
+  })
 })

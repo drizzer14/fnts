@@ -7,21 +7,21 @@ import { Right, rid } from '../right'
 import type { Either } from '../either'
 
 /**
- * Type guard function to tell if the provided `monad` is `Left`.
+ * Type guard function to tell if the provided `value` is `Left`.
  */
 export function isLeft<LeftValue> (
-  monad: Either<LeftValue, any>
-): monad is Left<LeftValue> {
-  return Object.prototype.hasOwnProperty.call(monad, lid)
+  value: any
+): value is Left<LeftValue> {
+  return Object.prototype.hasOwnProperty.call(value, lid)
 }
 
 /**
- * Type guard function to tell if the provided `monad` is `Right`.
+ * Type guard function to tell if the provided `value` is `Right`.
  */
 export function isRight<RightValue> (
-  monad: Either<any, RightValue>
-): monad is Right<RightValue> {
-  return Object.prototype.hasOwnProperty.call(monad, rid)
+  value: any
+): value is Right<RightValue> {
+  return Object.prototype.hasOwnProperty.call(value, rid)
 }
 
 /**

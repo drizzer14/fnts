@@ -22,8 +22,8 @@ export type GuardQualifier<Function extends VariadicFunction> = [
 export default function guard
   <Function extends VariadicFunction> (
     ...qualifiers: [...GuardQualifier<Function>[], Function]
-  ): (...args: Parameters<Function>) => ReturnType<Function> {
-  return (...args) => {
+  ): Function {
+  return ((...args: Parameters<Function>) => {
     const length = qualifiers.length - 1
 
     for (let index = 0; index < length; index += 1) {
@@ -35,5 +35,5 @@ export default function guard
     }
 
     return (qualifiers[length] as Function)(...args)
-  }
+  }) as Function
 }

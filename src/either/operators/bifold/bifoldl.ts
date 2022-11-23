@@ -13,16 +13,34 @@ import type { Either } from '../../either'
 export type Bifoldl<Monad extends Either<any, any>> =
   Monad extends Left<infer LeftValue>
     ? LeftValue
-    : undefined
+    : Monad extends Either<infer LeftValue, any>
+      ? LeftValue | undefined
+      : never
 
 /**
  * Returns the left value of the provided `monad`.
  * If the `monad` is `Right`, returns `undefined`.
  */
-export default function bifoldl<Monad extends Either<any, any>> (
+export default function bifoldl<Monad extends Left<any>> (
   monad: Monad
-): Bifoldl<Monad> {
-  return (isLeft(monad)
+): Bifoldl<Monad>
+
+/**
+ * Returns the left value of the provided `monad`.
+ * If the `monad` is `Right`, returns `undefined`.
+ */
+export default function bifoldl<LeftValue> (
+  monad: Either<LeftValue, any>
+): LeftValue | undefined
+
+/**
+ * Returns the left value of the provided `monad`.
+ * If the `monad` is `Right`, returns `undefined`.
+ */
+export default function bifoldl<LeftValue> (
+  monad: Either<LeftValue, any>
+): LeftValue | undefined {
+  return isLeft(monad)
     ? monad[lid]
-    : undefined) as Bifoldl<Monad>
+    : undefined
 }

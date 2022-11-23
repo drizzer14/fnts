@@ -3,7 +3,6 @@
  */
 
 import compose from '../../compose'
-import ternary from '../../ternary'
 import identity from '../../identity'
 import type { Map } from '../../types'
 import type { Either } from '../either'
@@ -37,7 +36,7 @@ export default function bindr<
   mapRight: Map<RightValue, Either<LeftValue, NextRightValue>>
 ): Either<LeftValue, NextRightValue>
 
-export default function bindr(...args: [any, any?]): any {
+export default function bindr (...args: [any, any?]): any {
   return permutation2(
     <
       LeftValue,
@@ -45,13 +44,11 @@ export default function bindr(...args: [any, any?]): any {
       NextRightValue
     > (
       monad: Either<LeftValue, RightValue>,
-      mapRight: (value: RightValue) => Either<LeftValue, NextRightValue>
+      mapRight: Map<RightValue, Either<LeftValue, NextRightValue>>
     ): Either<LeftValue, NextRightValue> => {
-      return ternary(
-        isRight,
-        compose(mapRight, bifoldr),
-        identity,
-      )(monad)
+      return isRight(monad)
+        ? compose(mapRight, bifoldr, monad)
+        : identity(monad)
     }
   )(...args)
 }

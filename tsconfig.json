@@ -14,10 +14,12 @@
     "alwaysStrict": true,
     "skipLibCheck": true,
     "noImplicitAny": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
+    "keyofStringsOnly": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
-    "noUnusedParameters": true,
+    "noErrorTruncation": true,
+    "noUnusedParameters": false,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "noStrictGenericChecks": true,
@@ -25,6 +27,6 @@
     "forceConsistentCasingInFileNames": true
   },
   
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "typetests"],
   "exclude": ["node_modules"]
 }

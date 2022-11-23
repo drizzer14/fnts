@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/drizzer14/fnts/compare/v1.8.0...v2.0.0) (2022-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump `typescript` peer dependency version to `>=4.7`
+* remove `ternary` function
+* **curry:** rename type `Currying` -> `Curry`
+* **pipe:** accept only two functions at a time
+* **compose:** accept only two functions at a time
+
+### Features
+
+* remove `ternary` function ([48f0b07](https://github.com/drizzer14/fnts/commit/48f0b07a79f70eacec4ed22f290a8d15b3d95a19))
+* **compose:** accept only two functions at a time ([a521a3b](https://github.com/drizzer14/fnts/commit/a521a3b1c02635bdd6be7c129419881ff08417a2))
+* **curry:** rename type `Currying` -> `Curry` ([78fca81](https://github.com/drizzer14/fnts/commit/78fca81d83c892cbb739f65b48a5f3e2436eb1e8))
+* **either:** add `bifoldlMap` and `bifoldrMap` operators ([203fb26](https://github.com/drizzer14/fnts/commit/203fb26055b95a172049d32ff964baf90ed38a23))
+* **either:** allow `isLeft` and `isRight` guards to accept any value ([768ad84](https://github.com/drizzer14/fnts/commit/768ad84a9af13e97ad45ccaddec1064747d097ae))
+* **either:** allow `left` and `right` to not accept a value ([22a5c1c](https://github.com/drizzer14/fnts/commit/22a5c1c6d97d5c781430a43ea74c3f4b2bdff64f))
+* **pipe:** accept only two functions at a time ([c28dae3](https://github.com/drizzer14/fnts/commit/c28dae35b600784dd361d201362abdae9448ec60))
+* add `get` function ([292c68b](https://github.com/drizzer14/fnts/commit/292c68bb514b5dd1c2d442b18150a4f3701eb054))
+
+
+### Bug Fixes
+
+* **either:** improve operators type inference ([06a800f](https://github.com/drizzer14/fnts/commit/06a800f3e37bfd5666060e3e2567ecccde544bb6))
+* **guard:** fix internal typings ([943d11c](https://github.com/drizzer14/fnts/commit/943d11c2c20aedd027777b9a69f3f833f7c6bf9b))
+* **maybe:** improve type inference ([ab137ee](https://github.com/drizzer14/fnts/commit/ab137ee96748bfcb00711b23e082a25dd6ba1f3a))
+
+
+### deps
+
+* bump `typescript` peer dependency version to `>=4.7` ([4bfb251](https://github.com/drizzer14/fnts/commit/4bfb251389b031c1d363fcc18db414c7e81a6def))
+
 ## [1.8.0](https://github.com/drizzer14/fnts/compare/v1.6.0...v1.8.0) (2022-10-19)
 
 

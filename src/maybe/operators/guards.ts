@@ -7,17 +7,17 @@ import type { Maybe } from '../maybe'
 import { Nothing, nid } from '../nothing'
 
 /**
- * Type guard function to tell if the provided `monad` is `Just`.
+ * Type guard function to tell if the provided `value` is `Just`.
  */
-export function isJust <Value>(monad: Maybe<Value>): monad is Just<Value> {
-  return Object.prototype.hasOwnProperty.call(monad, jid)
+export function isJust <Value>(value: any): value is Just<Value> {
+  return Object.prototype.hasOwnProperty.call(value, jid)
 }
 
 /**
- * Type guard function to tell if the provided `monad` is `Nothing`.
+ * Type guard function to tell if the provided `value` is `Nothing`.
  */
-export function isNothing <Value>(monad: Maybe<Value>): monad is Nothing {
-  return Object.prototype.hasOwnProperty.call(monad, nid)
+export function isNothing (value: any): value is Nothing {
+  return Object.prototype.hasOwnProperty.call(value, nid)
 }
 
 /**

@@ -2,58 +2,73 @@
  * @module Composition
  */
 
-import type { Last } from './types/last'
-import type { UnaryFunction, VariadicFunction } from './types/function';
+import type { UnaryFunction } from './types/function';
 
 /**
- * Creates a `Composition` type which parses all of the provided functions' types.
- * Any function with either an incorrect argument or a return type will not fit
- * into the composition and should be typed according to it, so that its argument's
- * type matches the return type of the next function and its return type
- * matches the type of the previous function's argument.
+ * Makes a composition of functions from received arguments.
  */
-export type Composition<
-  Functions extends [...UnaryFunction[], VariadicFunction],
-  Length extends number = Functions['length']
+export type Compose<
+  Arguments extends any[],
+  Functions extends any[] = []
 > =
-  Length extends 1
+  Arguments['length'] extends 0
     ? Functions
-    : Functions extends [...infer Rest, infer Penultimate, infer Last]
-      ? [
-        ...Composition<
-          Rest extends UnaryFunction[]
-            ? Last extends UnaryFunction
-              ? Penultimate extends UnaryFunction
-                ? [...Rest, (arg: ReturnType<Last>) => ReturnType<Penultimate>]
-                : never
-              : Last extends VariadicFunction
-                ? Penultimate extends UnaryFunction
-                  ? [...Rest, (arg: ReturnType<Last>) => ReturnType<Penultimate>]
-                  : never
-                : never
-            : never
-        >,
-        Last
-      ]
-      : Functions
+    : Arguments extends [infer A, infer B]
+      ? [...Functions, (arg: A) => B]
+      : Arguments extends [infer A, ...infer Rest, infer P, infer L]
+        ? Compose<[A, ...Rest, P], [...Functions, (arg: P) => L]>
+        : []
 
 /**
- * Applies all of the provided `functions` one-by-one in right-to-left order.
+ * Destructures a composition of functions into arguments.
  */
-export default function compose<Functions extends [...UnaryFunction[], VariadicFunction]>(
-  ...functions: Composition<Functions>
-): (...args: Parameters<Last<Functions>>) => ReturnType<Functions[0]> {
-  return (...args) => {
-    const length = functions.length
+export type Decompose<
+  Functions extends UnaryFunction[],
+  Arguments extends any[] = []
+> = Functions extends [(arg: infer Arg) => infer Return]
+  ? [...Arguments, Arg, Return]
+  : Functions extends [...infer Rest extends UnaryFunction[], (arg: infer Arg) => any]
+    ? Decompose<Rest, [...Arguments, Arg]>
+    : []
 
-    let composition = (functions[length - 1] as VariadicFunction)(...args)
+/**
+ * (B -> C) . (A -> B) = A -> C
+ */
+export default function compose<
+  A extends any[],
+  B,
+  C
+> (
+  f: (arg: B) => C,
+  g: (...args: A) => B,
+): (...args: A) => C
 
-    if (length > 1) {
-      for (let index = length - 2; index >= 0; index -= 1) {
-        composition = functions[index](composition)
-      }
-    }
+/**
+ * (B -> C) . (A -> B) = A -> C
+ */
+export default function compose<
+  A extends any[],
+  B,
+  C
+> (
+  f: (arg: B) => C,
+  g: (...args: A) => B,
+  ...args: A
+): C
 
-    return composition as ReturnType<Functions[0]>
-  }
+/**
+ * (B -> C) . (A -> B) = A -> C
+ */
+export default function compose<
+  A extends any[],
+  B,
+  C
+> (
+  f: (arg: B) => C,
+  g: (...args: A) => B,
+  ...maybeArgs: A
+) {
+  return maybeArgs.length === 0
+    ? (...args: A) => f(g(...args))
+    : f(g(...maybeArgs))
 }
