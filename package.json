@@ -22,8 +22,9 @@
     "build": "npm-run-all -p copy:dts build:dts build:js",
     "lint": "tsc -p tsconfig.ci.json",
     "test": "jest",
+    "typetest": "tsc -p tsconfig.test.json",
     "test:coverage": "jest --coverage",
-    "ci": "npm-run-all -s lint build test",
+    "ci": "npm-run-all -s build lint test typetest",
     "bump": "standard-version",
     "prepublish": "node scripts/prepublish.js",
     "publish": "yarn publish lib --non-interactive",
@@ -39,10 +40,10 @@
     "rimraf": "3.0.2",
     "standard-version": "9.1.1",
     "ts-jest": "26.5.2",
-    "typescript": "4.2.2"
+    "typescript": "4.9.3"
   },
   "peerDependencies": {
-    "typescript": ">=4.2.2"
+    "typescript": ">=4.7"
   },
   "peerDependenciesMeta": {
     "typescript": {
