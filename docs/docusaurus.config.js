@@ -19,8 +19,8 @@ const config = {
   organizationName: author,
   projectName: title,
   deploymentBranch: 'gh-pages',
-  url: homepage,
-  baseUrl: process.env.NODE_ENV === 'production' ? '/fnts/' : '/',
+  url: homepage.slice(0, -6),
+  baseUrl: '/fnts',
   trailingSlash: false,
 
   presets: [
@@ -29,12 +29,12 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebar.config.js'),
+          sidebarPath: require.resolve('./sidebars.js'),
           editUrl: `${repository}/docs`,
           routeBasePath: '/',
         },
         theme: {
-          customCss: [require.resolve('./src/theme/palette.css')]
+          customCss: [require.resolve('./src/theme/palette.css'), require.resolve('./src/css/custom.css')]
         }
       }),
     ],
@@ -58,8 +58,9 @@ const config = {
           },
           {
             href: repository,
-            label: 'GitHub',
             position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
           },
         ],
       },
