@@ -5,7 +5,8 @@ title: Installation and Usage
 sidebar_position: 1
 ---
 
-First, make to sure to have `typescript@4.2.2` installed, as otherwise the types won't work properly.
+First, make to sure to have `typescript@4.7` installed, as otherwise the 
+types won't work properly.
 
 ```shell
 npm i fnts
