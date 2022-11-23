@@ -13,7 +13,7 @@ export const nid = Symbol.for('@@functional/nothing')
  * key, holding the `null` value type.
  */
 export type Nothing = {
-  [nid]: null
+  [nid]: undefined
 }
 
 /**
@@ -23,7 +23,7 @@ export type Nothing = {
  */
 export default function nothing (): Nothing {
   return {
-    [nid]: null,
+    [nid]: undefined,
     // @ts-expect-error: Undocumented API for external use
     toString() {
       return 'Nothing'
