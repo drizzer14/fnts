@@ -15,77 +15,6 @@ The minimal amount of abstractions not present in the TypeScript itself, or bein
 
 The library basically provides the tools to handily operate the following concepts: monads, currying, composition, guarding, handling side effects and control flows. Nothing more, nothing less.
 
-### [Currying](/concepts/currying)
-
-The `curry` function is here to help with auto-currying of variadic or fixed amount of arguments.
-
-```typescript
-import curry from 'fnts/curry';
-
-const sumOfThree = curry(
-  (a: number, b: number, c: number): number => {
-    return a + b + c;
-  }
-);
-
-sumOfThree(1, 2, 3) === 
-sumOfThree(1, 2)(3) === 
-sumOfThree(1)(2, 3) === 
-sumOfThree(1)(2)(3);
-```
-
-### [Composition](/concepts/composition)
-
-Composition in `fnts` is represented through the `compose` and `pipe` functions. Both are implemented without the overloads, which causes the types to be rather *imposed* than inferred.
-
-```typescript
-import compose from 'fnts/compose';
-
-const isTwoDigits = compose(
-  compose(
-    (b: boolean) => b ? 'true' : 'false',
-    (s: string) => s.length === 2 // argument type imposed from the next function
-  ),
-  (n: number) => `${n}`,
-); // will accept only a number as argument
-
-isTwoDigits(5) === 'false';
-isTwoDigits(14) === 'true';
-```
-
-```typescript
-import pipe from 'fnts/pipe';
-
-const isTwoDigits = pipe(
-  pipe(
-    (n: number) => `${n}`,
-    (s: string) => s.length === 2
-  ),
-  (b: boolean) => b ? 'true' : 'false',
-);
-
-isTwoDigits(5) === 'false';
-isTwoDigits(14) === 'true';
-```
-
-### [Arguments Permutation](/concepts/arguments-permutation)
-
-For non-commutative operations or functions that *can* be applied in the compositional context it is handy to be able to automatically permutate (switch places of) their arguments. For some functions in `fnts` this is already implemented:
-
-```typescript
-import { fmap } from 'fnts/maybe/operators';
-
-const mapToNumber = (maybe: Maybe<string>): Maybe<number> => fmap(maybe, (value) => Number(value));
-```
-
-Here, `mapToNumber` declaration is equivalent to:
-
-```typescript
-import { fmap } from 'fnts/maybe/operators';
-
-const mapToNumber = fmap<string, number>(Number);
-```
-
 ### [Monads](/concepts/monads)
 
 Out of the variety of monads `fnts` chooses two presumably most suitable ones: `maybe` and `either`. Each have their own constructors and operators (as opposed to classes and methods based approach seen commonly).
@@ -124,6 +53,77 @@ bifoldMap(
   (error) => console.error(error),
   (data) => data
 );
+```
+
+### [Composition](/concepts/composition)
+
+Composition in `fnts` is represented through the `compose` and `pipe` functions. Both are implemented without the overloads, which causes the types to be rather *imposed* than inferred.
+
+```typescript
+import compose from 'fnts/compose';
+
+const isTwoDigits = compose(
+  compose(
+    (b: boolean) => b ? 'true' : 'false',
+    (s: string) => s.length === 2 // argument type imposed from the next function
+  ),
+  (n: number) => `${n}`,
+); // will accept only a number as argument
+
+isTwoDigits(5) === 'false';
+isTwoDigits(14) === 'true';
+```
+
+```typescript
+import pipe from 'fnts/pipe';
+
+const isTwoDigits = pipe(
+  pipe(
+    (n: number) => `${n}`,
+    (s: string) => s.length === 2
+  ),
+  (b: boolean) => b ? 'true' : 'false',
+);
+
+isTwoDigits(5) === 'false';
+isTwoDigits(14) === 'true';
+```
+
+### [Currying](/concepts/currying)
+
+The `curry` function is here to help with auto-currying of variadic or fixed amount of arguments.
+
+```typescript
+import curry from 'fnts/curry';
+
+const sumOfThree = curry(
+  (a: number, b: number, c: number): number => {
+    return a + b + c;
+  }
+);
+
+sumOfThree(1, 2, 3) === 
+sumOfThree(1, 2)(3) === 
+sumOfThree(1)(2, 3) === 
+sumOfThree(1)(2)(3);
+```
+
+### [Arguments Permutation](/concepts/arguments-permutation)
+
+For non-commutative operations or functions that *can* be applied in the compositional context it is handy to be able to automatically permutate (switch places of) their arguments. For some functions in `fnts` this is already implemented:
+
+```typescript
+import { fmap } from 'fnts/maybe/operators';
+
+const mapToNumber = (maybe: Maybe<string>): Maybe<number> => fmap(maybe, (value) => Number(value));
+```
+
+Here, `mapToNumber` declaration is equivalent to:
+
+```typescript
+import { fmap } from 'fnts/maybe/operators';
+
+const mapToNumber = fmap<string, number>(Number);
 ```
 
 ### [Side effects](/concepts/side-effects)
@@ -169,10 +169,7 @@ get(
   'a.b.c'
 );
 
-get(
-  { a: { b: { c: [{ d: 1 }] } } },
-  'a.b.c.0.d'
-);
+get('a.b.c.0.d')({ a: { b: { c: [{ d: 1 }] } } });
 ```
 
 Dot-notated path is always validated, although intellisense breaks at array 
