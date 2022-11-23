@@ -5,12 +5,18 @@
 import { bifoldr } from '../bifold'
 import { isRight } from '../guards'
 import compose from '../../../compose'
-import ternary from '../../../ternary'
 import identity from '../../../identity'
 import type { Either } from '../../either'
 import right, { Right } from '../../right'
 import type { Map } from '../../../types/map'
 import permutation2 from '../../../permutation/permutation-2'
+
+export type Second<Monad extends Either<any, any>> =
+  Monad extends Right<infer RightValue>
+    ? RightValue
+    : Monad extends Either<any, infer RightValue>
+      ? RightValue
+      : never
 
 /**
  * Maps the right value of the provided `monad` to a new `Either` monad
@@ -47,11 +53,13 @@ export default function second (...args: [any, any?]): any {
       monad: Either<LeftValue, RightValue>,
       mapRight: Map<RightValue, NextRightValue>,
     ): Either<LeftValue, NextRightValue> => {
-      return ternary(
-        isRight,
-        compose(right, mapRight, bifoldr) as Map<typeof monad, Right<NextRightValue>>,
-        identity
-      )(monad)
+      return isRight(monad)
+        ? compose(
+          compose(right, mapRight),
+          bifoldr,
+          monad
+        )
+        : identity(monad)
     }
   )(...args)
 }
