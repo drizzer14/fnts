@@ -80,6 +80,13 @@ const c2: Maybe<string> = tacit(
   maybe(1)
 )
 
+const c3: Maybe<string> = fmap(
+  maybe(1),
+  (v) => {
+    return v > 0 ? `${v}` : null
+  }
+)
+
 // endregion
 
 // region fold

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/drizzer14/fnts/compare/v2.0.0...v2.0.1) (2022-11-24)
+
+
+### Bug Fixes
+
+* **maybe:** restrict mapped `fmap` value from being nullable in resulting type ([95895eb](https://github.com/drizzer14/fnts/commit/95895eb6f6bb42af91993cf51b0cab7f3438b76e))
+
 ## [2.0.0](https://github.com/drizzer14/fnts/compare/v1.8.0...v2.0.0) (2022-11-23)
 
 

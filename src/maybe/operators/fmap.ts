@@ -17,7 +17,7 @@ import { isJust } from './guards'
  */
 export default function fmap<Value, NextValue>(
   map: Map<Value, NextValue>
-): (monad: Maybe<Value>) => Maybe<NextValue>
+): (monad: Maybe<Value>) => Maybe<NonNullable<NextValue>>
 
 /**
  * Maps the value of the provided `monad` through the `transition` function
@@ -26,7 +26,7 @@ export default function fmap<Value, NextValue>(
 export default function fmap<Value, NextValue>(
   monad: Maybe<Value>,
   map: Map<Value, NextValue>
-): Maybe<NextValue>
+): Maybe<NonNullable<NextValue>>
 
 export default function fmap (...args: [any, any?]): any {
   return permutation2(
