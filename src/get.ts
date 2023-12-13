@@ -18,13 +18,15 @@ export type Flatten<
       | keyof {
         [
           Key in keyof Source as
-            Source[Key] extends Record<string, unknown>
-              ? `${Key}.${Flatten<Source[Key]>}`
-              : Source[Key] extends any[]
-                ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
-                    ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
-                    : `${Key}.${number}`
-                : Key
+            Key extends string
+              ? Source[Key] extends Record<string, unknown>
+                ? `${Key}.${Flatten<Source[Key]>}`
+                : Source[Key] extends any[]
+                  ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
+                      ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
+                      : `${Key}.${number}`
+                  : Key
+              : never
         ] : never
       }
     )
