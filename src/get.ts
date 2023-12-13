@@ -97,7 +97,7 @@ export default function get(...args: [any, any?]): any {
       let result = source as Get<Source, Path>
 
       for (let index = 0; index < length; index += 1) {
-        result = result[keys[index] as keyof typeof result] as Get<Source, Path>
+        result = result?.[keys?.[index] as keyof typeof result] as Get<Source, Path>
       }
 
       return result
