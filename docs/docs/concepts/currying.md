@@ -4,10 +4,10 @@ slug: /concepts/currying
 title: Currying
 ---
 
-The `curry` function is here to help with auto-currying of variadic or fixed
-amount of arguments. It does not provide the "placeholder" feature like in
-ramda, as in JavaScripts, where placeholders are rather a syntetic feature, its
-cost would be to run a loop on each call of the source function's curried
+The `curry` function is here to help with auto-currying of variadic functions
+or functions with a fixed amount of arguments.
+It does not provide the "placeholder" feature like in
+ramda, since in JavaScript where placeholders are rather a synthetic feature, its cost would be to run a loop on each call of the source function's curried
 derivatives.
 
 By default it curries up to the function's `length` which can be determined only
