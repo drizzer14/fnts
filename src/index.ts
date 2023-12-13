@@ -1,6 +1,7 @@
 export { default as get } from './get'
 export { default as tap } from './tap'
 export { default as pipe } from './pipe'
+export { default as apply } from './apply'
 export { default as curry } from './curry'
 export { default as match } from './guard'
 export { default as inject } from './inject'

@@ -39,8 +39,8 @@ export default function pipe<
   B,
   C
 > (
-  first: (...args: A) => B,
-  second: (arg: B) => C
+  f: (...args: A) => B,
+  g: (arg: B) => C
 ): (...args: A) => C
 
 /**
@@ -53,8 +53,8 @@ export default function pipe<
 > (
   ...args: [
     ...args: A,
-    first: (...args: A) => B,
-    second: (arg: B) => C
+    f: (...args: A) => B,
+    g: (arg: B) => C
   ]
 ): C
 
@@ -68,8 +68,8 @@ export default function pipe<
 > (
   ...maybeArgs: [
     ...args: A,
-    first: (...args: A) => B,
-    second: (arg: B) => C
+    f: (...args: A) => B,
+    g: (arg: B) => C
   ]
 ) {
   return maybeArgs.length === 2

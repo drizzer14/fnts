@@ -18,13 +18,15 @@ export type Flatten<
       | keyof {
         [
           Key in keyof Source as
-            Source[Key] extends Record<string, unknown>
-              ? `${Key}.${Flatten<Source[Key]>}`
-              : Source[Key] extends any[]
-                ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
-                    ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
-                    : `${Key}.${number}`
-                : Key
+            Key extends string
+              ? Source[Key] extends Record<string, unknown>
+                ? `${Key}.${Flatten<Source[Key]>}`
+                : Source[Key] extends any[]
+                  ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
+                      ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
+                      : `${Key}.${number}`
+                  : Key
+              : never
         ] : never
       }
     )
@@ -95,7 +97,7 @@ export default function get(...args: [any, any?]): any {
       let result = source as Get<Source, Path>
 
       for (let index = 0; index < length; index += 1) {
-        result = result[keys[index] as keyof typeof result] as Get<Source, Path>
+        result = result?.[keys?.[index] as keyof typeof result] as Get<Source, Path>
       }
 
       return result

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/drizzer14/fnts/compare/v2.0.1...v2.1.0) (2023-12-13)
+
+
+### Features
+
+* add apply function ([51d074f](https://github.com/drizzer14/fnts/commit/51d074fa7009be26505b6e6eb3dc8395e834bda2))
+
+
+### Bug Fixes
+
+* **get:** enhance Flatten type condition ([be0b883](https://github.com/drizzer14/fnts/commit/be0b883f4470a412d4184c0b57b717fceeb4976e))
+* **get:** guard object access with optional chaining ([23d7a5e](https://github.com/drizzer14/fnts/commit/23d7a5ee46e560406b05f77d999fc10e64d47a06))
+
 ### [2.0.1](https://github.com/drizzer14/fnts/compare/v2.0.0...v2.0.1) (2022-11-24)
 
 

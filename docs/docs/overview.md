@@ -108,6 +108,22 @@ sumOfThree(1)(2, 3) ===
 sumOfThree(1)(2)(3);
 ```
 
+### [Application](/concepts/application)
+
+`apply` function calls the functions provided to it on the same set of arguments
+and returns the tuple with results.
+
+```typescript
+import apply from 'fnts/apply';
+
+apply(
+    (a: number, b: number) => a + b,
+    (a: number, b: number) => a - b,
+    (a: number, b: number) => a / b,
+    (a: number, b: number) => a * b,
+)(3, 2); // [5, 1, 1.5, 6]
+```
+
 ### [Arguments Permutation](/concepts/arguments-permutation)
 
 For non-commutative operations or functions that *can* be applied in the compositional context it is handy to be able to automatically permutate (switch places of) their arguments. For some functions in `fnts` this is already implemented:
