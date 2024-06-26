@@ -2,7 +2,7 @@
  * @module Get
  */
 
-import permutation2 from './permutation/permutation-2';
+import permutation2 from './permutation/permutation-2'
 
 /**
  * Recursively flattens object type to a union of its keys

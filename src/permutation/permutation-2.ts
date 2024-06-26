@@ -2,7 +2,7 @@
  * @module Permutation
  */
 
-import type { VariadicFunction } from './../types/function';
+import type { VariadicFunction } from './../types/function'
 
 export type BinaryFunction = (a: any, b: any) => any
 

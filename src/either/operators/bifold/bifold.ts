@@ -2,13 +2,10 @@
  * @module Either Operators
  */
 
-import { isLeft } from '../guards';
-import { lid, Left } from '../../left';
+import { isLeft } from '../guards'
+import { lid, Left } from '../../left'
 import { rid, Right } from '../../right'
 import type { Either } from '../../either'
-
-import type { Bifoldl } from './bifoldl';
-import type { Bifoldr } from './bifoldr';
 
 /**
  * A type to unwrap either the left or the right value type
