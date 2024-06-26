@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/drizzer14/fnts/compare/v2.1.0...v2.1.1) (2024-06-26)
+
+
+### Bug Fixes
+
+* fix guard re-export name ([d358991](https://github.com/drizzer14/fnts/commit/d358991a396dad84b53cd1ac346bf38e64203f57))
+
 ## [2.1.0](https://github.com/drizzer14/fnts/compare/v2.0.1...v2.1.0) (2023-12-13)
 
 

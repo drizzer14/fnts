@@ -2,7 +2,7 @@
  * @module Guard
  */
 
-import type { VariadicFunction } from './types/function';
+import type { VariadicFunction } from './types/function'
 
 export type GuardQualifier<Function extends VariadicFunction> = [
   validator: <Result extends boolean>(...args: Parameters<Function>) => Result,

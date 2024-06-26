@@ -4,7 +4,7 @@
 
 import type { Effect } from './types/effect'
 import permutation2 from './permutation/permutation-2'
-import type { VariadicFunction } from './types/function';
+import type { VariadicFunction } from './types/function'
 
 /**
  * Injects a function with a side effect.

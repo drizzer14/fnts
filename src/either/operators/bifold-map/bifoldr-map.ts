@@ -2,12 +2,12 @@
  * @module Either Operators
  */
 
-import { Right } from '../../right';
-import { isRight } from '../guards';
+import { Right } from '../../right'
+import { isRight } from '../guards'
 import compose from '../../../compose'
 import type { Either } from '../../either'
 import type { Map } from '../../../types/map'
-import bifoldr, { Bifoldr } from '../bifold/bifoldr';
+import bifoldr, { Bifoldr } from '../bifold/bifoldr'
 import permutation2 from '../../../permutation/permutation-2'
 
 /**

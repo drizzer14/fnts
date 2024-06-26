@@ -9,8 +9,8 @@ import type { Nothing } from '../nothing'
 import type { Map } from '../../types/map'
 import permutation2 from '../../permutation/permutation-2'
 
+import fold from './fold'
 import { isJust } from './guards'
-import fold, { Fold } from './fold';
 
 /**
  * A type to unwrap the provided `Monad` into the new value type.

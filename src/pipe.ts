@@ -2,7 +2,7 @@
  * @module Composition
  */
 
-import type { UnaryFunction } from './types/function';
+import type { UnaryFunction } from './types/function'
 
 /**
  * Makes a pipeline of functions from received arguments.
