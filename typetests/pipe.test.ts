@@ -72,7 +72,7 @@ const a8: Maybe<boolean> = tacit(
         (value) => `${value}` === '1',
       ),
       pipe(
-        identity,
+        (value) => Number(value),
         (value: number): string => `${value}`,
       ),
     ),

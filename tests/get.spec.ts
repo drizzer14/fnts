@@ -1,4 +1,4 @@
-import sut from '../src/get'
+import sut from '../src/lens/get'
 
 describe('get', () => {
   describe('when accessing a property', () => {

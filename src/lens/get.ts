@@ -1,9 +1,9 @@
 /**
- * @module Get
+ * @module Lens
  */
 
-import permutation2 from './permutation/permutation-2'
-import type { Flatten, Flattenable } from './types/flatten'
+import permutation2 from '../permutation/permutation-2'
+import type { Flatten, Flattenable } from '../types/flatten'
 
 /**
  * Gets the value type inside a nested object type `Source` by provided `Path`
@@ -16,6 +16,7 @@ export type Get<
   Source extends Record<string, unknown>
     ? Path extends `${number}.${infer Right}`
       ? Get<Source, Right>
+      // @ts-ignore
       : Path extends `${infer Left extends keyof Source}.${infer Right}`
         // @ts-ignore
         ? Get<Exclude<Source[Left], undefined>, Right> | Extract<Source[Left], undefined>
@@ -23,8 +24,8 @@ export type Get<
           ? Source[Path]
           : never
     : Source extends any[]
-      ? Path extends `${infer Left extends number}.${infer Right}`
-        ? Get<Exclude<Source[Left], undefined>, Right> | Extract<Source[Left], undefined>
+      ? Path extends `${infer Index extends number}.${infer Right}`
+        ? Get<Exclude<Source[Index], undefined>, Right> | Extract<Source[Index], undefined>
         : Path extends `${infer Index extends number}`
           ? Source[Index]
           : never
@@ -34,23 +35,27 @@ export type Get<
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
+// @ts-ignore
 export default function get<
   Source extends Flattenable,
   Path extends Flatten<Source>
 > (
   path: Path
+  // @ts-ignore
 ): (source: Source) => Get<Source, Path>
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
+// @ts-ignore
 export default function get<
   Source extends Flattenable,
   Path extends Flatten<Source>
 > (
   source: Source,
   path: Path
+  // @ts-ignore
 ): Get<Source, Path>
 
 /**
@@ -58,6 +63,7 @@ export default function get<
  * written in dot-notation.
  */
 export default function get (...args: [any, any?]): any {
+  // @ts-ignore
   return permutation2(
     <
       Source extends Flattenable,
