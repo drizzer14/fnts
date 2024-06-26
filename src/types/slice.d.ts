@@ -5,7 +5,7 @@
 import type { Tuple } from './tuple'
 
 /**
- * Slices the tuple by `C` amount of entries from the **end**.
+ * Removes `C` amount of `T` elements from the **start**.
  */
 export type Slice<
   T extends any[] | readonly any[],

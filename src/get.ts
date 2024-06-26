@@ -3,46 +3,21 @@
  */
 
 import permutation2 from './permutation/permutation-2'
-
-/**
- * Recursively flattens object type to a union of its keys
- * combined through dot-notation.
- */
-export type Flatten<
-  Source extends Record<string, unknown> | any[],
-> =
-  | keyof Source extends keyof any[]
-    ? `${number}`
-    : (
-      | keyof Source
-      | keyof {
-        [
-          Key in keyof Source as
-            Key extends string
-              ? Source[Key] extends Record<string, unknown>
-                ? `${Key}.${Flatten<Source[Key]>}`
-                : Source[Key] extends any[]
-                  ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
-                      ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
-                      : `${Key}.${number}`
-                  : Key
-              : never
-        ] : never
-      }
-    )
+import type { Flatten, Flattenable } from './types/flatten'
 
 /**
  * Gets the value type inside a nested object type `Source` by provided `Path`
  * written in dot-notation.
  */
 export type Get<
-  Source,
+  Source extends Flattenable,
   Path extends string
 > =
   Source extends Record<string, unknown>
-    ? Path extends `${infer Index extends number}.${infer Right}`
+    ? Path extends `${number}.${infer Right}`
       ? Get<Source, Right>
       : Path extends `${infer Left extends keyof Source}.${infer Right}`
+        // @ts-ignore
         ? Get<Exclude<Source[Left], undefined>, Right> | Extract<Source[Left], undefined>
         : Path extends keyof Source
           ? Source[Path]
@@ -60,9 +35,9 @@ export type Get<
  * written in dot-notation.
  */
 export default function get<
-  Source extends Record<string, unknown> | any[],
+  Source extends Flattenable,
   Path extends Flatten<Source>
->(
+> (
   path: Path
 ): (source: Source) => Get<Source, Path>
 
@@ -71,9 +46,9 @@ export default function get<
  * written in dot-notation.
  */
 export default function get<
-  Source extends Record<string, unknown> | any[],
+  Source extends Flattenable,
   Path extends Flatten<Source>
->(
+> (
   source: Source,
   path: Path
 ): Get<Source, Path>
@@ -82,12 +57,12 @@ export default function get<
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-export default function get(...args: [any, any?]): any {
+export default function get (...args: [any, any?]): any {
   return permutation2(
     <
-      Source extends Record<string, unknown> | any[],
+      Source extends Flattenable,
       Path extends string
-    >(
+    > (
       source: Source,
       path: Path
     ): Get<Source, Path> => {

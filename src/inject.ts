@@ -25,7 +25,7 @@ export default function inject<Function extends VariadicFunction> (
 
 export default function inject (...args: [any, any?]): any {
   return permutation2(
-    <Function extends VariadicFunction>(
+    <Function extends VariadicFunction> (
       fn: Function,
       effect: Effect<Function>
     ) => {

@@ -9,7 +9,7 @@ import { Nothing, nid } from '../nothing'
 /**
  * Type guard function to tell if the provided `value` is `Just`.
  */
-export function isJust <Value>(value: any): value is Just<Value> {
+export function isJust <Value> (value: any): value is Just<Value> {
   return Object.prototype.hasOwnProperty.call(value, jid)
 }
 
@@ -23,6 +23,6 @@ export function isNothing (value: any): value is Nothing {
 /**
  * Type guard function to tell if the provided `value` is `Maybe`.
  */
-export function isMaybe <Value>(value: any): value is Maybe<Value> {
+export function isMaybe <Value> (value: any): value is Maybe<Value> {
   return isJust(value) || isNothing(value)
 }

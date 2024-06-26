@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/drizzer14/fnts/compare/v2.1.1...v2.2.0) (2024-06-26)
+
+
+### Features
+
+* add set function ([9251f96](https://github.com/drizzer14/fnts/commit/9251f96ed08b2e6406cafab5e45cfcdb2a0d1e4d))
+* **types:** add Trim type ([13650a0](https://github.com/drizzer14/fnts/commit/13650a0fd6ee308e2dfd85d1814a5fe3664157b9))
+* **types:** add Unshift type ([0f8fd38](https://github.com/drizzer14/fnts/commit/0f8fd38483296cfd0be8f7a5cd8a527be5a38064))
+* **types:** move Flatten type into the module ([9cc1ae9](https://github.com/drizzer14/fnts/commit/9cc1ae91872a84aef771f1273a7bd74f0a0cdd2c))
+
 ### [2.1.1](https://github.com/drizzer14/fnts/compare/v2.1.0...v2.1.1) (2024-06-26)
 
 
