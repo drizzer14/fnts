@@ -5,7 +5,7 @@
 import type { VariadicFunction } from './types/function'
 
 export type GuardQualifier<Function extends VariadicFunction> = [
-  validator: <Result extends boolean>(...args: Parameters<Function>) => Result,
+  validator: <Result extends boolean> (...args: Parameters<Function>) => Result,
   executor: Function
 ]
 
