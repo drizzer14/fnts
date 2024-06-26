@@ -36,6 +36,16 @@ export type Get<
  * written in dot-notation.
  */
 // @ts-ignore
+export default function get<Source extends Flattenable> (
+  source: Source
+  // @ts-ignore
+): <Path extends Flatten<Source>> (path: Path) => Get<Source, Path>
+
+/**
+ * Gets the value inside a nested `source` object by provided `path`
+ * written in dot-notation.
+ */
+// @ts-ignore
 export default function get<
   Source extends Flattenable,
   Path extends Flatten<Source>
@@ -69,9 +79,19 @@ export default function get (...args: [any, any?]): any {
       Source extends Flattenable,
       Path extends string
     > (
-      source: Source,
-      path: Path
+      sourceOrPath: Source | Path,
+      pathOrSource: Path | Source
     ): Get<Source, Path> => {
+      let source: Source, path: Path
+
+      if (typeof sourceOrPath === 'string') {
+        source = pathOrSource as Source
+        path = sourceOrPath as Path
+      } else {
+        source = sourceOrPath as Source
+        path = pathOrSource as Path
+      }
+
       const keys = path.split('.')
       const length = keys.length
 

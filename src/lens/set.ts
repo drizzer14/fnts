@@ -3,7 +3,6 @@
  */
 
 import type { Unshift } from '../types/unshift'
-import permutation3 from '../permutation/permutation-3'
 import type { Flatten, Flattenable } from '../types/flatten'
 
 /**
@@ -46,6 +45,22 @@ export type Set<
  * written in dot-notation.
  */
 // @ts-ignore
+export default function set<Source extends Flattenable> (
+  source: Source
+): <
+  Path extends Flatten<Source>,
+  Value
+> (
+  path: Path,
+  value: Value,
+  // @ts-ignore
+) => Set<Source, Path, Value>
+
+/**
+ * Sets the `value` inside a nested `source` object by provided `path`
+ * written in dot-notation.
+ */
+// @ts-ignore
 export default function set<
   Source extends Flattenable,
   Path extends Flatten<Source>,
@@ -76,42 +91,52 @@ export default function set<
  * Sets the `value` inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-export default function set (...args: [any, any, any?]): any {
-  // @ts-ignore
-  return permutation3(
-    // @ts-ignore
-    <
-      Source extends Flattenable,
-      Path extends Flatten<Source>,
-      Value
-    >(
-      source: Source,
-      path: Path,
-      value: Value
+export default function set (...args: [any, any?, any?]): any {
+  switch(args.length) {
+    case 1: {
       // @ts-ignore
-    ): Set<Source, Path, Value> => {
-      // @ts-ignore
-      const keys = path.split('.')
-      const length = keys.length
-
-      let result = structuredClone(source)
-
-      if (length === 0) {
-        result[path as keyof Source] = value as Source[keyof Source]
-      }
-
-      let scope: any = result[keys[0]! as keyof Source]
-
-      for (let index = 1; index < length; index += 1) {
-        if (index === length - 1) {
-          scope[keys?.[index] as keyof typeof scope] = value
-        } else {
-          scope = scope?.[keys?.[index] as keyof typeof scope]
-        }
-      }
-
-      // @ts-ignore
-      return result as Set<Source, Path, Value>
+      return <Path extends string, Value>(path: Path, value: Value) => _set(args[0], path, value)
     }
-  )(...args)
+    case 2: {
+      // @ts-ignore
+      return <Source extends Flattenable>(source: Source) => _set(source, args[1], args[2])
+    }
+    case 3: {
+      return _set
+    }
+  }
+}
+
+function _set<
+  Source extends Flattenable,
+  Path extends Flatten<Source>,
+  Value
+> (
+  source: Source,
+  path: Path,
+  value: Value
+  // @ts-ignore
+): Set<Source, Path, Value> {
+  // @ts-ignore
+  const keys = path.split('.')
+  const length = keys.length
+
+  let result = structuredClone(source)
+
+  if (length === 0) {
+    result[path as keyof Source] = value as Source[keyof Source]
+  }
+
+  let scope: any = result[keys[0]! as keyof Source]
+
+  for (let index = 1; index < length; index += 1) {
+    if (index === length - 1) {
+      scope[keys?.[index] as keyof typeof scope] = value
+    } else {
+      scope = scope?.[keys?.[index] as keyof typeof scope]
+    }
+  }
+
+  // @ts-ignore
+  return result as Set<Source, Path, Value>
 }

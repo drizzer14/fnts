@@ -48,7 +48,7 @@ const a5: null = get(
 
 // endregion
 
-// region tacit
+// region tacit path-first
 
 const b1: number = tacit(
   get(
@@ -84,5 +84,21 @@ const b5: null = tacit(
   ),
   b4
 )
+
+// endregion
+
+// region tacit source-first
+
+const lens = get(source)
+
+const c1: number = lens('a')
+
+const c2: boolean = lens('b.c')
+
+const c3: string = lens('b.d.e.0.f')
+
+const c4: null[] = lens('b.d.g')
+
+const c5: null = get(c4)('0')
 
 // endregion

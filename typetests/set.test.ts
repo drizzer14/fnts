@@ -47,7 +47,7 @@ const a4: typeof source = set(
 
 // endregion
 
-// region tacit
+// region tacit path-first
 
 const b1: typeof source = tacit(
   set(
@@ -80,5 +80,19 @@ const b4: typeof source = tacit(
   ),
   source
 )
+
+// endregion
+
+// region tacit source-first
+
+const lens = set(source)
+
+const c1: typeof source = lens('a', 2)
+
+const c2: typeof source = lens('b.c', false)
+
+const c3: typeof source = lens('b.d.e.0.f', 'f')
+
+const c4: typeof source = lens('b.d.g', [2])
 
 // endregion
