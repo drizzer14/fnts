@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
+
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
 
     "noEmit": true,
     "declaration": false,

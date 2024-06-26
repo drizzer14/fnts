@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.spec.json",
+
   "compilerOptions": {
     "noEmit": true,
     "declaration": false,
