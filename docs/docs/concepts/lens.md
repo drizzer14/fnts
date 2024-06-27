@@ -43,7 +43,7 @@ const object = {
   }
 };
 
-const value = get(object, 'a.b.c.1'); // 1
+const value = get(object, 'a.b.1.c'); // 1
 ```
 
 ## set
@@ -65,7 +65,7 @@ const object = {
   }
 };
 
-const objectCopy = set(object, 'a.b.c.1', 4);
+const objectCopy = set(object, 'a.b.1.c', 4);
 ```
 
 Returned value will be a deep copy of the original object made using [`structuredClone`](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone)
@@ -95,8 +95,8 @@ const objectLens = {
   set: set(object),
 };
 
-const value = objectLens.get('a.b.c.1'); // 1
-const objectCopy = objectLens.set('a.b.c.1', 4);
+const value = objectLens.get('a.b.1.c'); // 1
+const objectCopy = objectLens.set('a.b.1.c', 4);
 ```
 
 Or, simply use the `lens` function!
@@ -117,6 +117,6 @@ const object = {
 
 const objectLens = lens(object);
 
-const value = objectLens('a.b.c.1'); // 1
-const objectCopy = objectLens('a.b.c.1', 4);
+const value = objectLens('a.b.1.c'); // 1
+const objectCopy = objectLens('a.b.1.c', 4);
 ```
