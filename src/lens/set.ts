@@ -5,6 +5,8 @@
 import type { Unshift } from '../types/unshift'
 import type { Flatten, Flattenable } from '../types/flatten'
 
+import type { Get } from './get'
+
 /**
  * Sets the `Value` type inside a nested object type `Source` by provided `Path`
  * written in dot-notation.
@@ -49,7 +51,8 @@ export default function set<Source extends Flattenable> (
   source: Source
 ): <
   Path extends Flatten<Source>,
-  Value
+  // @ts-ignore
+  Value extends Get<Source, Path>
 > (
   path: Path,
   value: Value,
@@ -64,7 +67,8 @@ export default function set<Source extends Flattenable> (
 export default function set<
   Source extends Flattenable,
   Path extends Flatten<Source>,
-  Value
+  // @ts-ignore
+  Value extends Get<Source, Path>
 > (
   path: Path,
   value: Value,
@@ -79,7 +83,8 @@ export default function set<
 export default function set<
   Source extends Flattenable,
   Path extends Flatten<Source>,
-  Value
+  // @ts-ignore
+  Value extends Get<Source, Path>
 > (
   source: Source,
   path: Path,
@@ -110,7 +115,8 @@ export default function set (...args: [any, any?, any?]): any {
 function _set<
   Source extends Flattenable,
   Path extends Flatten<Source>,
-  Value
+  // @ts-ignore
+  Value extends Get<Source, Path>
 > (
   source: Source,
   path: Path,
