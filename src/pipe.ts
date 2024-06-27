@@ -73,6 +73,7 @@ export default function pipe<
   ]
 ) {
   return maybeArgs.length === 2
+    // @ts-ignore
     ? (...args: A) => maybeArgs[1](maybeArgs[0](...args))
     : maybeArgs[maybeArgs.length - 1](maybeArgs[maybeArgs.length - 2](...maybeArgs.slice(0, -2)))
 }

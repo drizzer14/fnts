@@ -1,14 +1,21 @@
 {
   "extends": "./tsconfig.json",
+
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
 
     "outDir": "lib",
     "rootDir": "src",
-    "declaration": false,
-    "declarationDir": null,
-    "emitDeclarationOnly": null
+    "declaration": true,
+    "declarationDir": "lib"
   },
-  "include": ["src"]
+
+  "files": [],
+  "include": ["src"],
+
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true
+  }
 }

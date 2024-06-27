@@ -1,6 +1,26 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [3.0.0](https://github.com/drizzer14/fnts/compare/v2.2.0...v3.0.0) (2024-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* ESM distribution, TypeScript 4.x support dropped
+* get and set functions were moved into lens module
+
+
+### Features
+
+* **lens:** add lens function ([f44b37a](https://github.com/drizzer14/fnts/commit/f44b37a553436c699c8d6d98e96d0edbe3b7f8f7))
+* **set:** enforce Value type ([b2a0731](https://github.com/drizzer14/fnts/commit/b2a0731c0af5f21192991252314d8e1fdc114a8f))
+* create lens module ([ede6a67](https://github.com/drizzer14/fnts/commit/ede6a670c3e91d0612c23f275de35ff5269d1833))
+
+
+### Bug Fixes
+
+* **guard:** try preventing validator type error ([468de83](https://github.com/drizzer14/fnts/commit/468de838ab61d5049edf1fcc2d5150899f2f6429))
 
 ## [2.2.0](https://github.com/drizzer14/fnts/compare/v2.1.1...v2.2.0) (2024-06-26)
 

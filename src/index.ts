@@ -1,5 +1,3 @@
-export { default as get } from './get'
-export { default as set } from './set'
 export { default as tap } from './tap'
 export { default as pipe } from './pipe'
 export { default as apply } from './apply'

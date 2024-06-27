@@ -3,11 +3,12 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["es2015.iterable", "es2019", "dom"],
+    "lib": ["es2015.iterable", "esnext", "dom"],
     
     "declaration": false,
     "stripInternal": true,
     "declarationDir": null,
+    "esModuleInterop": true,
     "emitDeclarationOnly": null,
 
     "strict": true,
@@ -15,14 +16,12 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "noUnusedLocals": false,
-    "keyofStringsOnly": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "noErrorTruncation": true,
     "noUnusedParameters": false,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
-    "noStrictGenericChecks": true,
     "allowUnreachableCode": false,
     "forceConsistentCasingInFileNames": true
   },

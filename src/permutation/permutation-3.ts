@@ -3,6 +3,7 @@
  */
 
 import type { VariadicFunction } from './../types/function'
+
 import type { FirstParameter, SecondParameter } from './permutation-2'
 
 export type TernaryFunction = (a: any, b: any, c: any) => any

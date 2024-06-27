@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.spec.json",
-  
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-  },
-  "include": ["src", "typetests"]
-}
