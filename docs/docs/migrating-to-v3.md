@@ -10,7 +10,7 @@ with TypeScript, introducing real ESM and one organizational breaking change.
 
 ## TypeScript version bump
 
-Make sure to use `fnts@2` with TypeScript upgraded to at least 5th major
+Make sure to use `fnts@3` with TypeScript upgraded to at least 5th major
 version. 4.x support is dropped from now on.
 
 ## ECMAScript Modules (ESM)
