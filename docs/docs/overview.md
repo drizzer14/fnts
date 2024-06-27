@@ -171,25 +171,48 @@ guard<(x: number) => number>(
 )(5) // 4
 ```
 
-### Lensing (-ish?)
+### Lenses
 
-Functional lenses have not (and probably will not) yet seen its way into 
-`fnts`, but for now there's one special `get` function that knows how to 
-safely get a value from an object (even a nested one):
+There's a pattern in functional programming called "lenses". `fnts` brings two necessary functions
+for this pattern to work, although in a simplified manner, – `get` and `set`.
 
 ```typescript
-import get from 'fnts/get';
+import get from 'fnts/lens/get';
+import set from 'fnts/lens/set';
 
-get(
-  { a: { b: { c: 1 } } },
-  'a.b.c'
-);
+const object = {
+  a: {
+    b: {
+      c: 1
+    }
+  }
+};
 
-get('a.b.c.0.d')({ a: { b: { c: [{ d: 1 }] } } });
+const value = get(object, 'a.b.c'); // 1
+const objectCopy = set(object, 'a.b.c', 4);
 ```
 
-Dot-notated path is always validated, although intellisense breaks at array 
-indices and onward.
+Alternatively, `lens` function which combines both APIs together is available:
+
+```typescript
+import lens from 'fnts/lens';
+
+const object = {
+  a: {
+    b: [
+      { c: 0 },
+      { c: 1 },
+      { c: 2 },
+      { c: 3 },
+    ]
+  }
+};
+
+const objectLens = lens(object);
+
+const value = objectLens('a.b.1.c'); // 1
+const objectCopy = objectLens('a.b.1.c', 4);
+```
 
 ---
 
