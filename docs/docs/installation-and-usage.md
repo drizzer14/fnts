@@ -5,7 +5,7 @@ title: Installation and Usage
 sidebar_position: 1
 ---
 
-First, make to sure to have `typescript@4.7` installed, as otherwise the 
+First, make to sure to have `typescript@5` installed, as otherwise the 
 types won't work properly.
 
 ```shell
