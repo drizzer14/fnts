@@ -24,7 +24,7 @@ export default function permutation3
     return (...args) => {
       const [a1, b, c] = args
 
-      return shouldCurry?.(a1, b, c) || args.length < fn.length
+      return (shouldCurry ? shouldCurry?.(a1, b, c) : args.length < fn.length)
         ? (a2: FirstParameter<Function>) => fn(a2, a1, b)
         : fn(a1, b, c)
     }
