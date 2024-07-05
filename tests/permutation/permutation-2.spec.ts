@@ -1,28 +1,28 @@
 import sut from '../../src/permutation/permutation-2'
 
-const subtract = (a: number, b: number): number => a - b
+const subtract = (a: number, b = 1): number => a - b
 
-describe('curry2', () => {
+describe('permutation2', () => {
   describe('when `shouldCurry` predicate is specified', () => {
-    describe('when the predicate is `true`', () => {
-      it('should curry the second argument reversing the application order', () => {
+    describe('when predicate is `true`', () => {
+      it('should curry second argument reversing application order', () => {
         expect(
           sut(subtract, () => true)(1)(3),
         ).toBe(2)
       })
     })
 
-    describe('when the predicate is `false`', () => {
-      describe('when the second argument is `undefined`', () => {
-        it('should curry the second argument reversing the application order', () => {
+    describe('when predicate is `false`', () => {
+      describe('when second argument is `undefined`', () => {
+        it('should not curry', () => {
           expect(
-            sut(subtract, () => false)(1)(3),
-          ).toBe(2)
+            sut(subtract, () => false)(1),
+          ).toBe(0)
         })
       })
 
-      describe('when the second argument is defined', () => {
-        it('should not curry, applying arguments in order', () => {
+      describe('when second argument is defined', () => {
+        it('should not curry applying arguments in order', () => {
           expect(
             sut(subtract, () => false)(3, 1),
           ).toBe(2)
