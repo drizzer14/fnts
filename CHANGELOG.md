@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.1](https://github.com/drizzer14/fnts/compare/v3.0.0...v3.0.1) (2024-07-05)
+
+
+### Bug Fixes
+
+* **lens/set:** program intended application order ([849ad52](https://github.com/drizzer14/fnts/commit/849ad52e57b43bd2222bb475a6fb5bcfd2ae248d))
+* **permutation2:** give shouldCurry intended priority over args.length ([eec0663](https://github.com/drizzer14/fnts/commit/eec0663a300e3139742a708b648511bd0d9eb83d))
+* **permutation3:** give shouldCurry intended priority over args.length ([aa5cd39](https://github.com/drizzer14/fnts/commit/aa5cd397e17e0aa38533bea930b0afe5f668b5c7))
+
 ## [3.0.0](https://github.com/drizzer14/fnts/compare/v2.2.0...v3.0.0) (2024-06-27)
 
 
