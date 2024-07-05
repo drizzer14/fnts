@@ -100,19 +100,20 @@ export default function set (...args: [any, any?, any?]): any {
   switch(args.length) {
     case 1: {
       // @ts-ignore
-      return <Path extends string, Value>(path: Path, value: Value) => _set(args[0], path, value)
+      return <Path extends string, Value>(path: Path, value: Value) => setter(args[0], path, value)
     }
     case 2: {
       // @ts-ignore
-      return <Source extends Flattenable>(source: Source) => _set(source, args[1], args[2])
+      return <Source extends Flattenable>(source: Source) => setter(source, args[0], args[1])
     }
     case 3: {
-      return _set
+      // @ts-ignore
+      return setter(...args)
     }
   }
 }
 
-function _set<
+function setter<
   Source extends Flattenable,
   Path extends Flatten<Source>,
   // @ts-ignore
