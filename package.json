@@ -33,7 +33,7 @@
     "typetest": "tsc -p tsconfig.spec.json",
     "ci": "npm-run-all -s build -p lint test typetest",
     "bump": "commit-and-tag-version",
-    "prepublish": "node scripts/prepublish.js",
+    "prepublishOnly": "node scripts/prepublish.js",
     "publish": "yarn publish lib --non-interactive",
     "release": "npm-run-all -s build publish"
   },
