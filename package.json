@@ -26,7 +26,7 @@
     "test:coverage": "jest --coverage",
     "ci": "npm-run-all -s build lint test typetest",
     "bump": "standard-version",
-    "prepublish": "node scripts/prepublish.js",
+    "prepublishOnly": "node scripts/prepublish.js",
     "publish": "yarn publish lib --non-interactive",
     "release": "npm-run-all -s build publish"
   },
