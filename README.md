@@ -5,13 +5,13 @@
 
 <p align="center">
     <a href="https://github.com/drizzer14/fnts/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/drizzer14/fnts" />
+      <img src="https://img.shields.io/github/license/drizzer14/fnts?color=blue&style=for-the-badge" />
     </a>
-    <a href="https://travis-ci.com/github/drizzer14/fnts">
-      <img src="https://img.shields.io/travis/com/drizzer14/fnts" />
+    <a href="https://github.com/drizzer14/fnts/actions/workflows/workflow.yml">
+      <img src="https://img.shields.io/github/actions/workflow/status/drizzer14/fnts/workflow.yml?color=blue&style=for-the-badge" />
     </a>
     <a href="https://www.npmjs.com/package/fnts">
-      <img src="https://img.shields.io/npm/v/fnts" />
+      <img src="https://img.shields.io/npm/v/fnts?color=blue&style=for-the-badge" />
     </a>
 </p>
 

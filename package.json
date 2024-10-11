@@ -1,6 +1,6 @@
 {
   "name": "fnts",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "license": "MIT",
   "author": "Dmytro Vasylkivskyi",
   "description": "TypeScript / JavaScript FP utilities",
@@ -15,19 +15,16 @@
   "homepage": "https://drizzer14.github.io/fnts",
   "repository": "https://github.com/drizzer14/fnts",
   "type": "module",
-  "module": "index.js",
-  "types": "index.d.ts",
-  "sideEffects": false,
   "engines": {
     "node": ">=20.13.1",
     "npm": ">=10.5.2"
   },
   "scripts": {
     "prebuild": "rimraf lib",
-    "build:dts": "copyfiles --up 1 --all \"./src/**/*.d.ts\" lib",
+    "copy:dts": "copyfiles --up 1 --all \"./src/**/*.d.ts\" lib",
     "build:js": "tsc --build tsconfig.build.json",
     "postbuild:js": "tsc-alias -p tsconfig.build.json",
-    "build": "npm-run-all -p build:dts build:js",
+    "build": "npm-run-all -p copy:dts build:js",
     "lint": "tsc -p tsconfig.ci.json",
     "test": "jest",
     "typetest": "tsc -p tsconfig.spec.json",
@@ -49,7 +46,7 @@
     "typescript": "5.3.3"
   },
   "peerDependencies": {
-    "typescript": ">=5.0"
+    "typescript": ">=5.0 <=5.3.3"
   },
   "peerDependenciesMeta": {
     "typescript": {
