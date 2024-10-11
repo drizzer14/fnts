@@ -23,7 +23,9 @@
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "allowUnreachableCode": false,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    
+    "ignoreDeprecations": "5.0"
   },
   
   "include": ["src", "tests", "typetests"],

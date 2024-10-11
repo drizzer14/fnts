@@ -36,6 +36,7 @@ export default function lens <Source extends Flattenable> (source: Source): Lens
   return <Path extends Flatten<Source>, Value extends Get<Source, Path>> (
     ...args: [path: Path] | [path: Path, value: Value]
   ) => {
+    // @ts-ignore
     return args.length === 1 ? getter(args[0]) : setter(args[0], args[1])
   }
 }
