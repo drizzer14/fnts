@@ -21,7 +21,7 @@ TypeScript / JavaScript functional programming utilities inspired by the
 
 ## Installation
 
-**TypeScript 4.7 is required for this package's typings to work properly.**
+**TypeScript 5.0 is required for this package's typings to work properly.**
 
 ```shell
 npm i fnts

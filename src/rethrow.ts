@@ -2,7 +2,7 @@
  * @module Side Effects
  */
 
-import type { Effect } from './types/effect';
+import type { Effect } from './types/effect'
 
 /**
  * Rethrows a received error
@@ -12,8 +12,8 @@ export default function rethrow<Error> (
   effect?: Effect<(error: Error) => never>
 ): (error: Error) => never {
   return (error) => {
-    effect?.(error);
+    effect?.(error)
 
-    throw error;
+    throw error
   }
 }

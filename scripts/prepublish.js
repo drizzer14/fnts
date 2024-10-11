@@ -1,33 +1,24 @@
-const { resolve } = require('path')
-const copyfiles = require('copyfiles')
-const { writeFileSync } = require('fs')
+import { resolve } from 'path'
+import copyfiles from 'copyfiles'
+import { readFileSync, writeFileSync } from 'fs'
 
-const copyIntoLib = (fileName, onBeforeCopy = (f) => f) => {
+const copyIntoLib = (fileName, onBeforeCopy) => {
+  const file = readFileSync(resolve(fileName), 'utf-8')
+
   writeFileSync(
-    resolve(
-      __dirname,
-      '../lib',
-      `${fileName}`,
-    ),
+    resolve('./lib', fileName),
     JSON.stringify(
-      onBeforeCopy(
-        require(`../${fileName}`),
-      ),
+      onBeforeCopy(JSON.parse(file)),
       null,
       2,
     ),
+    {
+      encoding: 'utf-8'
+    }
   )
 }
 
-copyfiles(
-  [
-    'README.md',
-    'LICENSE',
-    'lib',
-  ],
-  {},
-  () => {},
-);
+copyfiles(['README.md', 'LICENSE', 'lib'], {}, () => {});
 
 [
   [
@@ -37,7 +28,6 @@ copyfiles(
         declaration,
         declarationDir,
         emitDeclarationOnly,
-        rootDir,
         stripInternal,
         ...compilerOptions
       },
@@ -49,10 +39,7 @@ copyfiles(
       scripts,
       devDependencies,
       ...packageJSON
-    }) => ({
-      ...packageJSON,
-      main: 'index.js',
-    }),
+    }) => packageJSON,
   ],
 ].forEach(
   ([fileName, onBeforeCopy]) => copyIntoLib(fileName, onBeforeCopy),

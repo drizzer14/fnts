@@ -30,7 +30,7 @@ export default function bind<Value, NextValue> (
 
 export default function bind (...args: [any, any?]): any {
   return permutation2(
-    <Value, NextValue>(
+    <Value, NextValue> (
       monad: Maybe<Value>,
       map: Map<Value, Maybe<NextValue>>
     ): Maybe<NextValue> => {

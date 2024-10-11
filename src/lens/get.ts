@@ -1,55 +1,31 @@
 /**
- * @module Get
+ * @module Lens
  */
 
-import permutation2 from './permutation/permutation-2';
-
-/**
- * Recursively flattens object type to a union of its keys
- * combined through dot-notation.
- */
-export type Flatten<
-  Source extends Record<string, unknown> | any[],
-> =
-  | keyof Source extends keyof any[]
-    ? `${number}`
-    : (
-      | keyof Source
-      | keyof {
-        [
-          Key in keyof Source as
-            Key extends string
-              ? Source[Key] extends Record<string, unknown>
-                ? `${Key}.${Flatten<Source[Key]>}`
-                : Source[Key] extends any[]
-                  ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
-                      ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
-                      : `${Key}.${number}`
-                  : Key
-              : never
-        ] : never
-      }
-    )
+import permutation2 from '../permutation/permutation-2'
+import type { Flatten, Flattenable } from '../types/flatten'
 
 /**
  * Gets the value type inside a nested object type `Source` by provided `Path`
  * written in dot-notation.
  */
 export type Get<
-  Source,
+  Source extends Flattenable,
   Path extends string
 > =
   Source extends Record<string, unknown>
-    ? Path extends `${infer Index extends number}.${infer Right}`
+    ? Path extends `${number}.${infer Right}`
       ? Get<Source, Right>
+      // @ts-ignore
       : Path extends `${infer Left extends keyof Source}.${infer Right}`
+        // @ts-ignore
         ? Get<Exclude<Source[Left], undefined>, Right> | Extract<Source[Left], undefined>
         : Path extends keyof Source
           ? Source[Path]
           : never
     : Source extends any[]
-      ? Path extends `${infer Left extends number}.${infer Right}`
-        ? Get<Exclude<Source[Left], undefined>, Right> | Extract<Source[Left], undefined>
+      ? Path extends `${infer Index extends number}.${infer Right}`
+        ? Get<Exclude<Source[Index], undefined>, Right> | Extract<Source[Index], undefined>
         : Path extends `${infer Index extends number}`
           ? Source[Index]
           : never
@@ -59,38 +35,63 @@ export type Get<
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
+// @ts-ignore
+export default function get<Source extends Flattenable> (
+  source: Source
+  // @ts-ignore
+): <Path extends Flatten<Source>> (path: Path) => Get<Source, Path>
+
+/**
+ * Gets the value inside a nested `source` object by provided `path`
+ * written in dot-notation.
+ */
+// @ts-ignore
 export default function get<
-  Source extends Record<string, unknown> | any[],
+  Source extends Flattenable,
   Path extends Flatten<Source>
->(
+> (
   path: Path
+  // @ts-ignore
 ): (source: Source) => Get<Source, Path>
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
+// @ts-ignore
 export default function get<
-  Source extends Record<string, unknown> | any[],
+  Source extends Flattenable,
   Path extends Flatten<Source>
->(
+> (
   source: Source,
   path: Path
+  // @ts-ignore
 ): Get<Source, Path>
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-export default function get(...args: [any, any?]): any {
+export default function get (...args: [any, any?]): any {
+  // @ts-ignore
   return permutation2(
     <
-      Source extends Record<string, unknown> | any[],
+      Source extends Flattenable,
       Path extends string
-    >(
-      source: Source,
-      path: Path
+    > (
+      sourceOrPath: Source | Path,
+      pathOrSource: Path | Source
     ): Get<Source, Path> => {
+      let source: Source, path: Path
+
+      if (typeof sourceOrPath === 'string') {
+        source = pathOrSource as Source
+        path = sourceOrPath as Path
+      } else {
+        source = sourceOrPath as Source
+        path = pathOrSource as Path
+      }
+
       const keys = path.split('.')
       const length = keys.length
 

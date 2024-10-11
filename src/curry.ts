@@ -13,7 +13,7 @@ export type Curry<
   Function extends VariadicFunction,
   Length extends number = Parameters<Function>['length']
 > =
-  <Args extends Gradual<Parameters<Function>>>(...args: Args) =>
+  <Args extends Gradual<Parameters<Function>>> (...args: Args) =>
     Args['length'] extends Length
       ? ReturnType<Function>
       : Curry<

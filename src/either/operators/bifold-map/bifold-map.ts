@@ -75,7 +75,7 @@ export default function bifoldMap (...args: [any, any?, any?]): any {
       RightValue,
       Value
     > (monad: Either<LeftValue, RightValue>): Value => {
-      return compose(args[0], bifold, monad) as Value;
+      return compose(args[0], bifold, monad) as Value
     }
   }
 

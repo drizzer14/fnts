@@ -1,6 +1,52 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [3.0.1](https://github.com/drizzer14/fnts/compare/v3.0.0...v3.0.1) (2024-07-05)
+
+
+### Bug Fixes
+
+* **lens/set:** program intended application order ([849ad52](https://github.com/drizzer14/fnts/commit/849ad52e57b43bd2222bb475a6fb5bcfd2ae248d))
+* **permutation2:** give shouldCurry intended priority over args.length ([eec0663](https://github.com/drizzer14/fnts/commit/eec0663a300e3139742a708b648511bd0d9eb83d))
+* **permutation3:** give shouldCurry intended priority over args.length ([aa5cd39](https://github.com/drizzer14/fnts/commit/aa5cd397e17e0aa38533bea930b0afe5f668b5c7))
+
+## [3.0.0](https://github.com/drizzer14/fnts/compare/v2.2.0...v3.0.0) (2024-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* ESM distribution, TypeScript 4.x support dropped
+* get and set functions were moved into lens module
+
+
+### Features
+
+* **lens:** add lens function ([f44b37a](https://github.com/drizzer14/fnts/commit/f44b37a553436c699c8d6d98e96d0edbe3b7f8f7))
+* **set:** enforce Value type ([b2a0731](https://github.com/drizzer14/fnts/commit/b2a0731c0af5f21192991252314d8e1fdc114a8f))
+* create lens module ([ede6a67](https://github.com/drizzer14/fnts/commit/ede6a670c3e91d0612c23f275de35ff5269d1833))
+
+
+### Bug Fixes
+
+* **guard:** try preventing validator type error ([468de83](https://github.com/drizzer14/fnts/commit/468de838ab61d5049edf1fcc2d5150899f2f6429))
+
+## [2.2.0](https://github.com/drizzer14/fnts/compare/v2.1.1...v2.2.0) (2024-06-26)
+
+
+### Features
+
+* add set function ([9251f96](https://github.com/drizzer14/fnts/commit/9251f96ed08b2e6406cafab5e45cfcdb2a0d1e4d))
+* **types:** add Trim type ([13650a0](https://github.com/drizzer14/fnts/commit/13650a0fd6ee308e2dfd85d1814a5fe3664157b9))
+* **types:** add Unshift type ([0f8fd38](https://github.com/drizzer14/fnts/commit/0f8fd38483296cfd0be8f7a5cd8a527be5a38064))
+* **types:** move Flatten type into the module ([9cc1ae9](https://github.com/drizzer14/fnts/commit/9cc1ae91872a84aef771f1273a7bd74f0a0cdd2c))
+
+### [2.1.1](https://github.com/drizzer14/fnts/compare/v2.1.0...v2.1.1) (2024-06-26)
+
+
+### Bug Fixes
+
+* fix guard re-export name ([d358991](https://github.com/drizzer14/fnts/commit/d358991a396dad84b53cd1ac346bf38e64203f57))
 
 ## [2.1.0](https://github.com/drizzer14/fnts/compare/v2.0.1...v2.1.0) (2023-12-13)
 

@@ -4,7 +4,7 @@
 
 import type { Effect } from './types/effect'
 import permutation2 from './permutation/permutation-2'
-import type { VariadicFunction } from './types/function';
+import type { VariadicFunction } from './types/function'
 
 /**
  * Injects a function with a side effect.
@@ -25,7 +25,7 @@ export default function inject<Function extends VariadicFunction> (
 
 export default function inject (...args: [any, any?]): any {
   return permutation2(
-    <Function extends VariadicFunction>(
+    <Function extends VariadicFunction> (
       fn: Function,
       effect: Effect<Function>
     ) => {

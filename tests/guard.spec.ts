@@ -4,8 +4,8 @@ describe('guard', () => {
   describe('when encountering a truthy guard', () => {
     it('should execute the function next to that guard', () => {
       expect(
-        sut<(x: number) => number>(
-          [(x) => x < 5, (x) => x + 1],
+        sut(
+          [(x) => x < 5, (x: number) => x + 1],
           [(x) => x === 5, (x) => x - 1],
           () => 1
         )(5)
@@ -15,21 +15,21 @@ describe('guard', () => {
     it('should not check further guards', () => {
       const guardNotToBeCalled = jest.fn((x: number) => x < 5)
 
-      sut<(x: number) => number>(
-        [(x) => x === 5, (x) => x - 1],
+      sut(
+        [(x) => x === 5, (x: number) => x - 1],
         [guardNotToBeCalled, (x) => x + 1],
         () => 1
       )(5)
 
-      expect(guardNotToBeCalled).not.toBeCalled()
+      expect(guardNotToBeCalled).not.toHaveBeenCalled()
     })
   })
 
   describe('when no truthy guards are present', () => {
     it('should execute the default function', () => {
       expect(
-        sut<(x: number) => number>(
-          [(x) => x < 5, (x) => x + 1],
+        sut(
+          [(x) => x < 5, (x: number) => x + 1],
           [(x) => x > 5, (x) => x - 1],
           () => 1
         )(5)

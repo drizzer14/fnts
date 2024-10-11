@@ -2,7 +2,7 @@
  * @module Types
  */
 
-import type { VariadicFunction } from './function';
+import type { VariadicFunction } from './function'
 
 /**
  * A simple side effect function descriptor.

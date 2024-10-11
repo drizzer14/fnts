@@ -46,7 +46,7 @@ export default function bimap (...args: [any, any, any?]): any {
       RightValue,
       NextLeftValue,
       NextRightValue
-    >(
+    > (
       monad: Either<LeftValue, RightValue>,
       mapLeft: Map<LeftValue, NextLeftValue>,
       mapRight: Map<RightValue, NextRightValue>,

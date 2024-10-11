@@ -2,7 +2,7 @@
  * @module Permutation
  */
 
-import type { VariadicFunction } from './../types/function';
+import type { VariadicFunction } from './../types/function'
 
 export type BinaryFunction = (a: any, b: any) => any
 
@@ -23,7 +23,7 @@ export default function permutation2
     return (...args) => {
       const [a1, b] = args
 
-      return shouldCurry?.(a1, b) || args.length < fn.length
+      return (shouldCurry ? shouldCurry?.(a1, b) : args.length < fn.length)
         ? (a2: FirstParameter<Function>) => fn(a2, a1)
         : fn(a1, b)
     }

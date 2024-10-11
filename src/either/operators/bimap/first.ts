@@ -49,7 +49,7 @@ export default function first (...args: [any, any?]): any {
       LeftValue,
       RightValue,
       NextLeftValue
-    >(
+    > (
       monad: Either<LeftValue, RightValue>,
       mapLeft: Map<LeftValue, NextLeftValue>,
     ): Either<NextLeftValue, RightValue> => {
