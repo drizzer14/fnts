@@ -13,7 +13,6 @@
 
     "strict": true,
     "alwaysStrict": true,
-    "skipLibCheck": true,
     "noImplicitAny": true,
     "noUnusedLocals": false,
     "strictNullChecks": true,
