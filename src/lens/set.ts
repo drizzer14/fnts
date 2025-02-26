@@ -3,7 +3,7 @@
  */
 
 import type { Unshift } from '../types/unshift'
-import type { Flatten, Flattenable } from '../types/flatten'
+import type { Flatten, Flattenable, NormalizeFlattenable } from '../types/flatten'
 
 import type { Get } from './get'
 
@@ -13,83 +13,81 @@ import type { Get } from './get'
  */
 export type Set<
   Source extends Flattenable,
-  Path extends string,
-  Value
+  Path extends Flatten<NormalizeFlattenable<Source>>,
+  Value extends Get<Source, Path>
 > =
   Source extends Record<string, unknown>
-    ? Path extends `${number}.${infer Right}`
-      ? Set<Source, Right, Value>
+    ? (Path extends `${number}.${infer Right}`
       // @ts-ignore
-      : Path extends `${infer Left extends keyof Source}.${infer Right}`
+      ? Set<Source, Right, Value>
+      : (Path extends `${infer Left}.${infer Right}`
         ? {
           [Key in keyof Source]: Key extends Exclude<keyof Source, Left>
             ? Source[Key]
             // @ts-ignore
             : Set<Exclude<Source[Left], undefined>, Right, Value>
         }
-        : Path extends keyof Source
+        : (Path extends keyof Source
           ? {
             [Key in keyof Source]: Key extends Exclude<keyof Source, Path>
               ? Source[Key]
               : Value
           }
           : never
-    : Source extends any[]
-      ? Path extends `${infer Index extends number}.${infer Right}`
+        )
+      )
+    )
+    : (Source extends any[]
+      ? (Path extends `${infer Index extends number}.${infer Right}`
+        // @ts-ignore
         ? Unshift<Source, Index, Set<Exclude<Source[Index], undefined>, Right, Value>>
-        : Path extends `${infer Index extends number}`
+        : (Path extends `${infer Index extends number}`
           ? Unshift<Source, Index, Value>
           : never
+        )
+      )
       : never
+    )
 
 /**
  * Sets the `value` inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-// @ts-ignore
 export default function set<Source extends Flattenable> (
   source: Source
 ): <
-  Path extends Flatten<Source>,
-  // @ts-ignore
+  Path extends Flatten<NormalizeFlattenable<Source>>,
   Value extends Get<Source, Path>
 > (
   path: Path,
   value: Value,
-  // @ts-ignore
 ) => Set<Source, Path, Value>
 
 /**
  * Sets the `value` inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-// @ts-ignore
 export default function set<
   Source extends Flattenable,
-  Path extends Flatten<Source>,
-  // @ts-ignore
+  Path extends Flatten<NormalizeFlattenable<Source>>,
   Value extends Get<Source, Path>
 > (
   path: Path,
   value: Value,
-  // @ts-ignore
 ): (source: Source) => Set<Source, Path, Value>
 
 /**
  * Sets the `value` inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-// @ts-ignore
 export default function set<
   Source extends Flattenable,
-  Path extends Flatten<Source>,
-  // @ts-ignore
+  Path extends Flatten<NormalizeFlattenable<Source>>,
   Value extends Get<Source, Path>
 > (
   source: Source,
   path: Path,
   value: Value
-  // @ts-ignore
 ): Set<Source, Path, Value>
 
 /**
@@ -103,7 +101,6 @@ export default function set (...args: [any, any?, any?]): any {
       return <Path extends string, Value>(path: Path, value: Value) => setter(args[0], path, value)
     }
     case 2: {
-      // @ts-ignore
       return <Source extends Flattenable>(source: Source) => setter(source, args[0], args[1])
     }
     case 3: {
@@ -115,14 +112,12 @@ export default function set (...args: [any, any?, any?]): any {
 
 function setter<
   Source extends Flattenable,
-  Path extends Flatten<Source>,
-  // @ts-ignore
+  Path extends Flatten<NormalizeFlattenable<Source>>,
   Value extends Get<Source, Path>
 > (
   source: Source,
   path: Path,
   value: Value
-  // @ts-ignore
 ): Set<Source, Path, Value> {
   // @ts-ignore
   const keys = path.split('.')
@@ -144,6 +139,5 @@ function setter<
     }
   }
 
-  // @ts-ignore
   return result as Set<Source, Path, Value>
 }

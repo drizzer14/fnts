@@ -3,7 +3,7 @@
  */
 
 import permutation2 from '../permutation/permutation-2'
-import type { Flatten, Flattenable } from '../types/flatten'
+import type { Flatten, Flattenable, NormalizeFlattenable } from '../types/flatten'
 
 /**
  * Gets the value type inside a nested object type `Source` by provided `Path`
@@ -11,61 +11,51 @@ import type { Flatten, Flattenable } from '../types/flatten'
  */
 export type Get<
   Source extends Flattenable,
-  Path extends string
-> =
-  Source extends Record<string, unknown>
-    ? Path extends `${number}.${infer Right}`
-      ? Get<Source, Right>
-      // @ts-ignore
-      : Path extends `${infer Left extends keyof Source}.${infer Right}`
-        // @ts-ignore
-        ? Get<Exclude<Source[Left], undefined>, Right> | Extract<Source[Left], undefined>
-        : Path extends keyof Source
-          ? Source[Path]
+  Path extends Flatten<NormalizeFlattenable<Source>>
+> = 
+  Path extends keyof Source
+    ? Source[Path]
+    : (Path extends `${infer Left}.${infer Right}`
+      ? (Left extends keyof NormalizeFlattenable<Source>
+          ? (NormalizeFlattenable<Source>[Left] extends Flattenable
+              // @ts-ignore
+              ? Get<NormalizeFlattenable<Source>[Left], Right>
+              : never
+          )
           : never
-    : Source extends any[]
-      ? Path extends `${infer Index extends number}.${infer Right}`
-        ? Get<Exclude<Source[Index], undefined>, Right> | Extract<Source[Index], undefined>
-        : Path extends `${infer Index extends number}`
-          ? Source[Index]
-          : never
+      )
       : never
+    )
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-// @ts-ignore
 export default function get<Source extends Flattenable> (
   source: Source
-  // @ts-ignore
-): <Path extends Flatten<Source>> (path: Path) => Get<Source, Path>
+): <Path extends Flatten<NormalizeFlattenable<Source>>> (path: Path) => Get<Source, Path>
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-// @ts-ignore
 export default function get<
   Source extends Flattenable,
-  Path extends Flatten<Source>
+  Path extends Flatten<NormalizeFlattenable<Source>>
 > (
   path: Path
-  // @ts-ignore
 ): (source: Source) => Get<Source, Path>
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
  * written in dot-notation.
  */
-// @ts-ignore
 export default function get<
   Source extends Flattenable,
-  Path extends Flatten<Source>
+  Path extends Flatten<NormalizeFlattenable<Source>>
 > (
   source: Source,
   path: Path
-  // @ts-ignore
 ): Get<Source, Path>
 
 /**
@@ -77,7 +67,7 @@ export default function get (...args: [any, any?]): any {
   return permutation2(
     <
       Source extends Flattenable,
-      Path extends string
+      Path extends Flatten<NormalizeFlattenable<Source>>
     > (
       sourceOrPath: Source | Path,
       pathOrSource: Path | Source
@@ -92,7 +82,7 @@ export default function get (...args: [any, any?]): any {
         path = pathOrSource as Path
       }
 
-      const keys = path.split('.')
+      const keys = (path as string).split('.')
       const length = keys.length
 
       let result = source as Get<Source, Path>
