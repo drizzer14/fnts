@@ -36,10 +36,32 @@ copyfiles(['README.md', 'LICENSE', 'lib'], {}, () => {});
   [
     'package.json',
     ({
+      engines,
       scripts,
       devDependencies,
       ...packageJSON
-    }) => packageJSON,
+    }) => ({
+      ...packageJSON,
+      module: 'index.js',
+      types: 'index.d.ts',
+      sideEffects: false,
+      exports: {
+        '.': './index.js',
+        './apply': './apply.js',
+        './compose': './compose.js',
+        './curry': './curry.js',
+        './guard': './guard.js',
+        './identity': './identity.js',
+        './inject': './inject.js',
+        './pipe': './pipe.js',
+        './rethrow': './rethrow.js',
+        './tap': './tap.js',
+        './either': './either/index.js',
+        './lens': './lens/index.js',
+        './maybe': './maybe/index.js',
+        './permutation': './permutation/index.js',
+      }
+    }),
   ],
 ].forEach(
   ([fileName, onBeforeCopy]) => copyIntoLib(fileName, onBeforeCopy),

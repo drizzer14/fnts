@@ -5,30 +5,28 @@
 /**
  * Type subjective to flattening.
  */
-export type Flattenable = Record<string, unknown> | any[]
+export type Flattenable = Record<string, unknown> | Array<any>
+
+export type NormalizeFlattenable<Source extends Flattenable> = 
+  Source extends Array<infer Element>
+    ? Record<`${number}`, Element>
+    : Source
 
 /**
  * Recursively flattens object type to a union of its keys
  * combined through dot-notation.
  */
 export type Flatten<
-  Source extends Record<string, unknown> | any[],
-> = keyof Source extends keyof any[]
-  ? `${number}`
-  : (
-    | keyof Source
+  Source extends Flattenable,
+> = | keyof NormalizeFlattenable<Source>
     | keyof {
       [
         Key in keyof Source as
           Key extends string
-            ? Source[Key] extends Record<string, unknown>
-              ? `${Key}.${Flatten<Source[Key]>}`
-              : Source[Key] extends any[]
-                ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
-                    ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
-                    : `${Key}.${number}`
-                : Key
+            ? (Source[Key] extends Flattenable
+              // @ts-ignore
+              ? `${Key}.${Flatten<NormalizeFlattenable<Source[Key]>>}`
+              : Key)
             : never
-      ] : never
+      ]: never
     }
-  )

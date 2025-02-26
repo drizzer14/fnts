@@ -1,3 +1,4 @@
+export * from './operators'
 export { default, Either } from './either'
 export { default as left, Left } from './left'
 export { default as right, Right } from './right'
