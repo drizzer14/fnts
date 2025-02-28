@@ -43,7 +43,7 @@
     "commit-and-tag-version": "12.2.0",
     "ts-jest": "29.1.5",
     "tsc-alias": "1.8.10",
-    "typescript": "5.3.3"
+    "typescript": "5.7.3"
   },
   "peerDependencies": {
     "typescript": ">=5.0"
