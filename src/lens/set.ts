@@ -2,8 +2,7 @@
  * @module Lens
  */
 
-import type { Unshift } from '../types/unshift'
-import type { Flatten, Flattenable, NormalizeFlattenable } from '../types/flatten'
+import type { Flatten, Flattenable } from '../types/flatten'
 
 import type { Get } from './get'
 
@@ -13,41 +12,40 @@ import type { Get } from './get'
  */
 export type Set<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>,
+  Path extends Flatten<Source>,
   Value extends Get<Source, Path>
 > =
   Source extends Record<string, unknown>
-    ? (Path extends `${number}.${infer Right}`
-      // @ts-ignore
-      ? Set<Source, Right, Value>
+    ? (Path extends keyof Source
+      ? {
+        [Key in keyof Source]: Key extends Path
+          ? Value
+          : Source[Key]
+      }
       : (Path extends `${infer Left}.${infer Right}`
-        ? {
-          [Key in keyof Source]: Key extends Exclude<keyof Source, Left>
-            ? Source[Key]
-            // @ts-ignore
-            : Set<Exclude<Source[Left], undefined>, Right, Value>
-        }
-        : (Path extends keyof Source
-          ? {
-            [Key in keyof Source]: Key extends Exclude<keyof Source, Path>
-              ? Source[Key]
-              : Value
-          }
-          : never
-        )
-      )
-    )
-    : (Source extends any[]
-      ? (Path extends `${infer Index extends number}.${infer Right}`
-        // @ts-ignore
-        ? Unshift<Source, Index, Set<Exclude<Source[Index], undefined>, Right, Value>>
-        : (Path extends `${infer Index extends number}`
-          ? Unshift<Source, Index, Value>
-          : never
-        )
-      )
-      : never
-    )
+        ? (Left extends keyof Source
+          ? (Source[Left] extends Flattenable
+            ? {
+              [Key in keyof Source]: (Key extends Left
+                // @ts-ignore: just ignore Value type here, it should be correct from the start
+                ? Set<Source[Left], Right, Value>
+                : Source[Key])
+            }
+            : never)
+          : never)
+        : never))
+    : Source extends any[]
+        ? (Path extends `${number}`
+            ? Value[]
+            : (Path extends `${infer Left}.${infer Right}`
+              ? (Left extends `${number}`
+                ? (Source[number] extends Flattenable
+                    // @ts-ignore: just ignore Value type here, it should be correct from the start
+                    ? Set<Source[number], Right, Value>[]
+                    : never)
+                : never)
+              : never))
+        : never
 
 /**
  * Sets the `value` inside a nested `source` object by provided `path`
@@ -56,7 +54,7 @@ export type Set<
 export default function set<Source extends Flattenable> (
   source: Source
 ): <
-  Path extends Flatten<NormalizeFlattenable<Source>>,
+  Path extends Flatten<Source>,
   Value extends Get<Source, Path>
 > (
   path: Path,
@@ -69,7 +67,7 @@ export default function set<Source extends Flattenable> (
  */
 export default function set<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>,
+  Path extends Flatten<Source>,
   Value extends Get<Source, Path>
 > (
   path: Path,
@@ -82,7 +80,7 @@ export default function set<
  */
 export default function set<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>,
+  Path extends Flatten<Source>,
   Value extends Get<Source, Path>
 > (
   source: Source,
@@ -112,14 +110,13 @@ export default function set (...args: [any, any?, any?]): any {
 
 function setter<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>,
+  Path extends Flatten<Source>,
   Value extends Get<Source, Path>
 > (
   source: Source,
   path: Path,
   value: Value
 ): Set<Source, Path, Value> {
-  // @ts-ignore
   const keys = path.split('.')
   const length = keys.length
 

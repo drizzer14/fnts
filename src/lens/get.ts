@@ -3,7 +3,7 @@
  */
 
 import permutation2 from '../permutation/permutation-2'
-import type { Flatten, Flattenable, NormalizeFlattenable } from '../types/flatten'
+import type { Flatten, Flattenable } from '../types/flatten'
 
 /**
  * Gets the value type inside a nested object type `Source` by provided `Path`
@@ -11,21 +11,31 @@ import type { Flatten, Flattenable, NormalizeFlattenable } from '../types/flatte
  */
 export type Get<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>
+  Path extends Flatten<Source>
 > = 
-  Path extends keyof Source
-    ? Source[Path]
-    : (Path extends `${infer Left}.${infer Right}`
-      ? (Left extends keyof NormalizeFlattenable<Source>
-          ? (NormalizeFlattenable<Source>[Left] extends Flattenable
-              // @ts-ignore
-              ? Get<NormalizeFlattenable<Source>[Left], Right>
-              : never
-          )
-          : never
-      )
-      : never
-    )
+  Source extends Record<string, unknown>
+    ? (Path extends keyof Source
+      ? Source[Path]
+      : (Path extends `${infer Left}.${infer Right}`
+        ? (Left extends keyof Source
+          ? (Source[Left] extends Flattenable
+            // @ts-ignore
+            ? Get<Source[Left], Right>
+            : never)
+          : never)
+        : never))
+    : Source extends any[]
+        ? (Path extends `${number}`
+          ? Source[number]
+          : (Path extends `${infer Left}.${infer Right}`
+            ? (Left extends `${number}`
+              ? (Source[number] extends Flattenable
+                // @ts-ignore
+                ? Get<Source[number], Right>
+                : never)
+              : never)
+            : never))
+        : never
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
@@ -33,7 +43,7 @@ export type Get<
  */
 export default function get<Source extends Flattenable> (
   source: Source
-): <Path extends Flatten<NormalizeFlattenable<Source>>> (path: Path) => Get<Source, Path>
+): <Path extends Flatten<Source>> (path: Path) => Get<Source, Path>
 
 /**
  * Gets the value inside a nested `source` object by provided `path`
@@ -41,7 +51,7 @@ export default function get<Source extends Flattenable> (
  */
 export default function get<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>
+  Path extends Flatten<Source>
 > (
   path: Path
 ): (source: Source) => Get<Source, Path>
@@ -52,7 +62,7 @@ export default function get<
  */
 export default function get<
   Source extends Flattenable,
-  Path extends Flatten<NormalizeFlattenable<Source>>
+  Path extends Flatten<Source>
 > (
   source: Source,
   path: Path
@@ -67,7 +77,7 @@ export default function get (...args: [any, any?]): any {
   return permutation2(
     <
       Source extends Flattenable,
-      Path extends Flatten<NormalizeFlattenable<Source>>
+      Path extends Flatten<Source>
     > (
       sourceOrPath: Source | Path,
       pathOrSource: Path | Source

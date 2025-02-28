@@ -2,7 +2,7 @@
  * @module Lens
  */
 
-import type { Flatten, Flattenable, NormalizeFlattenable } from '../types'
+import type { Flatten, Flattenable } from '../types'
 
 import get, { Get } from './get';
 import set, { Set } from './set';
@@ -13,10 +13,10 @@ import set, { Set } from './set';
  */
 export interface Lens<Source extends Flattenable> {
     <
-      Path extends Flatten<NormalizeFlattenable<Source>>
+      Path extends Flatten<Source>
     > (path: Path): Get<Source, Path>;
     <
-      Path extends Flatten<NormalizeFlattenable<Source>>,
+      Path extends Flatten<Source>,
       Value extends Get<Source, Path>
     > (path: Path, value: Value): Set<Source, Path, Value>;
   }
