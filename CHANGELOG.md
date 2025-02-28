@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.4](https://github.com/drizzer14/fnts/compare/v3.0.3...v3.0.4) (2025-02-28)
+
+
+### Bug Fixes
+
+* **lens:** get rid of all excessive recursions ([cd6cb93](https://github.com/drizzer14/fnts/commit/cd6cb93f91dc2c5e04dfabe3fe570b789b2b63e4))
+
 ## [3.0.3](https://github.com/drizzer14/fnts/compare/v3.0.2...v3.0.3) (2025-02-26)
 
 
