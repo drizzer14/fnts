@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.5](https://github.com/drizzer14/fnts/compare/v3.0.4...v3.0.5) (2025-03-05)
+
+
+### Bug Fixes
+
+* generate better exports field ([c4bdea8](https://github.com/drizzer14/fnts/commit/c4bdea8ed95adba6ccc001b12c897c87199a1629))
+
 ## [3.0.4](https://github.com/drizzer14/fnts/compare/v3.0.3...v3.0.4) (2025-02-28)
 
 
