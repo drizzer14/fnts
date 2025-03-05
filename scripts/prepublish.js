@@ -1,6 +1,6 @@
-import { resolve } from 'path'
 import copyfiles from 'copyfiles'
-import { readFileSync, writeFileSync } from 'fs'
+import { resolve, join } from 'path'
+import { readFileSync, writeFileSync, readdirSync } from 'fs'
 
 const copyIntoLib = (fileName, onBeforeCopy) => {
   const file = readFileSync(resolve(fileName), 'utf-8')
@@ -19,6 +19,25 @@ const copyIntoLib = (fileName, onBeforeCopy) => {
 }
 
 copyfiles(['README.md', 'LICENSE', 'lib'], {}, () => {});
+
+const generateExports = (dir, path) => {
+  const exports = {
+    '.': './index.js'
+  }
+
+  const entities = readdirSync(dir, { withFileTypes: true })
+
+  for (const entity of entities) {
+    if (entity.isDirectory() && entity.name !== 'types') {
+      exports['./'.concat(join(path, entity.name))] = './'.concat(join(path, entity.name, 'index.js'))
+      Object.assign(exports, generateExports(join(dir, entity.name), join(path, entity.name)))
+    } else if (entity.isFile() && entity.name !== 'index.ts') {
+      exports['./'.concat(join(path, entity.name.slice(0, -3)))] = './'.concat(join(path, entity.name.replace('.ts', '.js')))
+    }
+  }
+
+  return exports
+}
 
 [
   [
@@ -45,22 +64,7 @@ copyfiles(['README.md', 'LICENSE', 'lib'], {}, () => {});
       module: 'index.js',
       types: 'index.d.ts',
       sideEffects: false,
-      exports: {
-        '.': './index.js',
-        './apply': './apply.js',
-        './compose': './compose.js',
-        './curry': './curry.js',
-        './guard': './guard.js',
-        './identity': './identity.js',
-        './inject': './inject.js',
-        './pipe': './pipe.js',
-        './rethrow': './rethrow.js',
-        './tap': './tap.js',
-        './either': './either/index.js',
-        './lens': './lens/index.js',
-        './maybe': './maybe/index.js',
-        './permutation': './permutation/index.js',
-      }
+      exports: generateExports('src', '.')
     }),
   ],
 ].forEach(
