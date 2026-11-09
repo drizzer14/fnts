@@ -12,23 +12,27 @@ export type Flattenable = Record<string, unknown> | any[]
  * combined through dot-notation.
  */
 export type Flatten<
-  Source extends Record<string, unknown> | any[],
-> = keyof Source extends keyof any[]
-  ? `${number}`
-  : (
-    | keyof Source
-    | keyof {
+  Source extends Flattenable,
+> = (
+  Source extends Record<string, unknown>
+    ? (keyof {
       [
         Key in keyof Source as
           Key extends string
-            ? Source[Key] extends Record<string, unknown>
-              ? `${Key}.${Flatten<Source[Key]>}`
-              : Source[Key] extends any[]
-                ? Source[Key] extends Array<any[]> | Record<string, unknown>[]
-                    ? `${Key}.${number}` | `${Key}.${number}.${Flatten<Source[Key][number]>}`
-                    : `${Key}.${number}`
-                : Key
+            ? (Source[Key] extends Flattenable
+              ? Key | `${Key}.${Flatten<Source[Key]>}`
+              : (Source[Key] extends any[]
+                ? Key | `${Key}.${number}.${Flatten<Source[Key][number]>}`
+                : Key))
             : never
-      ] : never
-    }
-  )
+      ]: void
+    })
+    : (Source extends any[]
+      ? (Source[number] extends Flattenable
+        ? `${number}` | `${number}.${Flatten<Source[number]>}`
+        : `${number}`)
+      : never)
+  // So that Flatten is recognized to always return strings
+) extends infer Key extends string
+      ? Key
+      : never

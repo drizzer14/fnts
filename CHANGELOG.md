@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.6](https://github.com/drizzer14/fnts/compare/v3.0.5...v3.0.6) (2026-11-09)
+
+
+### Bug Fixes
+
+* **types:** export ./types and add .js to relative type imports ([774b420](https://github.com/drizzer14/fnts/commit/774b42019f54dd25aa5fae9c970210aad74daad0))
+
+## [3.0.5](https://github.com/drizzer14/fnts/compare/v3.0.4...v3.0.5) (2025-03-05)
+
+
+### Bug Fixes
+
+* generate better exports field ([c4bdea8](https://github.com/drizzer14/fnts/commit/c4bdea8ed95adba6ccc001b12c897c87199a1629))
+
+## [3.0.4](https://github.com/drizzer14/fnts/compare/v3.0.3...v3.0.4) (2025-02-28)
+
+
+### Bug Fixes
+
+* **lens:** get rid of all excessive recursions ([cd6cb93](https://github.com/drizzer14/fnts/commit/cd6cb93f91dc2c5e04dfabe3fe570b789b2b63e4))
+
+## [3.0.3](https://github.com/drizzer14/fnts/compare/v3.0.2...v3.0.3) (2025-02-26)
+
+
+### Bug Fixes
+
+* **get:** get rid of excessive recursion/type instantiation ([0a44193](https://github.com/drizzer14/fnts/commit/0a44193bc683a5bd35a36725189531539f5a81ee))
+
+## [3.0.2](https://github.com/drizzer14/fnts/compare/v3.0.1...v3.0.2) (2024-10-11)
+
 ## [3.0.1](https://github.com/drizzer14/fnts/compare/v3.0.0...v3.0.1) (2024-07-05)
 
 

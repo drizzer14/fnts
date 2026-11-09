@@ -2,7 +2,7 @@
  * @module Types
  */
 
-import { Tuple } from './tuple'
+import { Tuple } from './tuple.js'
 
 /**
  * Removes `C` amount of `T` elements from the **end**.

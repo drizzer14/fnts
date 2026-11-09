@@ -1,9 +1,11 @@
 {
-  "extends": "./tsconfig.json",
-
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES2022",
     "module": "esnext",
+    "moduleResolution": "node",
+
+    "skipLibCheck": true,
+    "stripInternal": true,
 
     "outDir": "lib",
     "rootDir": "src",
@@ -11,11 +13,12 @@
     "declarationDir": "lib"
   },
 
-  "files": [],
   "include": ["src"],
 
   "tsc-alias": {
-    "verbose": false,
-    "resolveFullPaths": true
+    "debug": true,
+    "verbose": true,
+    "resolveFullPaths": true,
+    "resolveFullExtension": ".js"
   }
 }

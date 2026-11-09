@@ -2,15 +2,15 @@
  * @module Types
  */
 
-import { Trim } from './trim'
-import { Slice } from './slice'
+import { Trim } from './trim.js'
+import { Slice } from './slice.js'
 
 /**
  * Replaces `T` element on specified index `I` with `E`.
  */
-export type Unshift<T extends any[] | readonly any[], I extends number, E> =
-  I extends 0
-    ? [E, ...Slice<T, 1>]
-    : I extends Trim<T, 1>['length']
-      ? [...Trim<T, 1>, E]
-      : [...Trim<T, Slice<T, I>['length']>, E, ...Slice<Slice<T, I>, 1>]
+export type Unshift<Array extends ReadonlyArray<any>, Index extends number, Element> =
+  Index extends 0
+    ? [Element, ...Slice<Array, 1>]
+    : Index extends Trim<Array, 1>['length']
+      ? [...Trim<Array, 1>, Element]
+      : [...Trim<Array, Slice<Array, Index>['length']>, Element, ...Slice<Slice<Array, Index>, 1>]
