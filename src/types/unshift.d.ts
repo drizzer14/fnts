@@ -2,8 +2,8 @@
  * @module Types
  */
 
-import { Trim } from './trim'
-import { Slice } from './slice'
+import { Trim } from './trim.js'
+import { Slice } from './slice.js'
 
 /**
  * Replaces `T` element on specified index `I` with `E`.

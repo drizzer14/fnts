@@ -64,7 +64,12 @@ const generateExports = (dir, path) => {
       module: 'index.js',
       types: 'index.d.ts',
       sideEffects: false,
-      exports: generateExports('src', '.')
+      exports: {
+        ...generateExports('src', '.'),
+        './types': {
+          types: './types/index.d.ts'
+        }
+      }
     }),
   ],
 ].forEach(
