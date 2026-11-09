@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.6](https://github.com/drizzer14/fnts/compare/v3.0.5...v3.0.6) (2026-11-09)
+
+
+### Bug Fixes
+
+* **types:** export ./types and add .js to relative type imports ([774b420](https://github.com/drizzer14/fnts/commit/774b42019f54dd25aa5fae9c970210aad74daad0))
+
 ## [3.0.5](https://github.com/drizzer14/fnts/compare/v3.0.4...v3.0.5) (2025-03-05)
 
 
